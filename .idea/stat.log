@@ -2470,3 +2470,4 @@
 {"ts":1698689595907,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"52"}}
 {"ts":1698689611256,"action":"IDE_DEACTIVATED"}
 {"ts":1698689658490,"action":"IDE_ACTIVATED"}
+{"ts":1698689673573,"action":"IDE_DEACTIVATED"}

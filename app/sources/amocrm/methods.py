@@ -1,5 +1,6 @@
 import random
 
+from app.sources.amocrm import db
 from app.sources.amocrm.constants import *
 from app.sources.amocrm.service import get_token
 from app.utils import misc
@@ -7,7 +8,7 @@ import json
 import time
 import bs4
 import requests
-import db
+
 
 
 def send_notes(pipeline_id, text, host, mail, password):
