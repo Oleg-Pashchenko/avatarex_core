@@ -1,7 +1,7 @@
-from app.sources import amocrm
+from app.sources.amocrm.execution import execute as amocrm_execute
 
 
 def execute(params: dict, data: dict, source: str):
     if source == 'AmoCRM':
-        amocrm.methods.execute(params, data)
+        amocrm_execute(params, data)
 
