@@ -17,5 +17,3 @@ jobs:
           whoami
           cd avatarex_core
           git pull
-          docker compose down
-          docker compose up --build -d
