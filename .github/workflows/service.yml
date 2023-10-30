@@ -1,0 +1,21 @@
+name: remote ssh command
+on: [push]
+jobs:
+
+  deploy:
+    name: Deploy app to server
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          whoami
+          cd avatarex_core
+          git pull
+          docker-compose down
+          docker-compose up --build -d

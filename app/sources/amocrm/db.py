@@ -1,0 +1,153 @@
+import dataclasses
+import random
+
+import psycopg2
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
+import os
+import dotenv
+from sqlalchemy.orm import sessionmaker
+
+# from app.working_modes.common import DatabaseMode
+# from app.working_modes.search_mode import SearchMode
+# from app.working_modes.qualification_mode import QualificationModeData
+# from app.working_modes.knowledge_mode import KnowledgeModeData
+# from app.working_modes.prompt_mode import PromptMode
+# from app.working_modes.knowledge_and_search_mode import KnowledgeAndSearchMode
+from app.sources.amocrm.constants import *
+
+dotenv.load_dotenv()
+
+engine_core = create_engine(f'postgresql://{os.getenv("DB_USER")}:{os.getenv("DB_PASSWORD")}'
+                            f'@{os.getenv("DB_HOST")}:5432/{os.getenv("AMO_BOT_DB_NAME")}')
+
+conn = psycopg2.connect(
+    dbname=os.getenv('SITE_DB_NAME'),
+    user=os.getenv('DB_USER'),
+    password=os.getenv('DB_PASSWORD'),
+    host=os.getenv('DB_HOST')
+)
+cur = conn.cursor()
+
+Base = declarative_base()
+Session = sessionmaker(bind=engine_core)
+session = Session()
+
+
+class Leads(Base):
+    __tablename__ = 'leads'
+    id = Column(Integer, primary_key=True)
+    pipeline_id = Column(Integer)
+    status_id = Column(Integer)
+
+
+class Messages(Base):
+    id_id = Column(Integer, primary_key=True)
+    __tablename__ = 'messages'
+    id = Column(String(300))
+    message = Column(String(10000))
+    lead_id = Column(Integer, ForeignKey('leads.id'))
+    is_bot = Column(Boolean)
+
+
+@dataclasses.dataclass
+class AmocrmSettings:
+    account_chat_id: str
+    host: str
+    mail: str
+    password: str
+
+
+class AvatarexDBMethods:
+    @staticmethod
+    def update_lead(r_d):
+        try:
+            if NEW_CLIENT_KEY in r_d.keys():
+                lead_id, pipeline_id, status_id = r_d[UNSORTED_LEAD_ID_KEY], r_d[NEW_CLIENT_KEY], 0
+            else:
+                lead_id, pipeline_id, status_id = r_d[UPDATE_LEAD_ID_KEY], r_d[UPDATE_PIPELINE_KEY], \
+                    r_d[UPDATE_STATUS_ID_KEY]
+
+            result = session.query(Leads).filter_by(id=lead_id).first()
+
+            if result:
+                result.pipeline_id, result.status_id = pipeline_id, status_id
+            else:
+                new_lead = Leads(id=lead_id, pipeline_id=pipeline_id, status_id=status_id)
+                session.add(new_lead)
+            session.commit()
+        except:
+            pass
+
+    @staticmethod
+    def get_lead(lead_id):
+        return session.query(Leads).filter_by(id=lead_id).first()
+
+    @staticmethod
+    def get_messages(lead_id):
+        message_objects = session.query(Messages).filter_by(lead_id=lead_id).all()[::-1]
+        messages = []
+        symbols = MODEL_16K_SIZE_VALUE if MODEL_16K_KEY in request_settings.model else MODEL_4K_SIZE_VALUE
+        symbols = (symbols - request_settings.tokens) * 0.75 - len(request_settings.text)
+
+        for message_obj in message_objects:
+            if symbols - len(message_obj.message) <= 0:
+                break
+            if message_obj.is_bot:
+                messages.append({'role': 'assistant', 'content': message_obj.message})
+            else:
+                messages.append({'role': 'user', 'content': message_obj.message})
+            symbols = symbols - len(message_obj.message)
+        messages = messages[::-1]
+        messages.append({"role": "system", "content": request_settings.text})
+        return messages
+
+    @staticmethod
+    def add_message(message_id, message, lead_id, is_bot):
+        if is_bot:
+            message_id = f'assistant-{random.randint(1000000, 10000000)}'
+        obj = Messages(id=message_id, message=message, lead_id=lead_id, is_bot=is_bot)
+        session.add(obj)
+        session.commit()
+
+    @staticmethod
+    def clear_messages_by_pipeline_id(pipeline_id):
+        result = session.query(Leads).filter_by(pipeline_id=pipeline_id).first()
+        session.query(Messages).filter(Messages.lead_id == result.id).delete()
+        session.commit()
+
+
+class AvatarexSiteMethods:
+    def get_qualification_data(self):
+        pass  # Qualification data
+
+    def get_database_method_data(self):
+        pass  # Bounded situations
+
+    def get_prompt_method_data(self):
+        pass  # Prompt method
+
+    def get_search_method_data(self):
+        pass  # Search method
+
+    def get_knowledge_method_data(self):
+        pass  # Knowledge method
+
+    def get_knowledge_and_search_method_data(self):
+        pass  # Knowledge and search method
+
+    @staticmethod
+    def get_amocrm_settings(owner_id: int) -> AmocrmSettings:
+        # Amocrm Settings
+        cur.execute("SELECT account_chat_id, host, email, password FROM home_amoconnect WHERE user_id=%s;", (owner_id,))
+        amocrm_connect_settings = cur.fetchone()
+        return AmocrmSettings(
+            account_chat_id=amocrm_connect_settings[0],
+            host=amocrm_connect_settings[1],
+            mail=amocrm_connect_settings[2],
+            password=amocrm_connect_settings[3]
+        )
+
+    def get_pipeline_settings(self):
+        pass  # Pipeline settings
+
