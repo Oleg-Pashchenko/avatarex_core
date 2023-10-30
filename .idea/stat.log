@@ -2458,3 +2458,13 @@
 {"ts":1698689518241,"action":"FILE_OPENED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"200"}}
 {"ts":1698689528251,"action":"FILE_CLOSED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"200"}}
 {"ts":1698689528251,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"52"}}
+{"ts":1698689542220,"action":"IDE_DEACTIVATED"}
+{"ts":1698689542958,"action":"IDE_ACTIVATED"}
+{"ts":1698689543224,"action":"IDE_DEACTIVATED"}
+{"ts":1698689553961,"action":"IDE_ACTIVATED"}
+{"ts":1698689557525,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"52"}}
+{"ts":1698689557525,"action":"FILE_OPENED","file":"/.github/workflows/service.yml","tags":{"FILE_LINE_OF_CODE":"21"}}
+{"ts":1698689568876,"action":"IDE_DEACTIVATED"}
+{"ts":1698689594704,"action":"IDE_ACTIVATED"}
+{"ts":1698689595907,"action":"FILE_CLOSED","file":"/.github/workflows/service.yml","tags":{"FILE_LINE_OF_CODE":"20"}}
+{"ts":1698689595907,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"52"}}

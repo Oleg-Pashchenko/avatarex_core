@@ -35,7 +35,7 @@ def execute(params: dict, r_d: dict):
     db.AvatarexDBMethods.add_message(message_id=message_id, message=message, lead_id=lead_id, is_bot=False)
 
     if message == RESTART_KEY:
-        await db.AvatarexDBMethods.clear_messages_by_pipeline_id(lead.pipeline_id)
+        db.AvatarexDBMethods.clear_messages_by_pipeline_id(lead.pipeline_id)
         return print('История успешно очищена!')
 
     response_text = 'Это ответ'
