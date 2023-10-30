@@ -58,6 +58,26 @@ class AmocrmSettings:
     password: str
 
 
+@dataclasses.dataclass
+class PipelineSettings:
+    pipeline_id: int
+    voice_message_detection: bool
+    chosen_work_mode: str
+    k_s_mode_id: int
+    p_mode_id: int
+    s_mode_id: int
+    k_mode_id: int
+
+
+@dataclasses.dataclass
+class PromptModeSettings:
+    context: str
+    model: str
+    max_tokens: int
+    temperature: float
+    qualification: dict
+
+
 class AvatarexDBMethods:
     @staticmethod
     def update_lead(r_d):
@@ -118,14 +138,8 @@ class AvatarexDBMethods:
 
 
 class AvatarexSiteMethods:
-    def get_qualification_data(self):
-        pass  # Qualification data
-
     def get_database_method_data(self):
         pass  # Bounded situations
-
-    def get_prompt_method_data(self):
-        pass  # Prompt method
 
     def get_search_method_data(self):
         pass  # Search method
@@ -135,6 +149,12 @@ class AvatarexSiteMethods:
 
     def get_knowledge_and_search_method_data(self):
         pass  # Knowledge and search method
+
+    @staticmethod
+    def get_qualification_data(qualification_id) -> dict:
+        cur.execute("SELECT value FROM home_modequalification WHERE id=%s", (qualification_id,))  # Qualification data
+        qualification_value = cur.fetchone()[0]
+        return qualification_value
 
     @staticmethod
     def get_amocrm_settings(owner_id: int) -> AmocrmSettings:
@@ -148,6 +168,32 @@ class AvatarexSiteMethods:
             password=amocrm_connect_settings[3]
         )
 
-    def get_pipeline_settings(self):
-        pass  # Pipeline settings
+    @staticmethod
+    def get_pipeline_settings(pipeline_id: int) -> PipelineSettings:
+        cur.execute('SELECT voice_message_detection, chosen_work_mode, knowledge_and_search_mode_id, '
+                    'knowledge_mode_id, prompt_mode_id, search_mode_id FROM home_pipelines WHERE p_id=%s',
+                    (pipeline_id,))
+        pipeline_settings = cur.fetchone()
+        return PipelineSettings(
+            pipeline_id=pipeline_id,
+            voice_message_detection=pipeline_settings[0],
+            chosen_work_mode=pipeline_settings[1],
+            k_s_mode_id=pipeline_settings[2],
+            k_mode_id=pipeline_settings[3],
+            p_mode_id=pipeline_settings[4],
+            s_mode_id=pipeline_settings[5]
+        )
+        # Pipeline settings
 
+    @staticmethod
+    def get_prompt_method_data(mode_id: int):
+        cur.execute('SELECT context, model, max_tokens, temperature, qualification_id FROM home_promptmode WHERE id=%s',
+                    (mode_id,))
+        prompt_mode_settings = cur.fetchone()  # Prompt method
+        return PromptModeSettings(
+            context=prompt_mode_settings[0],
+            model=prompt_mode_settings[1],
+            max_tokens=prompt_mode_settings[2],
+            temperature=prompt_mode_settings[3],
+            qualification=AvatarexSiteMethods.get_qualification_data(prompt_mode_settings[4])
+        )
