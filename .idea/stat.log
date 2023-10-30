@@ -2482,3 +2482,17 @@
 {"ts":1698689801931,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"52"}}
 {"ts":1698689802961,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"52"}}
 {"ts":1698689802961,"action":"FILE_OPENED","file":"/app/sources/amocrm/methods.py","tags":{"FILE_LINE_OF_CODE":"128"}}
+{"ts":1698689860472,"action":"IDE_DEACTIVATED"}
+{"ts":1698689885024,"action":"IDE_ACTIVATED"}
+{"ts":1698689886567,"action":"FILE_CLOSED","file":"/app/sources/amocrm/methods.py","tags":{"FILE_LINE_OF_CODE":"128"}}
+{"ts":1698689886569,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"52"}}
+{"ts":1698689888745,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"52"}}
+{"ts":1698689888746,"action":"FILE_OPENED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"200"}}
+{"ts":1698689889189,"action":"FILE_CLOSED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"200"}}
+{"ts":1698689891681,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"52"}}
+{"ts":1698689906514,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"53"}}
+{"ts":1698689906514,"action":"FILE_OPENED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"200"}}
+{"ts":1698689910536,"action":"FILE_CLOSED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"200"}}
+{"ts":1698689910538,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"53"}}
+{"ts":1698689918266,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"53"}}
+{"ts":1698689918266,"action":"FILE_OPENED","file":"/app/sources/amocrm/old_db.py","tags":{"FILE_LINE_OF_CODE":"210"}}

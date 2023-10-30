@@ -17,9 +17,10 @@ def execute(params: dict, r_d: dict):
         return print('Сообщение уже распознавалось!')
 
     message, lead_id, user_id_hash = r_d[MESSAGE_KEY], r_d[LEAD_KEY], r_d[USER_ID_HASH_KEY]
-
+    print(lead_id, user_id_hash, message_id)
     lead = db.AvatarexDBMethods.get_lead(lead_id)
     amocrm_settings = db.AvatarexSiteMethods.get_amocrm_settings(owner_id=owner_id)
+
     # pipeline_settings = db.AvatarexSiteMethods.get_pipeline_settings()
     # request_settings = db.RequestSettings(lead.pipeline_id, username)
 
