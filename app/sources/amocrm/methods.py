@@ -109,7 +109,7 @@ def fill_field(name, value, host, mail, password, lead_id, pipeline_id):
     set_field_by_name(param_id, host, mail, password, value, lead_id, pipeline_id)
 
 
-def get_field_info(q_m: db.QualificationMode, host, mail, password, lead_id):
+def get_field_info(q_m, host, mail, password, lead_id):
     all_fields_qualified, first_uncompleted_field_description, second_uncompleted_field_description, first_field_name = True, '', '', ''
     for k in q_m.q_rules.keys():
         exists, field_id = get_field_value_by_name(k, host, mail, password, lead_id)
