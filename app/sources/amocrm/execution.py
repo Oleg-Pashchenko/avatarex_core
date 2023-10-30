@@ -1,6 +1,6 @@
+from app.sources.amocrm import db
 from app.sources.amocrm.constants import *
 import time
-import db
 from app.sources.amocrm.methods import send_message
 
 
