@@ -2496,3 +2496,8 @@
 {"ts":1698689910538,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"53"}}
 {"ts":1698689918266,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"53"}}
 {"ts":1698689918266,"action":"FILE_OPENED","file":"/app/sources/amocrm/old_db.py","tags":{"FILE_LINE_OF_CODE":"210"}}
+{"ts":1698689936762,"action":"FILE_CLOSED","file":"/app/sources/amocrm/old_db.py","tags":{"FILE_LINE_OF_CODE":"210"}}
+{"ts":1698689936762,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"53"}}
+{"ts":1698689988219,"action":"IDE_DEACTIVATED"}
+{"ts":1698690013478,"action":"IDE_ACTIVATED"}
+{"ts":1698690018499,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"53"}}
