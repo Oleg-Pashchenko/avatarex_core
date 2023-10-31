@@ -34,13 +34,13 @@ class QualificationMode:
             MethodResponse, bool, bool):
 
         source_fields = methods.get_fields_info(amocrm_settings, lead_id, fields_to_fill)
-
+        print(source_fields, amocrm_settings, fields_to_fill)
         if len(fields_to_fill.keys()) == 0:  # если пользователь выставил что ничего заполнять не нужно
             return MethodResponse(data=[], all_is_ok=True, errors=set())
 
         if self._is_qualification_passed(fields_to_fill, source_fields):  # если квалификация уже пройдена
             return MethodResponse(data=[], all_is_ok=True, errors=set())
-
+        return MethodResponse(data=[], all_is_ok=True, errors=set())
         # если все же мы остались здесь, значит нужно проверить ответ и задать квалифициирующий вопрос
         is_answer_correct, command = self._check_user_answer(user_answer, question)
 
@@ -63,6 +63,11 @@ class QualificationMode:
         if pipeline_settings.chosen_work_mode == 'Prompt mode':
             data = AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
             return QualificationMode().execute(data.qualification, amocrm_settings, lead_id)
+
+        elif pipeline_settings.chosen_work_mode == 'Knowledge mode':
+            data = AvatarexSiteMethods.get_knowledge_method_data(pipeline_settings.p_mode_id)
+            return QualificationMode().execute(data.qualification, amocrm_settings, lead_id)
+
 
 
 """

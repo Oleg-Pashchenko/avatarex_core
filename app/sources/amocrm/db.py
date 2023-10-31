@@ -90,6 +90,7 @@ class BoundedSituations:
 class KnowledgeModeSettings:
     database_link: str
     bounded_situations: BoundedSituations
+    qualification: dict
 
 
 class AvatarexDBMethods:
@@ -160,7 +161,7 @@ class AvatarexSiteMethods:
 
     @staticmethod
     def get_knowledge_method_data(mode_id) -> KnowledgeModeSettings:
-        cur.execute('SELECT database_link, mode_messages_id FROM home_knowledgemode WHERE id=%s;', (mode_id,))
+        cur.execute('SELECT database_link, mode_messages_id, qualification_id FROM home_knowledgemode WHERE id=%s;', (mode_id,))
         k_m_data = cur.fetchone()
         cur.execute(
             'SELECT hi_message, openai_error_message, database_error_message, service_settings_error_message FROM home_modemessages WHERE id=%s',
@@ -173,7 +174,8 @@ class AvatarexSiteMethods:
                 openai_error_message=b_s_data[1],
                 database_error_message=b_s_data[2],
                 service_settings_error_message=b_s_data[3]
-            )
+            ),
+            qualification=AvatarexSiteMethods.get_qualification_data(k_m_data[2])
         )  # Knowledge method
 
     def get_knowledge_and_search_method_data(self):
