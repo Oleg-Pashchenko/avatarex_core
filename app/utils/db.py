@@ -8,10 +8,6 @@ class Message:
     def __init__(self, text: str):
         self.text = text
 
-    def __init__(self, text: str, is_hi_message: bool):
-        self.text = text
-        self.is_hi_message = is_hi_message
-
 
 @dataclasses.dataclass
 class Command:
