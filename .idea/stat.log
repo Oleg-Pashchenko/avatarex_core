@@ -3065,3 +3065,9 @@
 {"ts":1698745733957,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"99"}}
 {"ts":1698745737525,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"99"}}
 {"ts":1698745737525,"action":"FILE_OPENED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"185"}}
+{"ts":1698745785272,"action":"FILE_CLOSED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"189"}}
+{"ts":1698745785272,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"99"}}
+{"ts":1698745789456,"action":"IDE_DEACTIVATED"}
+{"ts":1698745790083,"action":"IDE_ACTIVATED"}
+{"ts":1698745800332,"action":"IDE_DEACTIVATED"}
+{"ts":1698745856376,"action":"IDE_ACTIVATED"}

@@ -85,12 +85,12 @@ def execute(params: dict, r_d: dict):
     for entity in response.data:
         if isinstance(entity, Message):
             send_message(user_id_hash, entity.text, amocrm_settings)
-            db.AvatarexDBMethods.add_message(message_id='', message=response, lead_id=lead_id, is_bot=True)
+            db.AvatarexDBMethods.add_message(message_id='', message=entity.text, lead_id=lead_id, is_bot=True)
 
     for entity in qualification_mode_response.data:
         if isinstance(entity, Message):
             send_message(user_id_hash, entity.text, amocrm_settings)
-            db.AvatarexDBMethods.add_message(message_id='', message=response, lead_id=lead_id, is_bot=True)
+            db.AvatarexDBMethods.add_message(message_id='', message=entity.text, lead_id=lead_id, is_bot=True)
         elif isinstance(entity, Command):
             if entity.command == 'fill':
                 fill_field(entity.data['name'], entity.data['value'], amocrm_settings.host, amocrm_settings.mail, amocrm_settings.password, lead_id, pipeline_settings.pipeline_id)
