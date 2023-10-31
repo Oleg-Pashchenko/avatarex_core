@@ -85,11 +85,12 @@ class QualificationMode:
         print(source_fields, amocrm_settings, fields_to_fill)
         if len(fields_to_fill.keys()) == 0:  # если пользователь выставил что ничего заполнять не нужно
             return MethodResponse(data=[], all_is_ok=True, errors=set()), True, False
-
+        print('я тут')
         if self._is_qualification_passed(fields_to_fill, source_fields):  # если квалификация уже пройдена
             return MethodResponse(data=[], all_is_ok=True, errors=set()), True, False
         # return MethodResponse(data=[], all_is_ok=True, errors=set()), True, True
         # если все же мы остались здесь, значит нужно проверить ответ и задать квалифициирующий вопрос
+        print('я здесь')
         is_answer_correct, command = self._check_user_answer(source_fields, fields_to_fill, message, openai_key)
 
         data = []
