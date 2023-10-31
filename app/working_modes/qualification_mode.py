@@ -72,11 +72,11 @@ class QualificationMode:
     def _is_qualification_passed(fields_to_fill: dict, source_fields: dict) -> bool:  # if > 0: get question
         for field_to_fill in fields_to_fill.keys():
             if field_to_fill not in source_fields.keys():  # Если поле не создано
-                return True
+                return False
 
             if source_fields[field_to_fill] is None:  # Если поле не заполнено
-                return True
-        return False
+                return False
+        return True
 
     def execute(self, fields_to_fill: dict, amocrm_settings: AmocrmSettings, lead_id: int, message, openai_key) -> (
             MethodResponse, bool, bool):

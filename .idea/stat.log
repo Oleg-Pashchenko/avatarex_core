@@ -3007,3 +3007,7 @@
 {"ts":1698745012956,"action":"IDE_ACTIVATED"}
 {"ts":1698745014606,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"98"}}
 {"ts":1698745014606,"action":"FILE_OPENED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"184"}}
+{"ts":1698745046920,"action":"IDE_DEACTIVATED"}
+{"ts":1698745052992,"action":"IDE_ACTIVATED"}
+{"ts":1698745060809,"action":"IDE_DEACTIVATED"}
+{"ts":1698745077354,"action":"IDE_ACTIVATED"}
