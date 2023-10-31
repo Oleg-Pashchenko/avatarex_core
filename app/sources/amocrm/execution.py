@@ -1,7 +1,10 @@
-from app.sources.amocrm import db
+from app.sources.amocrm import db, methods
 from app.sources.amocrm.constants import *
 import time
 from app.sources.amocrm.methods import send_message
+from app.working_modes.knowledge_mode import KnowledgeMode
+from app.working_modes.prompt_mode import PromptMode
+from app.working_modes.qualification_mode import QualificationMode
 
 
 def execute(params: dict, r_d: dict):
@@ -19,10 +22,9 @@ def execute(params: dict, r_d: dict):
     message, lead_id, user_id_hash = r_d[MESSAGE_KEY], r_d[LEAD_KEY], r_d[USER_ID_HASH_KEY]
     print(lead_id, user_id_hash, message_id)
     lead = db.AvatarexDBMethods.get_lead(lead_id)
-    print(lead)
     amocrm_settings = db.AvatarexSiteMethods.get_amocrm_settings(owner_id=owner_id)
-
-    # pipeline_settings = db.AvatarexSiteMethods.get_pipeline_settings()
+    pipeline_settings = db.AvatarexSiteMethods.get_pipeline_settings(pipeline_id=lead.pipeline_id)
+    message_is_first: bool = False
     # request_settings = db.RequestSettings(lead.pipeline_id, username)
 
     # if int(lead.status_id) in request_settings.block_statuses:
@@ -40,14 +42,40 @@ def execute(params: dict, r_d: dict):
         db.AvatarexDBMethods.clear_messages_by_pipeline_id(lead.pipeline_id)
         return print('История успешно очищена!')
 
-    response_text = 'Это ответ'
+    # qualification_mode = QualificationMode()
+    # qualification_mode_response, user_answer_is_correct, has_new = qualification_mode.execute_amocrm(pipeline_settings,
+    #                                                                                                amocrm_settings,
+    if True:  # lead_id)
+        # if not user_answer_is_correct or not has_new:
+        if pipeline_settings.chosen_work_mode == 'Prompt mode':
+            prompt_mode_data = db.AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
+            p_m = PromptMode(
+                messages_history=db.AvatarexDBMethods.get_messages(lead_id),
+                tokens_limit=prompt_mode_data.max_tokens,
+                temeperature=prompt_mode_data.temperature,
+                model=prompt_mode_data.model,
+                openai_api_key=db.AvatarexSiteMethods.get_gpt_key(owner_id)
+            )
+            response = p_m.execute()
+
+        elif pipeline_settings.chosen_work_mode == 'Database mode':
+            response = ""
+
+        elif pipeline_settings.chosen_work_mode == 'Knowledge mode':
+            k_m_data = db.AvatarexSiteMethods.get_knowledge_method_data(pipeline_settings.k_mode_id)
+            k_m = KnowledgeMode(
+                k_m_data=k_m_data
+            )
+            response = k_m.execute(message,
+                        db.AvatarexSiteMethods.get_gpt_key(owner_id))
+
+        else:
+            response = 'Это ответ'
 
     # if request_settings.working_mode == DEFAULT_WORKING_MODE:
     #    if await db.message_is_not_last(lead_id, message):
     #        return print('Сообщение не последнее! Обработка прервана!')
 
-    send_message(user_id_hash, response_text, amocrm_settings)
-
-    db.AvatarexDBMethods.add_message(message_id='', message=response_text, lead_id=lead_id, is_bot=True)
-
+    send_message(user_id_hash, str(response), amocrm_settings)
+    # db.AvatarexDBMethods.add_message(message_id='', message=response, lead_id=lead_id, is_bot=True)
     return print('Сообщение отправлено!')

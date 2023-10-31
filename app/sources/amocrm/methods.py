@@ -2,13 +2,13 @@ import random
 
 from app.sources.amocrm import db
 from app.sources.amocrm.constants import *
+from app.sources.amocrm.db import AmocrmSettings
 from app.sources.amocrm.service import get_token
 from app.utils import misc
 import json
 import time
 import bs4
 import requests
-
 
 
 def send_notes(pipeline_id, text, host, mail, password):
@@ -59,33 +59,33 @@ def create_field(host: str, mail: str, password: str, name: str):
     session.post(url, headers=headers, data=data)
 
 
-def get_field_by_name(name: str, host: str, mail: str, password: str, lead_id: int) -> (bool, int):
-    url = f'{host}leads/detail/{lead_id}'
-    token, session, headers = get_token(host, mail, password)
-    response = session.get(url)
-    if f'"NAME":"{name}"' not in response.text:
-        return False, 0
-    return True, int(response.text.split(f',"NAME":"{name}"')[0].split('"ID":')[-1])
+def get_fields_info(amocrm_settings: AmocrmSettings, lead_id: int, fields_to_fill):
+    resp = {}
+    for field in fields_to_fill.keys():
+        status, value = get_field_value_by_name(field, amocrm_settings, lead_id)
+        if status:
+            resp[field] = value
+        else:
+            resp[field] = None
 
 
-def get_field_value_by_name(name: str, host: str, mail: str, password: str, lead_id: int) -> (bool, int):
-    url = f'{host}leads/detail/{lead_id}'
-    token, session, headers = get_token(host, mail, password)
+def get_field_value_by_name(name: str, amocrm_settings: AmocrmSettings, lead_id: int) -> str | None:
+    url = f'{amocrm_settings.host}leads/detail/{lead_id}'
+    token, session, headers = get_token(amocrm_settings)
     response = session.get(url)
     if f'"NAME":"{name}"' not in response.text:
-        return False, 0
+        return None
 
     param_id = int(response.text.split(f',"NAME":"{name}"')[0].split('"ID":')[-1])
     soup = bs4.BeautifulSoup(response.text, features='html.parser')
-    status = False
+
     try:
         value = soup.find('input', {'name': f'CFV[{param_id}]'})['value']
-
         if value == '':
-            status = True
-    except Exception as e:
-        print(e)
-    return status, 0
+            value = None
+    except:
+        value = None
+    return value
 
 
 def set_field_by_name(param_id: int, host: str, mail: str, password: str, value: str, lead_id: int, pipeline_id: int):
@@ -123,5 +123,3 @@ def get_field_info(q_m, host, mail, password, lead_id):
                 break
 
     return all_fields_qualified, first_uncompleted_field_description, second_uncompleted_field_description, first_field_name
-
-

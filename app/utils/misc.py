@@ -1,6 +1,7 @@
 import os
 import random
 
+import gdown
 import whisper
 import requests
 
@@ -22,3 +23,14 @@ async def wisper_detect(link: str):
     result = whisper.decode(model, mel, options)
     return result.text
 
+
+def download_file(db_name):
+    file_id = db_name.replace('https://docs.google.com/spreadsheets/d/', '')
+    file_id = file_id.split('/')[0]
+    try:
+        download_url = f"https://drive.google.com/uc?id={file_id}"
+        output_path = f"uploads/{file_id}.xlsx"
+        gdown.download(download_url, output_path, quiet=True)
+    except:
+        pass
+    return output_path

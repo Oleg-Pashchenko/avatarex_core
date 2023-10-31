@@ -9,14 +9,7 @@ from app.utils import err
 from app.utils.db import MethodResponse, Message, Command
 
 
-@dataclasses.dataclass
-class DatabaseMode:
-    hi_message: str
-    openai_error_message: str
-    database_error_message: str
-    service_settings_error_message: str
-    openai_api_key: str
-    messages_history: list
+
 
 
 class Mode(ABC):

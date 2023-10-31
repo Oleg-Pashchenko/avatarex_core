@@ -78,6 +78,20 @@ class PromptModeSettings:
     qualification: dict
 
 
+@dataclasses.dataclass
+class BoundedSituations:
+    hi_message: str
+    openai_error_message: str
+    database_error_message: str
+    service_settings_error_message: str
+
+
+@dataclasses.dataclass
+class KnowledgeModeSettings:
+    database_link: str
+    bounded_situations: BoundedSituations
+
+
 class AvatarexDBMethods:
     @staticmethod
     def update_lead(r_d):
@@ -144,11 +158,31 @@ class AvatarexSiteMethods:
     def get_search_method_data(self):
         pass  # Search method
 
-    def get_knowledge_method_data(self):
-        pass  # Knowledge method
+    @staticmethod
+    def get_knowledge_method_data(mode_id) -> KnowledgeModeSettings:
+        cur.execute('SELECT database_link, mode_messages_id FROM home_knowledgemode WHERE id=%s;', (mode_id,))
+        k_m_data = cur.fetchone()
+        cur.execute(
+            'SELECT hi_message, openai_error_message, database_error_message, service_settings_error_message FROM home_modemessages WHERE id=%s',
+            (k_m_data[1],))
+        b_s_data = cur.fetchone()
+        return KnowledgeModeSettings(
+            database_link=k_m_data[0],
+            bounded_situations=BoundedSituations(
+                hi_message=b_s_data[0],
+                openai_error_message=b_s_data[1],
+                database_error_message=b_s_data[2],
+                service_settings_error_message=b_s_data[3]
+            )
+        )  # Knowledge method
 
     def get_knowledge_and_search_method_data(self):
         pass  # Knowledge and search method
+
+    @staticmethod
+    def get_gpt_key(owner_id: int) -> str:
+        cur.execute('SELECT key FROM home_gptapikey WHERE user_id=%s;', (owner_id,))
+        return cur.fetchone()[0]
 
     @staticmethod
     def get_qualification_data(qualification_id) -> dict:
