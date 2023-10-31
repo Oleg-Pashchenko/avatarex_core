@@ -46,7 +46,12 @@ def execute(params: dict, r_d: dict):
     qualification_mode = QualificationMode()
     qualification_mode_response, user_answer_is_correct, has_new = qualification_mode.execute_amocrm(pipeline_settings,
                                                                                                      amocrm_settings,
-                                                                                                     lead_id)
+                                                                                                     lead_id,
+                                                                                                     message,
+                                                                                                     db.AvatarexSiteMethods.get_gpt_key(
+                                                                                                         owner_id))
+    print(qualification_mode_response)
+
     # if not user_answer_is_correct or not has_new:
     if pipeline_settings.chosen_work_mode == 'Prompt mode':
         prompt_mode_data = db.AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
@@ -73,10 +78,9 @@ def execute(params: dict, r_d: dict):
     else:
         response = 'Это ответ'
 
-
-# if request_settings.working_mode == DEFAULT_WORKING_MODE:
-#    if await db.message_is_not_last(lead_id, message):
-#        return print('Сообщение не последнее! Обработка прервана!')
+    # if request_settings.working_mode == DEFAULT_WORKING_MODE:
+    #    if await db.message_is_not_last(lead_id, message):
+    #        return print('Сообщение не последнее! Обработка прервана!')
 
     for entity in response.data:
         if isinstance(entity, Message):
