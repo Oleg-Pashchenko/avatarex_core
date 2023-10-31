@@ -2,6 +2,7 @@ from app.sources.amocrm import db
 from app.sources.amocrm.constants import *
 import time
 from app.sources.amocrm.methods import send_message
+from app.utils.db import Message
 from app.working_modes.knowledge_mode import KnowledgeMode
 from app.working_modes.prompt_mode import PromptMode
 
@@ -74,7 +75,8 @@ def execute(params: dict, r_d: dict):
     # if request_settings.working_mode == DEFAULT_WORKING_MODE:
     #    if await db.message_is_not_last(lead_id, message):
     #        return print('Сообщение не последнее! Обработка прервана!')
-
-    send_message(user_id_hash, str(response), amocrm_settings)
+    for entity in response.data:
+        if isinstance(entity, Message):
+            send_message(user_id_hash, entity.text, amocrm_settings)
     # db.AvatarexDBMethods.add_message(message_id='', message=response, lead_id=lead_id, is_bot=True)
     return print('Сообщение отправлено!')
