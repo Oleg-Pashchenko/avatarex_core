@@ -135,6 +135,7 @@ class AvatarexDBMethods:
             symbols = symbols - len(message_obj.message)
         messages = messages[::-1]
         messages.append({"role": "system", "content": prompt_mode_data.context})
+        print(messages)
         return messages
 
     @staticmethod

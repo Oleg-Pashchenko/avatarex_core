@@ -37,7 +37,6 @@ def execute(params: dict, r_d: dict):
     #    else:
     #        return print('Отправлено голосовое, но распознование выключено!')
 
-    db.AvatarexDBMethods.add_message(message_id=message_id, message=message, lead_id=lead_id, is_bot=False)
 
     if message == RESTART_KEY:
         db.AvatarexDBMethods.clear_messages_by_pipeline_id(lead.pipeline_id)
@@ -53,6 +52,8 @@ def execute(params: dict, r_d: dict):
     print(qualification_mode_response)
 
     if not user_answer_is_correct or not has_new:
+        db.AvatarexDBMethods.add_message(message_id=message_id, message=message, lead_id=lead_id, is_bot=False)
+
         if pipeline_settings.chosen_work_mode == 'Prompt mode':
             prompt_mode_data = db.AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
             p_m = PromptMode(
@@ -90,7 +91,7 @@ def execute(params: dict, r_d: dict):
     for entity in qualification_mode_response.data:
         if isinstance(entity, Message):
             send_message(user_id_hash, entity.text, amocrm_settings)
-            db.AvatarexDBMethods.add_message(message_id='', message=entity.text, lead_id=lead_id, is_bot=True)
+            # db.AvatarexDBMethods.add_message(message_id='', message=entity.text, lead_id=lead_id, is_bot=True)
         elif isinstance(entity, Command):
             if entity.command == 'fill':
                 fill_field(entity.data['name'], entity.data['value'], amocrm_settings.host, amocrm_settings.mail,
