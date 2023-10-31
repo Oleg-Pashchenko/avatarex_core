@@ -40,10 +40,10 @@ def send_message(receiver_id: str, message: str, amocrm_settings: db.AmocrmSetti
         break
 
 
-def create_field(host: str, mail: str, password: str, name: str):
-    token, session, headers = get_token(host, mail, password)
+def create_field(amocrm_settings, name: str):
+    token, session, headers = get_token(amocrm_settings)
 
-    url = f'{host}ajax/settings/custom_fields/'
+    url = f'{amocrm_settings.host}ajax/settings/custom_fields/'
     data = {
         'action': 'apply_changes',
         'cf[add][0][element_type]': 2,
@@ -86,22 +86,22 @@ def get_field_value_by_name(name: str, amocrm_settings: AmocrmSettings, lead_id:
     return value
 
 
-def set_field_by_name(param_id: int, host: str, mail: str, password: str, value: str, lead_id: int, pipeline_id: int):
-    url = f'{host}ajax/leads/detail/'
+def set_field_by_name(param_id: int, amocrm_settings, value: str, lead_id: int, pipeline_id: int):
+    url = f'{amocrm_settings.host}ajax/leads/detail/'
     data = {
         f'CFV[{param_id}]': value,
         'lead[STATUS]': '',
         'lead[PIPELINE_ID]': pipeline_id,
         'ID': lead_id
     }
-    token, session, headers = get_token(host, mail, password)
+    token, session, headers = get_token(amocrm_settings)
     response = session.post(url, headers=headers, data=data)
     print(response.text)
 
 
-def get_field_by_name(name: str, host: str, mail: str, password: str, lead_id: int) -> (bool, int):
-    url = f'{host}leads/detail/{lead_id}'
-    token, session, headers = get_token(host, mail, password)
+def get_field_by_name(name: str, amocrm_settings, lead_id: int) -> (bool, int):
+    url = f'{amocrm_settings.host}leads/detail/{lead_id}'
+    token, session, headers = get_token(amocrm_settings)
     response = session.get(url)
     if f'"NAME":"{name}"' not in response.text:
         return False, 0
@@ -109,11 +109,17 @@ def get_field_by_name(name: str, host: str, mail: str, password: str, lead_id: i
 
 
 def fill_field(name, value, host, mail, password, lead_id, pipeline_id):
-    exists, param_id = get_field_by_name(name, host, mail, password, lead_id)
+    amocrm_settings: AmocrmSettings = AmocrmSettings(
+        host=host,
+        mail=mail,
+        password=password,
+        account_chat_id='123'
+    )
+    exists, param_id = get_field_by_name(name, amocrm_settings, lead_id)
     if not exists:
-        create_field(host, mail, password, name)
-        _, param_id = get_field_by_name(name, host, mail, password, lead_id)
-    set_field_by_name(param_id, host, mail, password, value, lead_id, pipeline_id)
+        create_field(amocrm_settings, name)
+        _, param_id = get_field_by_name(name, amocrm_settings, lead_id)
+    set_field_by_name(param_id, amocrm_settings, value, lead_id, pipeline_id)
 
 
 def get_field_info(q_m, host, mail, password, lead_id):
