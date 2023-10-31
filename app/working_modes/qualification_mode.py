@@ -101,7 +101,7 @@ class QualificationMode:
         print(message, is_answer_correct)
         if message:  # если сообщение сформировалось
             # perephrase message
-            data.append(perephrase(api_key=openai_key, message=message))
+            data.append(Message(perephrase(api_key=openai_key, message=message)))
 
         return MethodResponse(all_is_ok=True, errors=set(), data=data), is_answer_correct, message is not None
 
