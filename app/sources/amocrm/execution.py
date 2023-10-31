@@ -52,31 +52,31 @@ def execute(params: dict, r_d: dict):
                                                                                                          owner_id))
     print(qualification_mode_response)
 
-    # if not user_answer_is_correct or not has_new:
-    if pipeline_settings.chosen_work_mode == 'Prompt mode':
-        prompt_mode_data = db.AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
-        p_m = PromptMode(
-            messages_history=db.AvatarexDBMethods.get_messages(lead_id, prompt_mode_data),
-            tokens_limit=prompt_mode_data.max_tokens,
-            temeperature=prompt_mode_data.temperature,
-            model=prompt_mode_data.model,
-            openai_api_key=db.AvatarexSiteMethods.get_gpt_key(owner_id)
-        )
-        response = p_m.execute()
+    if not user_answer_is_correct or not has_new:
+        if pipeline_settings.chosen_work_mode == 'Prompt mode':
+            prompt_mode_data = db.AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
+            p_m = PromptMode(
+                messages_history=db.AvatarexDBMethods.get_messages(lead_id, prompt_mode_data),
+                tokens_limit=prompt_mode_data.max_tokens,
+                temeperature=prompt_mode_data.temperature,
+                model=prompt_mode_data.model,
+                openai_api_key=db.AvatarexSiteMethods.get_gpt_key(owner_id)
+            )
+            response = p_m.execute()
 
-    elif pipeline_settings.chosen_work_mode == 'Database mode':
-        response = ""
+        elif pipeline_settings.chosen_work_mode == 'Database mode':
+            response = ""
 
-    elif pipeline_settings.chosen_work_mode == 'Knowledge mode':
-        k_m_data = db.AvatarexSiteMethods.get_knowledge_method_data(pipeline_settings.k_mode_id)
-        k_m = KnowledgeMode(
-            k_m_data=k_m_data
-        )
-        response = k_m.execute(message,
-                               db.AvatarexSiteMethods.get_gpt_key(owner_id))
+        elif pipeline_settings.chosen_work_mode == 'Knowledge mode':
+            k_m_data = db.AvatarexSiteMethods.get_knowledge_method_data(pipeline_settings.k_mode_id)
+            k_m = KnowledgeMode(
+                k_m_data=k_m_data
+            )
+            response = k_m.execute(message,
+                                   db.AvatarexSiteMethods.get_gpt_key(owner_id))
 
-    else:
-        response = 'Это ответ'
+        else:
+            response = 'Это ответ'
 
     # if request_settings.working_mode == DEFAULT_WORKING_MODE:
     #    if await db.message_is_not_last(lead_id, message):
