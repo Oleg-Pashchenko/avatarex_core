@@ -92,14 +92,13 @@ class QualificationMode:
         # если все же мы остались здесь, значит нужно проверить ответ и задать квалифициирующий вопрос
         print('я здесь')
         is_answer_correct, command = self._check_user_answer(source_fields, fields_to_fill, message, openai_key)
-
         data = []
         if is_answer_correct:  # если ответ принят
             data.append(command)  # добавляем команду на заполнение поля
             message = self._get_qualification_question(2, source_fields, fields_to_fill)  # просим следующее сообщение
         else:
             message = self._get_qualification_question(1, source_fields, fields_to_fill)  # повторяем текущий вопрос
-
+        print(message, is_answer_correct)
         if message:  # если сообщение сформировалось
             # perephrase message
             data.append(perephrase(api_key=openai_key, message=message))
