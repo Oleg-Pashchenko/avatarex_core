@@ -3019,3 +3019,9 @@
 {"ts":1698745131474,"action":"FILE_OPENED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"185"}}
 {"ts":1698745136766,"action":"IDE_DEACTIVATED"}
 {"ts":1698745137579,"action":"IDE_ACTIVATED"}
+{"ts":1698745140569,"action":"IDE_DEACTIVATED"}
+{"ts":1698745142086,"action":"IDE_ACTIVATED"}
+{"ts":1698745169341,"action":"IDE_DEACTIVATED"}
+{"ts":1698745256187,"action":"IDE_ACTIVATED"}
+{"ts":1698745272938,"action":"IDE_DEACTIVATED"}
+{"ts":1698745273465,"action":"IDE_ACTIVATED"}

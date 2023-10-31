@@ -14,8 +14,8 @@ class QualificationMode:
     @staticmethod
     def _get_qualification_question(field_number, fields, fields_to_fill) -> (str, bool):
         count = 0
-        for field in fields:
-            if field is None:
+        for field in fields_to_fill:
+            if field not in fields.keys() or fields[field] is None:
                 count += 1
                 if count == field_number:
                     return fields_to_fill[field]
