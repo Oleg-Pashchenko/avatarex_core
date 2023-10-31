@@ -1,7 +1,7 @@
 from app.sources.amocrm import db
 from app.sources.amocrm.constants import *
 import time
-from app.sources.amocrm.methods import send_message
+from app.sources.amocrm.methods import send_message, fill_field
 from app.utils.db import Message, Command
 from app.working_modes.knowledge_mode import KnowledgeMode
 from app.working_modes.prompt_mode import PromptMode
@@ -85,13 +85,14 @@ def execute(params: dict, r_d: dict):
     for entity in response.data:
         if isinstance(entity, Message):
             send_message(user_id_hash, entity.text, amocrm_settings)
+            db.AvatarexDBMethods.add_message(message_id='', message=response, lead_id=lead_id, is_bot=True)
 
     for entity in qualification_mode_response.data:
         if isinstance(entity, Message):
             send_message(user_id_hash, entity.text, amocrm_settings)
-
+            db.AvatarexDBMethods.add_message(message_id='', message=response, lead_id=lead_id, is_bot=True)
         elif isinstance(entity, Command):
-            print('Command!')
+            if entity.command == 'fill':
+                fill_field(entity.data['name'], entity.data['value'], amocrm_settings.host, amocrm_settings.mail, amocrm_settings.password, lead_id, pipeline_settings.pipeline_id)
 
-    # db.AvatarexDBMethods.add_message(message_id='', message=response, lead_id=lead_id, is_bot=True)
     return print('Сообщение отправлено!')

@@ -9,6 +9,12 @@ from app.utils.db import MethodResponse, Command, Message
 from app.working_modes.knowledge_mode import perephrase
 
 
+def get_field_name_by_question(q, ff):
+    for f in ff.keys():
+        if ff[f] == q:
+            return f
+
+
 @dataclasses.dataclass
 class QualificationMode:
     @staticmethod
@@ -20,7 +26,6 @@ class QualificationMode:
                 if count == field_number:
                     return fields_to_fill[field]
         return None
-
 
     @staticmethod
     def is_this_answer_for_this_question(question, answer, openai_key):
@@ -59,13 +64,13 @@ class QualificationMode:
         else:
             return False
 
-
     @staticmethod
     def _check_user_answer(source_fields, fields_to_fill, message, openai_key) -> (bool, Command | None):
         question = QualificationMode._get_qualification_question(1, source_fields, fields_to_fill)
         if QualificationMode.is_this_answer_for_this_question(question, message, openai_key):
             return True, Command("fill", {'question': question,
-                                          'data': message})
+                                          'value': message,
+                                          'name': get_field_name_by_question(question, fields_to_fill)})
         return False, None
 
     @staticmethod

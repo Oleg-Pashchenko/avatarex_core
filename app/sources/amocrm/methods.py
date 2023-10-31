@@ -66,6 +66,7 @@ def get_fields_info(amocrm_settings: AmocrmSettings, lead_id: int, fields_to_fil
 
     return resp
 
+
 def get_field_value_by_name(name: str, amocrm_settings: AmocrmSettings, lead_id: int) -> str | None:
     url = f'{amocrm_settings.host}leads/detail/{lead_id}'
     token, session, headers = get_token(amocrm_settings)
@@ -96,6 +97,15 @@ def set_field_by_name(param_id: int, host: str, mail: str, password: str, value:
     token, session, headers = get_token(host, mail, password)
     response = session.post(url, headers=headers, data=data)
     print(response.text)
+
+
+def get_field_by_name(name: str, host: str, mail: str, password: str, lead_id: int) -> (bool, int):
+    url = f'{host}leads/detail/{lead_id}'
+    token, session, headers = get_token(host, mail, password)
+    response = session.get(url)
+    if f'"NAME":"{name}"' not in response.text:
+        return False, 0
+    return True, int(response.text.split(f',"NAME":"{name}"')[0].split('"ID":')[-1])
 
 
 def fill_field(name, value, host, mail, password, lead_id, pipeline_id):
