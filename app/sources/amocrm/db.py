@@ -118,11 +118,11 @@ class AvatarexDBMethods:
         return session.query(Leads).filter_by(id=lead_id).first()
 
     @staticmethod
-    def get_messages(lead_id):
+    def get_messages(lead_id, prompt_mode_data):
         message_objects = session.query(Messages).filter_by(lead_id=lead_id).all()[::-1]
         messages = []
-        symbols = MODEL_16K_SIZE_VALUE if MODEL_16K_KEY in request_settings.model else MODEL_4K_SIZE_VALUE
-        symbols = (symbols - request_settings.tokens) * 0.75 - len(request_settings.text)
+        symbols = MODEL_16K_SIZE_VALUE if MODEL_16K_KEY in prompt_mode_data.model else MODEL_4K_SIZE_VALUE
+        symbols = (symbols - prompt_mode_data.max_tokens) * 0.75 - len(prompt_mode_data.context)
 
         for message_obj in message_objects:
             if symbols - len(message_obj.message) <= 0:
@@ -133,7 +133,7 @@ class AvatarexDBMethods:
                 messages.append({'role': 'user', 'content': message_obj.message})
             symbols = symbols - len(message_obj.message)
         messages = messages[::-1]
-        messages.append({"role": "system", "content": request_settings.text})
+        messages.append({"role": "system", "content": prompt_mode_data.context})
         return messages
 
     @staticmethod

@@ -1,10 +1,9 @@
-from app.sources.amocrm import db, methods
+from app.sources.amocrm import db
 from app.sources.amocrm.constants import *
 import time
 from app.sources.amocrm.methods import send_message
 from app.working_modes.knowledge_mode import KnowledgeMode
 from app.working_modes.prompt_mode import PromptMode
-from app.working_modes.qualification_mode import QualificationMode
 
 
 def execute(params: dict, r_d: dict):
@@ -50,7 +49,7 @@ def execute(params: dict, r_d: dict):
         if pipeline_settings.chosen_work_mode == 'Prompt mode':
             prompt_mode_data = db.AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
             p_m = PromptMode(
-                messages_history=db.AvatarexDBMethods.get_messages(lead_id),
+                messages_history=db.AvatarexDBMethods.get_messages(lead_id, prompt_mode_data),
                 tokens_limit=prompt_mode_data.max_tokens,
                 temeperature=prompt_mode_data.temperature,
                 model=prompt_mode_data.model,
