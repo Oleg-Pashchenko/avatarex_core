@@ -2915,3 +2915,17 @@
 {"ts":1698743796763,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"94"}}
 {"ts":1698743802355,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"94"}}
 {"ts":1698743802355,"action":"FILE_OPENED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"136"}}
+{"ts":1698743841403,"action":"IDE_DEACTIVATED"}
+{"ts":1698743878570,"action":"IDE_ACTIVATED"}
+{"ts":1698743879981,"action":"IDE_DEACTIVATED"}
+{"ts":1698743886127,"action":"IDE_ACTIVATED"}
+{"ts":1698743887254,"action":"IDE_DEACTIVATED"}
+{"ts":1698743890659,"action":"IDE_ACTIVATED"}
+{"ts":1698743896969,"action":"FILE_CLOSED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"136"}}
+{"ts":1698743896969,"action":"FILE_OPENED","file":"/app/sources/amocrm/methods.py","tags":{"FILE_LINE_OF_CODE":"126"}}
+{"ts":1698743907224,"action":"FILE_CLOSED","file":"/app/sources/amocrm/methods.py","tags":{"FILE_LINE_OF_CODE":"126"}}
+{"ts":1698743907224,"action":"FILE_OPENED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"136"}}
+{"ts":1698743909689,"action":"IDE_DEACTIVATED"}
+{"ts":1698743913977,"action":"IDE_ACTIVATED"}
+{"ts":1698743915687,"action":"FILE_CLOSED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"136"}}
+{"ts":1698743915687,"action":"FILE_OPENED","file":"/app/sources/amocrm/methods.py","tags":{"FILE_LINE_OF_CODE":"126"}}

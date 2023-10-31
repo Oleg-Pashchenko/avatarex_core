@@ -62,12 +62,9 @@ def create_field(host: str, mail: str, password: str, name: str):
 def get_fields_info(amocrm_settings: AmocrmSettings, lead_id: int, fields_to_fill):
     resp = {}
     for field in fields_to_fill.keys():
-        status, value = get_field_value_by_name(field, amocrm_settings, lead_id)
-        if status:
-            resp[field] = value
-        else:
-            resp[field] = None
+        resp[field] = get_field_value_by_name(field, amocrm_settings, lead_id)
 
+    return resp
 
 def get_field_value_by_name(name: str, amocrm_settings: AmocrmSettings, lead_id: int) -> str | None:
     url = f'{amocrm_settings.host}leads/detail/{lead_id}'
