@@ -54,7 +54,7 @@ def execute(params: dict, r_d: dict):
     if not user_answer_is_correct or not has_new:
         db.AvatarexDBMethods.add_message(message_id=message_id, message=message, lead_id=lead_id, is_bot=False)
 
-        if pipeline_settings.chosen_work_mode == 'Prompt mode':
+        if pipeline_settings.chosen_work_mode == 'Ответ по контексту':
             prompt_mode_data = db.AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
             p_m = PromptMode(
                 messages_history=db.AvatarexDBMethods.get_messages(lead_id, prompt_mode_data),
@@ -68,7 +68,7 @@ def execute(params: dict, r_d: dict):
         elif pipeline_settings.chosen_work_mode == 'Database mode':
             response = ""
 
-        elif pipeline_settings.chosen_work_mode == 'Knowledge mode':
+        elif pipeline_settings.chosen_work_mode == 'Ответ из базы знаний':
             k_m_data = db.AvatarexSiteMethods.get_knowledge_method_data(pipeline_settings.k_mode_id)
             k_m = KnowledgeMode(
                 k_m_data=k_m_data

@@ -114,11 +114,11 @@ class QualificationMode:
     def execute_amocrm(pipeline_settings: PipelineSettings, amocrm_settings: AmocrmSettings,
                        lead_id: int, message, openai_key) -> (MethodResponse, bool, bool):
         # временный костыль для AmoCRM
-        if pipeline_settings.chosen_work_mode == 'Prompt mode':
+        if pipeline_settings.chosen_work_mode == 'Ответ по контексту':
             data = AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
             return QualificationMode().execute(data.qualification, amocrm_settings, lead_id, message, openai_key)
 
-        elif pipeline_settings.chosen_work_mode == 'Knowledge mode':
+        elif pipeline_settings.chosen_work_mode == 'Ответ из базы знаний':
             data = AvatarexSiteMethods.get_knowledge_method_data(pipeline_settings.p_mode_id)
             return QualificationMode().execute(data.qualification, amocrm_settings, lead_id, message, openai_key)
 
