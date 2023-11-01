@@ -96,7 +96,7 @@ class KnowledgeMode:
         print('Перефразирован ответ:', response)
         return response
 
-    async def execute(self, message, openai_api_key) -> MethodResponse:
+    def execute(self, message, openai_api_key) -> MethodResponse:
         filename = misc.download_file(self.k_m_data.database_link)
         resp = KnowledgeMode.question_mode(message, filename, self.k_m_data.bounded_situations, openai_api_key)
         return MethodResponse(data=[Message(text=resp)], all_is_ok=True, errors=set())
