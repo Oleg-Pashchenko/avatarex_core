@@ -3525,3 +3525,7 @@
 {"ts":1698924124993,"action":"FILE_OPENED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"106"}}
 {"ts":1698924131249,"action":"FILE_CLOSED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"106"}}
 {"ts":1698924131249,"action":"FILE_OPENED","file":"/test.py","tags":{"FILE_LINE_OF_CODE":"38"}}
+{"ts":1698924142891,"action":"IDE_DEACTIVATED"}
+{"ts":1698924248155,"action":"IDE_ACTIVATED"}
+{"ts":1698924250138,"action":"IDE_DEACTIVATED"}
+{"ts":1698924251603,"action":"IDE_ACTIVATED"}

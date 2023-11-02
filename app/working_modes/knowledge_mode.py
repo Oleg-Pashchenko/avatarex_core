@@ -59,6 +59,8 @@ class KnowledgeMode:
     @staticmethod
     def get_keywords_values(message, func, openai_api_key):
         try:
+            print(func)
+            print(openai_api_key)
             messages = [
                 {'role': 'system', 'content': 'У тебя есть функция. Выполни ее'},
                 {"role": "user",
