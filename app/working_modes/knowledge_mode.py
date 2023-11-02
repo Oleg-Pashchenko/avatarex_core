@@ -14,7 +14,7 @@ def perephrase(message, api_key):
     try:
         response = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
-            messages=[{"role": "system", "content": 'Немного перфразируй сообщение. Оно должно быть вопросительным и презентабельным. Смысл изменяться не должен. Ничего кроме того что есть в исходном сообщении быть не должно.'},
+            messages=[{"role": "system", "content": 'Немного перфразируй сообщение. Оно должно быть презентабельным и полностью сохранять смысл. Ничего кроме того что есть в исходном сообщении быть не должно.'},
                       {'role': 'assistant', 'content': message}],
             max_tokens=4000,
             temperature=1
