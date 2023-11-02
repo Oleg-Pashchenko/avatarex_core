@@ -70,11 +70,11 @@ class KnowledgeMode:
                 functions=func,
                 function_call="auto"
             )
+            print(response)
             response_message = response["choices"][0]["message"]
         except Exception as e:
             print(e)
             return {'is_ok': False, 'args': {}}
-        print(response_message)
         if response_message.get("function_call"):
             function_args = json.loads(response_message["function_call"]["arguments"])
             return {'is_ok': True, 'args': function_args}
