@@ -59,8 +59,6 @@ class KnowledgeMode:
     @staticmethod
     def get_keywords_values(message, func, openai_api_key):
         try:
-            print(func)
-            print(openai_api_key)
             messages = [
                 {'role': 'system', 'content': 'У тебя есть функция. Выполни ее'},
                 {"role": "user",
@@ -72,7 +70,6 @@ class KnowledgeMode:
                 functions=func,
                 function_call="auto"
             )
-            print(response)
             response_message = response["choices"][0]["message"]
         except Exception as e:
             print(e)
