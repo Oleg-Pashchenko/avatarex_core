@@ -76,6 +76,7 @@ class PromptModeSettings:
     max_tokens: int
     temperature: float
     qualification: dict
+    qualification_finished: str
 
 
 @dataclasses.dataclass
@@ -91,6 +92,7 @@ class KnowledgeModeSettings:
     database_link: str
     bounded_situations: BoundedSituations
     qualification: dict
+    qualification_finished: str
 
 
 class AvatarexDBMethods:
@@ -163,12 +165,14 @@ class AvatarexSiteMethods:
 
     @staticmethod
     def get_knowledge_method_data(mode_id) -> KnowledgeModeSettings:
-        cur.execute('SELECT database_link, mode_messages_id, qualification_id FROM home_knowledgemode WHERE id=%s;', (mode_id,))
+        cur.execute('SELECT database_link, mode_messages_id, qualification_id FROM home_knowledgemode WHERE id=%s;',
+                    (mode_id,))
         k_m_data = cur.fetchone()
         cur.execute(
             'SELECT hi_message, openai_error_message, database_error_message, service_settings_error_message FROM home_modemessages WHERE id=%s',
             (k_m_data[1],))
         b_s_data = cur.fetchone()
+        q = AvatarexSiteMethods.get_qualification_data(k_m_data[2])
         return KnowledgeModeSettings(
             database_link=k_m_data[0],
             bounded_situations=BoundedSituations(
@@ -177,7 +181,9 @@ class AvatarexSiteMethods:
                 database_error_message=b_s_data[2],
                 service_settings_error_message=b_s_data[3]
             ),
-            qualification=AvatarexSiteMethods.get_qualification_data(k_m_data[2])
+            qualification=q[0],
+            qualification_finished=q[1]
+
         )  # Knowledge method
 
     def get_knowledge_and_search_method_data(self):
@@ -189,10 +195,13 @@ class AvatarexSiteMethods:
         return cur.fetchone()[0]
 
     @staticmethod
-    def get_qualification_data(qualification_id) -> dict:
-        cur.execute("SELECT value FROM home_modequalification WHERE id=%s", (qualification_id,))  # Qualification data
-        qualification_value = cur.fetchone()[0]
-        return qualification_value
+    def get_qualification_data(qualification_id) -> (dict, str):
+        cur.execute("SELECT value, qualification_finished FROM home_modequalification WHERE id=%s",
+                    (qualification_id,))  # Qualification data
+        resp = cur.fetchone()
+        qualification_value = resp[0]
+        qualification_finished_value = resp[1]
+        return qualification_value, qualification_finished_value
 
     @staticmethod
     def get_amocrm_settings(owner_id: int) -> AmocrmSettings:
@@ -228,10 +237,12 @@ class AvatarexSiteMethods:
         cur.execute('SELECT context, model, max_tokens, temperature, qualification_id FROM home_promptmode WHERE id=%s',
                     (mode_id,))
         prompt_mode_settings = cur.fetchone()  # Prompt method
+        q = AvatarexSiteMethods.get_qualification_data(prompt_mode_settings[4])
         return PromptModeSettings(
             context=prompt_mode_settings[0],
             model=prompt_mode_settings[1],
             max_tokens=prompt_mode_settings[2],
             temperature=prompt_mode_settings[3],
-            qualification=AvatarexSiteMethods.get_qualification_data(prompt_mode_settings[4])
+            qualification=q[0],
+            qualification_finished=q[1]
         )

@@ -37,7 +37,6 @@ def execute(params: dict, r_d: dict):
     #    else:
     #        return print('Отправлено голосовое, но распознование выключено!')
 
-
     if message == RESTART_KEY:
         db.AvatarexDBMethods.clear_messages_by_pipeline_id(lead.pipeline_id)
         return print('История успешно очищена!')
@@ -48,10 +47,10 @@ def execute(params: dict, r_d: dict):
                                                                                                      lead_id,
                                                                                                      message,
                                                                                                      db.AvatarexSiteMethods.get_gpt_key(
-                                                                                                         owner_id))
-    print(qualification_mode_response)
+                                                                                                         owner_id)
+                                                                                                     )
 
-    if not user_answer_is_correct or not has_new:
+    if has_new is False and user_answer_is_correct is None:
         db.AvatarexDBMethods.add_message(message_id=message_id, message=message, lead_id=lead_id, is_bot=False)
 
         if pipeline_settings.chosen_work_mode == 'Ответ по контексту':
@@ -79,9 +78,9 @@ def execute(params: dict, r_d: dict):
         else:
             response = 'Это ответ'
 
-    # if request_settings.working_mode == DEFAULT_WORKING_MODE:
-    #    if await db.message_is_not_last(lead_id, message):
-    #        return print('Сообщение не последнее! Обработка прервана!')
+        # if request_settings.working_mode == DEFAULT_WORKING_MODE:
+        #    if await db.message_is_not_last(lead_id, message):
+        #        return print('Сообщение не последнее! Обработка прервана!')
 
         for entity in response.data:
             if isinstance(entity, Message):

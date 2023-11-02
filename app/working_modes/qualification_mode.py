@@ -83,16 +83,17 @@ class QualificationMode:
                 return False
         return True
 
-    def execute(self, fields_to_fill: dict, amocrm_settings: AmocrmSettings, lead_id: int, message, openai_key) -> (
+    def execute(self, fields_to_fill: dict, amocrm_settings: AmocrmSettings, lead_id: int, message, openai_key,
+                q_f_message) -> (
             MethodResponse, bool, bool):
 
         source_fields = methods.get_fields_info(amocrm_settings, lead_id, fields_to_fill)
         print(source_fields, amocrm_settings, fields_to_fill)
         if len(fields_to_fill.keys()) == 0:  # если пользователь выставил что ничего заполнять не нужно
-            return MethodResponse(data=[], all_is_ok=True, errors=set()), True, False
+            return MethodResponse(data=[], all_is_ok=True, errors=set()), None, False
         print('я тут')
         if self._is_qualification_passed(fields_to_fill, source_fields):  # если квалификация уже пройдена
-            return MethodResponse(data=[], all_is_ok=True, errors=set()), True, False
+            return MethodResponse(data=[], all_is_ok=True, errors=set()), None, False
         # return MethodResponse(data=[], all_is_ok=True, errors=set()), True, True
         # если все же мы остались здесь, значит нужно проверить ответ и задать квалифициирующий вопрос
         print('я здесь')
@@ -108,6 +109,9 @@ class QualificationMode:
             # perephrase message
             data.append(Message(perephrase(api_key=openai_key, message=message)))
 
+        if is_answer_correct is True and message is None:
+            data.append(Message(perephrase(api_key=openai_key, message=q_f_message)))
+
         return MethodResponse(all_is_ok=True, errors=set(), data=data), is_answer_correct, message is not None
 
     @staticmethod
@@ -116,11 +120,13 @@ class QualificationMode:
         # временный костыль для AmoCRM
         if pipeline_settings.chosen_work_mode == 'Ответ по контексту':
             data = AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
-            return QualificationMode().execute(data.qualification, amocrm_settings, lead_id, message, openai_key)
+            return QualificationMode().execute(data.qualification, amocrm_settings, lead_id, message, openai_key,
+                                               data.qualification_finished)
 
         elif pipeline_settings.chosen_work_mode == 'Ответ из базы знаний':
             data = AvatarexSiteMethods.get_knowledge_method_data(pipeline_settings.p_mode_id)
-            return QualificationMode().execute(data.qualification, amocrm_settings, lead_id, message, openai_key)
+            return QualificationMode().execute(data.qualification, amocrm_settings, lead_id, message, openai_key,
+                                               data.qualification_finished)
 
 
 """
