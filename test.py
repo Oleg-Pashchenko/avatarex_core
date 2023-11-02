@@ -3,7 +3,7 @@ import pandas as pd
 import openpyxl
 
 
-openai.api_key = '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'
+openai.api_key = ''
 
 
 def get_func(filename):
