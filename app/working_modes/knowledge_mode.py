@@ -65,7 +65,7 @@ class KnowledgeMode:
                  "content": message}]
             openai.api_key = openai_api_key
             response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo-0613",
+                model="gpt-3.5-turbo-16k",
                 messages=messages,
                 functions=func,
                 function_call="auto"
