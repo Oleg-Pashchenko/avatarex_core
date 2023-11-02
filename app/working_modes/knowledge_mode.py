@@ -14,8 +14,8 @@ def perephrase(message, api_key):
     try:
         response = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
-            messages=[{"role": "system", "content": 'Перефразируй'},
-                      {'role': 'user', 'content': message}],
+            messages=[{"role": "system", "content": 'Сделай данное сообщение более деловым, при этом чтобы смысл не изменился'},
+                      {'role': 'assistant', 'content': message}],
             max_tokens=4000,
             temperature=1
         )
