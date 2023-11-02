@@ -60,7 +60,7 @@ class KnowledgeMode:
     def get_keywords_values(message, func, openai_api_key):
         try:
             messages = [
-                {'role': 'system', 'content': 'Please classificate:'},
+                {'role': 'system', 'content': 'У тебя есть функция. Выполни ее'},
                 {"role": "user",
                  "content": message}]
             openai.api_key = openai_api_key
