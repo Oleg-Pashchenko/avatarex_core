@@ -49,7 +49,7 @@ def execute(params: dict, r_d: dict):
                                                                                                      db.AvatarexSiteMethods.get_gpt_key(
                                                                                                          owner_id)
                                                                                                      )
-
+    print(qualification_mode_response, user_answer_is_correct, has_new)
     if has_new is False and user_answer_is_correct is None:
         db.AvatarexDBMethods.add_message(message_id=message_id, message=message, lead_id=lead_id, is_bot=False)
 
