@@ -68,6 +68,7 @@ def execute(params: dict, r_d: dict):
             response = ""
 
         elif pipeline_settings.chosen_work_mode == 'Ответ из базы знаний':
+            print('я решил получить ответ из базы знаний')
             k_m_data = db.AvatarexSiteMethods.get_knowledge_method_data(pipeline_settings.k_mode_id)
             k_m = KnowledgeMode(
                 k_m_data=k_m_data
