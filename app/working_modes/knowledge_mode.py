@@ -58,7 +58,6 @@ class KnowledgeMode:
 
     @staticmethod
     def get_keywords_values(message, func, openai_api_key):
-        print(func)
         try:
             messages = [
                 {'role': 'system', 'content': 'Please classificate:'},
