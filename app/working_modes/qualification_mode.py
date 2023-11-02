@@ -126,7 +126,7 @@ class QualificationMode:
 
         elif pipeline_settings.chosen_work_mode == 'Ответ из базы знаний':
             print('for knowledge mode')
-            data = AvatarexSiteMethods.get_knowledge_method_data(pipeline_settings.p_mode_id)
+            data = AvatarexSiteMethods.get_knowledge_method_data(pipeline_settings.k_mode_id)
             print(data)
             return QualificationMode().execute(data.qualification, amocrm_settings, lead_id, message, openai_key,
                                                data.qualification_finished)

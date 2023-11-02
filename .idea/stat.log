@@ -3586,3 +3586,6 @@
 {"ts":1698933228253,"action":"IDE_ACTIVATED"}
 {"ts":1698933248336,"action":"FILE_CLOSED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"197"}}
 {"ts":1698933248336,"action":"FILE_OPENED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"249"}}
+{"ts":1698933262559,"action":"FILE_CLOSED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"249"}}
+{"ts":1698933262559,"action":"FILE_OPENED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"197"}}
+{"ts":1698933272614,"action":"IDE_DEACTIVATED"}
