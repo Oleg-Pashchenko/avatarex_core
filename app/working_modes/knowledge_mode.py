@@ -108,9 +108,9 @@ class KnowledgeMode:
             return perephrase(bounded_situations.database_error_message, openai_api_key)
         print("Квалифицирован вопрос:", response['args'])
         print('Получен ответ из базы данных:', answer)
-        response = perephrase(answer, openai_api_key)
+        # response = perephrase(answer, openai_api_key)
         print('Перефразирован ответ:', response)
-        return response
+        return answer
 
     def execute(self, message, openai_api_key) -> MethodResponse:
         filename = misc.download_file(self.k_m_data.database_link)
