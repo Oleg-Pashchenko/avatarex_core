@@ -8,7 +8,7 @@ from app.utils import misc
 from app.utils.db import MethodResponse, Message
 import pandas as pd
 
-descr = "Возвращает вопрос похожий на заданный user."
+descr = "Возвращает вопрос являющийся другой формулировкой на заданный."
 
 def perephrase(message, api_key):
     openai.api_key = api_key
@@ -38,7 +38,7 @@ class KnowledgeMode:
             "description": descr,
             "parameters": {
                 "type": "object",
-                "properties": {'Question': {'type': 'string', 'description': 'Название вопроса из enum похожего на заданный', 'enum': first_row}},
+                "properties": {'Question': {'type': 'string', 'description': 'Название вопроса', 'enum': first_row}},
                 'required': ['Question']
             }
         }]
