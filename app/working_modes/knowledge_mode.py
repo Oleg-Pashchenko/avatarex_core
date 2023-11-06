@@ -32,16 +32,13 @@ class KnowledgeMode:
     def get_question_db_function(filename):
         df = pd.read_excel(filename)
         first_row = list(df.iloc[:, 0])
-        properties = {}
-        for el in first_row:
-            properties[el] = {'type': 'boolean'}
         return [{
             "name": "Function",
             "description": "Get flat request",
             "parameters": {
                 "type": "object",
-                "properties": properties,
-                'required': []
+                "properties": {'Question': {'type': 'string', 'enum': first_row}},
+                'required': ['Question']
             }
         }]
 
@@ -74,7 +71,7 @@ class KnowledgeMode:
                 function_call='auto'
             )
             response_message = response["choices"][0]["message"]
-            print(response)
+            return {'os_ok': True, 'args': {'Question': response_message}}
         except Exception as e:
             print(e)
             return {'is_ok': False, 'args': {}}
