@@ -8,7 +8,7 @@ from app.utils import misc
 from app.utils.db import MethodResponse, Message
 import pandas as pd
 
-descr = "Ищет соотвтествующий вопрос"
+descr = "Ищет соотвтествующий вопрос если не нашел соотвтествия - возвращает пустоту"
 
 
 def perephrase(message, api_key,
@@ -41,7 +41,7 @@ class KnowledgeMode:
             if r in rq:
                 continue
             rq.append(r)
-            properties[r] = {'type': 'boolean', 'description': 'Вопрос соответствует заданному?'}
+            properties[r] = {'type': 'boolean', 'description': 'Вопрос полностью соответствует заданному?'}
 
         return [{
             "name": "get_question_by_context",
