@@ -32,15 +32,16 @@ class KnowledgeMode:
     def get_question_db_function(filename):
         df = pd.read_excel(filename)
         first_row = list(df.iloc[:, 0])
+        properties = {}
         for el in first_row:
-            print(el)
+            properties[el] = {'type': 'bool'}
         return [{
             "name": "Function",
             "description": "Get flat request",
             "parameters": {
                 "type": "object",
-                "properties": {'Question': {'type': 'string', 'enum': first_row}},
-                'required': ['Question']
+                "properties": properties,
+                'required': []
             }
         }]
 
@@ -69,7 +70,8 @@ class KnowledgeMode:
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo-16k",
                 messages=messages,
-                functions=func
+                functions=func,
+                function_call='auto'
             )
             response_message = response["choices"][0]["message"]
             print(response)
