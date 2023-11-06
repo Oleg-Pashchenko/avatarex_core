@@ -8,7 +8,7 @@ from app.utils import misc
 from app.utils.db import MethodResponse, Message
 import pandas as pd
 
-descr = "Возвращает вопрос похожий по смыслу на заданный user."
+descr = "Возвращает вопрос похожий на заданный user."
 
 def perephrase(message, api_key):
     openai.api_key = api_key
