@@ -34,7 +34,7 @@ class KnowledgeMode:
         first_row = list(df.iloc[:, 0])
         return [{
             "name": "get_question_by_context",
-            "description": "returns the value of a question roughly similar to the one sent by the user",
+            "description": "return the question most similar to the one passed to the function in terms of meaning",
             "parameters": {
                 "type": "object",
                 "properties": {'Question': {'type': 'string', 'enum': first_row}},
