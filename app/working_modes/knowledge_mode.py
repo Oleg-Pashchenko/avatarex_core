@@ -38,7 +38,7 @@ class KnowledgeMode:
             "description": descr,
             "parameters": {
                 "type": "object",
-                "properties": {'Question': {'type': 'string', 'enum': first_row}},
+                "properties": {'Question': {'type': 'string', 'description': 'Название вопроса из enum похожего на заданный', 'enum': first_row}},
                 'required': ['Question']
             }
         }]
