@@ -33,8 +33,8 @@ class KnowledgeMode:
         df = pd.read_excel(filename)
         first_row = list(df.iloc[:, 0])
         return [{
-            "name": "Function",
-            "description": "Get flat request",
+            "name": "get_question_by_context",
+            "description": "return question name associated with message",
             "parameters": {
                 "type": "object",
                 "properties": {'Question': {'type': 'string', 'enum': first_row}},
@@ -68,10 +68,9 @@ class KnowledgeMode:
                 model="gpt-3.5-turbo-16k",
                 messages=messages,
                 functions=func,
-                function_call='auto'
+                function_call={"name": "get_question_by_context"}
             )
             response_message = response["choices"][0]["message"]
-            return {'os_ok': True, 'args': {'Question': response_message}}
         except Exception as e:
             print(e)
             return {'is_ok': False, 'args': {}}
