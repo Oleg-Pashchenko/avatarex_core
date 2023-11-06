@@ -84,12 +84,13 @@ class KnowledgeMode:
             return {'is_ok': False, 'args': {}}
         if response_message.get("function_call"):
             function_args = json.loads(response_message["function_call"]["arguments"])
+            print(function_args.keys())
             try:
                 return {'is_ok': True, 'args': list(function_args.keys())}
             except:
-                return {'is_ok': False, 'args': {}}
+                return {'is_ok': False, 'args': []}
         else:
-            return {'is_ok': False, 'args': {}}
+            return {'is_ok': False, 'args': []}
 
     @staticmethod
     def question_mode(user_message, filename, bounded_situations: BoundedSituations, openai_api_key):
