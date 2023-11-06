@@ -34,7 +34,9 @@ class KnowledgeMode:
         df = pd.read_excel(filename)
         first_row = list(df.iloc[:, 0])
         properties = {}
+        rq = []
         for r in first_row:
+            rq.append(r)
             properties[r] = {'type': 'boolean', 'description': 'Вопрос соответствует заданному?'}
 
         return [{
@@ -43,7 +45,7 @@ class KnowledgeMode:
             "parameters": {
                 "type": "object",
                 "properties": properties,
-                'required': []
+                'required': rq
             }
         }]
 
