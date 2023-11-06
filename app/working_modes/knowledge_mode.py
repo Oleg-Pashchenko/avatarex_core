@@ -8,6 +8,7 @@ from app.utils import misc
 from app.utils.db import MethodResponse, Message
 import pandas as pd
 
+descr = "верни любой вопрос похожий на переданный в функцию по смыслу хотя бы частично. Вопрос вернуть нужно обязательно"
 
 def perephrase(message, api_key):
     openai.api_key = api_key
@@ -34,7 +35,7 @@ class KnowledgeMode:
         first_row = list(df.iloc[:, 0])
         return [{
             "name": "get_question_by_context",
-            "description": "return a question similar in meaning to the one passed to the function. It can be simply rephrased or slightly different. Return the name of the question for it",
+            "description": descr,
             "parameters": {
                 "type": "object",
                 "properties": {'Question': {'type': 'string', 'enum': first_row}},
@@ -60,7 +61,7 @@ class KnowledgeMode:
     def get_keywords_values(message, func, openai_api_key):
         try:
             messages = [
-                {'role': 'system', 'content': 'return a question similar in meaning to the one passed to the function. It can be simply rephrased or slightly different.'},
+                {'role': 'system', 'content': descr},
                 {"role": "user",
                  "content": message}]
             openai.api_key = openai_api_key
