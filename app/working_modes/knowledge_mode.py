@@ -91,8 +91,10 @@ class KnowledgeMode:
             function_call={"name": "is_questions_is_similar"}
         )
         response_message = response["choices"][0]["message"]
-        print("SATISFY", response_message)
-        return response_message["function_call"]["arguments"]['is_similar']
+        function_args = json.loads(response_message["function_call"]["arguments"])
+
+        print("SATISFY", function_args)
+        return function_args['is_similar']
 
     @staticmethod
     def get_keywords_values(message, func, openai_api_key):
