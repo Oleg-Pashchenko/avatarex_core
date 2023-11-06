@@ -4155,3 +4155,15 @@
 {"ts":1699262136047,"action":"IDE_ACTIVATED"}
 {"ts":1699262144089,"action":"IDE_DEACTIVATED"}
 {"ts":1699262194500,"action":"IDE_ACTIVATED"}
+{"ts":1699262226615,"action":"FILE_CLOSED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"106"}}
+{"ts":1699262229950,"action":"FILE_OPENED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"106"}}
+{"ts":1699262231541,"action":"IDE_DEACTIVATED"}
+{"ts":1699262233025,"action":"IDE_ACTIVATED"}
+{"ts":1699262234326,"action":"FILE_CLOSED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"106"}}
+{"ts":1699262234326,"action":"FILE_OPENED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"327"}}
+{"ts":1699262236698,"action":"FILE_CLOSED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"327"}}
+{"ts":1699262236698,"action":"FILE_OPENED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"106"}}
+{"ts":1699262250712,"action":"IDE_DEACTIVATED"}
+{"ts":1699262289795,"action":"IDE_ACTIVATED"}
+{"ts":1699262290860,"action":"IDE_DEACTIVATED"}
+{"ts":1699262491863,"action":"IDE_ACTIVATED"}

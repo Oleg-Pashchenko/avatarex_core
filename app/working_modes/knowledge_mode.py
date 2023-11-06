@@ -60,15 +60,14 @@ class KnowledgeMode:
     def get_keywords_values(message, func, openai_api_key):
         try:
             messages = [
-                {'role': 'system', 'content': 'У тебя есть функция. Выполни ее'},
+                {'role': 'system', 'content': 'Классифицируй к какому вопросу относится данное сообщение'},
                 {"role": "user",
                  "content": message}]
             openai.api_key = openai_api_key
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo-16k",
                 messages=messages,
-                functions=func,
-                function_call="auto"
+                functions=func
             )
             response_message = response["choices"][0]["message"]
             print(response)
