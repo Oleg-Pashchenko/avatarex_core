@@ -66,7 +66,7 @@ def execute(params: dict, r_d: dict):
             )
             response = p_m.execute()
 
-        elif pipeline_settings.chosen_work_mode == 'Database mode':
+        elif pipeline_settings.chosen_work_mode == 'Ответ из базы данных':
             print('я решил получить ответ из базы данных')
             s_m_data = db.AvatarexSiteMethods.get_search_method_data(pipeline_settings.s_mode_id)
             s_m = SearchMode(
