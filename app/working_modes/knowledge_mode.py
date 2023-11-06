@@ -79,7 +79,7 @@ class KnowledgeMode:
             "name": "is_questions_is_similar",
             "parameters": {
                 "type": "object",
-                "properties": {'is_similar': {'type': 'boolean'}},
+                "properties": {'is_similar': {'type': 'boolean', 'description': 'Являются ли 2 вопроса подобными'}},
                 'required': ['is_similar']
             }
         }]
