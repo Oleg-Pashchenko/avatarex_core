@@ -36,6 +36,8 @@ class KnowledgeMode:
         properties = {}
         rq = []
         for r in first_row:
+            if r in rq:
+                continue
             rq.append(r)
             properties[r] = {'type': 'boolean', 'description': 'Вопрос соответствует заданному?'}
 
