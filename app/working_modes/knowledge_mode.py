@@ -10,12 +10,12 @@ import pandas as pd
 
 descr = "Ищет соотвтествующий вопрос"
 
-def perephrase(message, api_key):
+def perephrase(message, api_key, descr='Немного перфразируй сообщение. Оно должно быть презентабельным и полностью сохранять смысл. Ничего кроме того что есть в исходном сообщении быть не должно.'):
     openai.api_key = api_key
     try:
         response = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
-            messages=[{"role": "system", "content": 'Немного перфразируй сообщение. Оно должно быть презентабельным и полностью сохранять смысл. Ничего кроме того что есть в исходном сообщении быть не должно.'},
+            messages=[{"role": "system", "content": descr},
                       {'role': 'assistant', 'content': message}],
             max_tokens=4000,
             temperature=1
@@ -50,15 +50,16 @@ class KnowledgeMode:
         }]
 
     @staticmethod
-    def get_answer_by_question(question, filename):
-        answer = None
+    def get_answer_by_question(questions, filename):
+        answer = ''
         try:
             df = pd.read_excel(filename)
             list_of_arrays = list(df.iloc)
-            for i in list_of_arrays:
-                if i[0] == question:
-                    answer = i[1]
-                    break
+            for q in questions:
+                for i in list_of_arrays:
+                    if i[0] == q:
+                        answer += i[1] + '\n'
+                        break
         except:
             pass
         return answer
@@ -83,9 +84,8 @@ class KnowledgeMode:
             return {'is_ok': False, 'args': {}}
         if response_message.get("function_call"):
             function_args = json.loads(response_message["function_call"]["arguments"])
-            print(function_args.keys())
             try:
-                return {'is_ok': True, 'args': function_args.keys()[0]}
+                return {'is_ok': True, 'args': list(function_args.keys())}
             except:
                 return {'is_ok': False, 'args': {}}
         else:
@@ -105,7 +105,7 @@ class KnowledgeMode:
             return perephrase(bounded_situations.database_error_message, openai_api_key)
         print("Квалифицирован вопрос:", response['args']['Question'])
         print('Получен ответ из базы данных:', answer)
-        response = perephrase(answer, openai_api_key)
+        response = perephrase(answer, openai_api_key, descr='Удали всю повторяющуся информацию. Немного перфразируй сообщение. Оно должно быть презентабельным и полностью сохранять смысл. Ничего кроме того что есть в исходном сообщении быть не должно.')
         print('Перефразирован ответ:', response)
         return response
 
