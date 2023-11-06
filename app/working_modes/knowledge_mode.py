@@ -10,7 +10,9 @@ import pandas as pd
 
 descr = "Ищет соотвтествующий вопрос"
 
-def perephrase(message, api_key, descr='Немного перфразируй сообщение. Оно должно быть презентабельным и полностью сохранять смысл. Ничего кроме того что есть в исходном сообщении быть не должно.'):
+
+def perephrase(message, api_key,
+               descr='Немного перфразируй сообщение. Оно должно быть презентабельным и полностью сохранять смысл. Ничего кроме того что есть в исходном сообщении быть не должно.'):
     openai.api_key = api_key
     try:
         response = openai.ChatCompletion.create(
@@ -57,14 +59,38 @@ class KnowledgeMode:
         try:
             df = pd.read_excel(filename)
             list_of_arrays = list(df.iloc)
-            for q in questions:
-                for i in list_of_arrays:
-                    if i[0] == q:
-                        answer += i[1] + '\n'
-                        break
+            for i in list_of_arrays:
+                if i[0] == questions:
+                    answer += i[1] + '\n'
+                    break
         except:
             pass
         return answer
+
+    @staticmethod
+    def is_q_satisfy_q(q1, q2, openai_api_key):
+        messages = [
+            {'role': 'system', 'content': "Похож ли один вопрос на другой"},
+            {"role": "user", "content": q1},
+            {"role": "user", "content": q2},
+        ]
+        func = [{
+            "name": "is_questions_is_similar",
+            "parameters": {
+                "type": "object",
+                "properties": {'is_similar': {'type': 'boolean'}},
+                'required': ['is_similar']
+            }
+        }]
+        openai.api_key = openai_api_key
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
+            functions=func,
+            function_call={"name": "is_questions_is_similar"}
+        )
+        response_message = response["choices"][0]["message"]
+        return response_message["function_call"]["arguments"]['is_similar']
 
     @staticmethod
     def get_keywords_values(message, func, openai_api_key):
@@ -88,7 +114,7 @@ class KnowledgeMode:
             function_args = json.loads(response_message["function_call"]["arguments"])
             print(function_args.keys())
             try:
-                return {'is_ok': True, 'args': list(function_args.keys())}
+                return {'is_ok': True, 'args': list(function_args.keys())[0]}
             except:
                 return {'is_ok': False, 'args': []}
         else:
@@ -100,7 +126,7 @@ class KnowledgeMode:
         func = KnowledgeMode.get_question_db_function(filename)
         response = KnowledgeMode.get_keywords_values(user_message, func, openai_api_key)
         print('RESPONSE', response)
-        if not response['is_ok'] or len(response['args']) > 9:
+        if not response['is_ok'] or len(response['args']) > 9 or KnowledgeMode.is_q_satisfy_q(response, user_message, openai_api_key):
             return perephrase(bounded_situations.openai_error_message, openai_api_key)
         answer = KnowledgeMode.get_answer_by_question(response['args'], filename)
         print('ANSWER', answer)
