@@ -69,7 +69,7 @@ class KnowledgeMode:
 
     @staticmethod
     def is_q_satisfy_q(q1, q2, openai_api_key, attempt=1):
-        if attempt == 4:
+        if attempt == 2:
             return False
         rule = 'Являются ли вопросы идентичными'
         print('IS_Q_SATISFT', attempt)
