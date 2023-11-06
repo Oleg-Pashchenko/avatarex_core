@@ -127,7 +127,7 @@ class KnowledgeMode:
         func = KnowledgeMode.get_question_db_function(filename)
         response = KnowledgeMode.get_keywords_values(user_message, func, openai_api_key)
         print('RESPONSE', response)
-        if not response['is_ok'] or len(response['args']) > 9 or not KnowledgeMode.is_q_satisfy_q(response, user_message, openai_api_key):
+        if not response['is_ok'] or not KnowledgeMode.is_q_satisfy_q(response, user_message, openai_api_key):
             return perephrase(bounded_situations.openai_error_message, openai_api_key)
         answer = KnowledgeMode.get_answer_by_question(response['args'], filename)
         print('ANSWER', answer)
