@@ -33,13 +33,17 @@ class KnowledgeMode:
     def get_question_db_function(filename):
         df = pd.read_excel(filename)
         first_row = list(df.iloc[:, 0])
+        properties = {}
+        for r in first_row:
+            properties[r] = {'type': 'boolean', 'description': 'Является ли вопрос похожим на заданный'}
+
         return [{
             "name": "get_question_by_context",
             "description": descr,
             "parameters": {
                 "type": "object",
-                "properties": {'Question': {'type': 'string', 'description': 'Название вопроса', 'enum': first_row}},
-                'required': ['Question']
+                "properties": properties,
+                'required': []
             }
         }]
 
@@ -77,6 +81,8 @@ class KnowledgeMode:
             return {'is_ok': False, 'args': {}}
         if response_message.get("function_call"):
             function_args = json.loads(response_message["function_call"]["arguments"])
+            print('ARGS!!!!!!!')
+            print(function_args)
             return {'is_ok': True, 'args': function_args}
         else:
             return {'is_ok': False, 'args': {}}
