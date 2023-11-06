@@ -73,15 +73,15 @@ class KnowledgeMode:
             return False
         print('IS_Q_SATISFT')
         messages = [
-            {'role': 'system', 'content': "Подобны ли вопросы по смыслу"},
-            {"role": "user", "content": q1['args']},
+            {'role': 'system', 'content': "относятся ли данные к одной теме"},
+            {"role": "user", "content": q1},
             {"role": "user", "content": q2},
         ]
         func = [{
             "name": "is_questions_is_similar",
             "parameters": {
                 "type": "object",
-                "properties": {'is_similar': {'type': 'boolean', 'description': 'Подобны ли вопросы по смыслу'}},
+                "properties": {'is_similar': {'type': 'boolean', 'description': 'относятся ли данные к одной теме'}},
                 'required': ['is_similar']
             }
         }]
@@ -122,7 +122,7 @@ class KnowledgeMode:
             function_args = json.loads(response_message["function_call"]["arguments"])
             print(function_args.keys())
             try:
-                return {'is_ok': True, 'args': list(function_args.keys())[0]}
+                return {'is_ok': True, 'args': list(function_args.keys())}
             except:
                 return {'is_ok': False, 'args': []}
         else:
@@ -134,9 +134,10 @@ class KnowledgeMode:
         func = KnowledgeMode.get_question_db_function(filename)
         response = KnowledgeMode.get_keywords_values(user_message, func, openai_api_key)
         print('RESPONSE', response)
-        if not response['is_ok'] or not KnowledgeMode.is_q_satisfy_q(response, user_message, openai_api_key):
+        if not response['is_ok'] or not KnowledgeMode.is_q_satisfy_q(response['args'][0], user_message, openai_api_key):
             return perephrase(bounded_situations.openai_error_message, openai_api_key)
-        answer = KnowledgeMode.get_answer_by_question(response['args'], filename)
+        response = response['args'][0]
+        answer = KnowledgeMode.get_answer_by_question(response, filename)
 
         if answer == '':
             return perephrase(bounded_situations.database_error_message, openai_api_key)
