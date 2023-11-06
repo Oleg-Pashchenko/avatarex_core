@@ -73,15 +73,16 @@ class KnowledgeMode:
             return False
         print('IS_Q_SATISFT')
         messages = [
-            {'role': 'system', 'content': "относятся ли данные к одной теме"},
+            {'role': 'system', 'content': "Вопросы являются переформулировкой друг друга?"},
             {"role": "user", "content": q1},
             {"role": "user", "content": q2},
         ]
         func = [{
             "name": "is_questions_is_similar",
+            "description": 'Вопросы являются переформулировкой друг друга?',
             "parameters": {
                 "type": "object",
-                "properties": {'is_similar': {'type': 'boolean', 'description': 'относятся ли данные к одной теме'}},
+                "properties": {'is_similar': {'type': 'boolean', 'description': 'Вопросы являются переформулировкой друг друга?'}},
                 'required': ['is_similar']
             }
         }]
