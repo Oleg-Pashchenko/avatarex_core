@@ -8,7 +8,7 @@ from app.utils import misc
 from app.utils.db import MethodResponse, Message
 import pandas as pd
 
-descr = "Возвращает статусы вопросов о том являюится ли он другой формулировкой или похожим на заданный."
+descr = "Ищет соотвтествующий вопрос"
 
 def perephrase(message, api_key):
     openai.api_key = api_key
@@ -35,7 +35,7 @@ class KnowledgeMode:
         first_row = list(df.iloc[:, 0])
         properties = {}
         for r in first_row:
-            properties[r] = {'type': 'boolean'}
+            properties[r] = {'type': 'boolean', 'description': 'Вопрос соответствует заданному?'}
 
         return [{
             "name": "get_question_by_context",
