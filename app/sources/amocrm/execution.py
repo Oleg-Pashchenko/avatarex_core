@@ -2,10 +2,12 @@ from app.sources.amocrm import db
 from app.sources.amocrm.constants import *
 import time
 from app.sources.amocrm.methods import send_message, fill_field
-from app.utils.db import Message, Command
+from app.utils.db import Message, Command, MethodResponse
+from app.working_modes.knowledge_and_search_mode import KnowledgeAndSearchMode
 from app.working_modes.knowledge_mode import KnowledgeMode
 from app.working_modes.prompt_mode import PromptMode
 from app.working_modes.qualification_mode import QualificationMode
+from app.working_modes.search_mode import SearchMode
 
 
 def execute(params: dict, r_d: dict):
@@ -65,7 +67,12 @@ def execute(params: dict, r_d: dict):
             response = p_m.execute()
 
         elif pipeline_settings.chosen_work_mode == 'Database mode':
-            response = ""
+            print('я решил получить ответ из базы данных')
+            s_m_data = db.AvatarexSiteMethods.get_search_method_data(pipeline_settings.s_mode_id)
+            s_m = SearchMode(
+                s_m_data=s_m_data
+            )
+            response = s_m.execute(message, db.AvatarexSiteMethods.get_gpt_key(owner_id))
 
         elif pipeline_settings.chosen_work_mode == 'Ответ из базы знаний':
             print('я решил получить ответ из базы знаний')
@@ -76,8 +83,19 @@ def execute(params: dict, r_d: dict):
             response = k_m.execute(message,
                                    db.AvatarexSiteMethods.get_gpt_key(owner_id))
 
+        elif pipeline_settings.chosen_work_mode == 'Ответ из базы знаний и базы данных':
+            response = MethodResponse([Message(text="Метод не активен!")], all_is_ok=False, errors=set())
+
+            # print("я решил получить ответ из базы знаний и базы данных")
+            # k_s_m_data = db.AvatarexSiteMethods.get_knowledge_and_search_method_data(pipeline_settings.k_s_mode_id)
+            # k_s_m = KnowledgeAndSearchMode(
+            #    k_s_m_data=k_s_m_data
+            # )
+            # response = k_s_m_data.execute(message,
+             #                             db.AvatarexSiteMethods.get_gpt_key(owner_id))
+
         else:
-            response = 'Это ответ'
+            response = MethodResponse([Message(text="Ошибка выбора режима работы!")], all_is_ok=False, errors=set())
 
         # if request_settings.working_mode == DEFAULT_WORKING_MODE:
         #    if await db.message_is_not_last(lead_id, message):

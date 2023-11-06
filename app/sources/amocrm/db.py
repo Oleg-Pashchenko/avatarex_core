@@ -95,6 +95,29 @@ class KnowledgeModeSettings:
     qualification_finished: str
 
 
+@dataclasses.dataclass
+class SearchModeSettings:
+    database_link: str
+    search_rules: dict
+    view_rule: str
+    results_count: int
+    bounded_situations: BoundedSituations
+    qualification: dict
+    qualification_finished: str
+
+
+@dataclasses.dataclass
+class KnowledgeAndSearchSettings:
+    search_database_link: str
+    knowledge_database_link: str
+    search_rules: dict
+    view_rule: str
+    results_count: int
+    bounded_situations: BoundedSituations
+    qualification: dict
+    qualification_finished: str
+
+
 class AvatarexDBMethods:
     @staticmethod
     def update_lead(r_d):
@@ -157,11 +180,32 @@ class AvatarexDBMethods:
 
 
 class AvatarexSiteMethods:
-    def get_database_method_data(self):
-        pass  # Bounded situations
+    @staticmethod
+    def get_search_method_data(mode_id) -> SearchModeSettings:
+        cur.execute(
+            'SELECT database_link, search_rules, view_rule, results_count, mode_messages_id, qualification_id FROM home_searchmode WHERE id=%s;',
+            (mode_id,))
+        s_m_data = cur.fetchone()
+        cur.execute(
+            'SELECT hi_message, openai_error_message, database_error_message, service_settings_error_message FROM home_modemessages WHERE id=%s',
+            (s_m_data[4],))
+        b_s_data = cur.fetchone()
+        q = AvatarexSiteMethods.get_qualification_data(s_m_data[5])
+        return SearchModeSettings(
+            database_link=s_m_data[0],
+            search_rules=s_m_data[1],
+            view_rule=s_m_data[2],
+            results_count=s_m_data[3],
+            bounded_situations=BoundedSituations(
+                hi_message=b_s_data[0],
+                openai_error_message=b_s_data[1],
+                database_error_message=b_s_data[2],
+                service_settings_error_message=b_s_data[3]
+            ),
+            qualification=q[0],
+            qualification_finished=q[1]
 
-    def get_search_method_data(self):
-        pass  # Search method
+        )  # Search method
 
     @staticmethod
     def get_knowledge_method_data(mode_id) -> KnowledgeModeSettings:
@@ -186,8 +230,42 @@ class AvatarexSiteMethods:
 
         )  # Knowledge method
 
-    def get_knowledge_and_search_method_data(self):
-        pass  # Knowledge and search method
+    @staticmethod
+    def get_knowledge_and_search_method_data(k_s_search_mode_id):
+        cur.execute("SELECT knowledge_mode_id, search_mode_id FROM home_searchandknowledgemode WHERE id=%s;",
+                    (k_s_search_mode_id))
+        k_s_m_data = cur.fetchone()
+        search_mode_id, knowledge_mode_id = k_s_m_data[1], k_s_m_data[0]
+
+        cur.execute('SELECT database_link FROM home_knowledgemode WHERE id=%s;',
+                    (knowledge_mode_id,))
+        k_m_data = cur.fetchone()
+        cur.execute(
+            'SELECT database_link, search_rules, view_rule, results_count, mode_messages_id, qualification_id FROM home_searchmode WHERE id=%s;',
+            (search_mode_id,))
+        s_m_data = cur.fetchone()
+        cur.execute(
+            'SELECT hi_message, openai_error_message, database_error_message, service_settings_error_message FROM home_modemessages WHERE id=%s',
+            (s_m_data[4],))
+        b_s_data = cur.fetchone()
+        q = AvatarexSiteMethods.get_qualification_data(s_m_data[5])
+        return KnowledgeAndSearchSettings(
+            knowledge_database_link=k_m_data[0],
+            search_database_link=s_m_data[0],
+            search_rules=s_m_data[1],
+            view_rule=s_m_data[2],
+            results_count=s_m_data[3],
+            bounded_situations=BoundedSituations(
+                hi_message=b_s_data[0],
+                openai_error_message=b_s_data[1],
+                database_error_message=b_s_data[2],
+                service_settings_error_message=b_s_data[3]
+            ),
+            qualification=q[0],
+            qualification_finished=q[1]
+
+        )  # Search method
+        # Knowledge and search method
 
     @staticmethod
     def get_gpt_key(owner_id: int) -> str:
