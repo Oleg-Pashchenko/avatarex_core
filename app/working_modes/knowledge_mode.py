@@ -72,7 +72,7 @@ class KnowledgeMode:
         if attempt == 4:
             return False
         rule = 'Являются ли вопросы идентичными'
-        print('IS_Q_SATISFT')
+        print('IS_Q_SATISFT', attempt)
         messages = [
             {'role': 'system', 'content': rule},
             {"role": "user", "content": q1},
