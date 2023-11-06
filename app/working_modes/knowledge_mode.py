@@ -34,7 +34,7 @@ class KnowledgeMode:
         first_row = list(df.iloc[:, 0])
         properties = {}
         for el in first_row:
-            properties[el] = {'type': 'bool'}
+            properties[el] = {'type': 'boolean'}
         return [{
             "name": "Function",
             "description": "Get flat request",
