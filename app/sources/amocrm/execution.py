@@ -84,7 +84,7 @@ def execute(params: dict, r_d: dict):
                                    db.AvatarexSiteMethods.get_gpt_key(owner_id))
 
         elif pipeline_settings.chosen_work_mode == 'Ответ из базы знаний и базы данных':
-            response = MethodResponse([Message(text="Метод не активен!")], all_is_ok=False, errors=set())
+            response = MethodResponse(data=[Message(text="Метод не активен!")], all_is_ok=False, errors=set())
 
             # print("я решил получить ответ из базы знаний и базы данных")
             # k_s_m_data = db.AvatarexSiteMethods.get_knowledge_and_search_method_data(pipeline_settings.k_s_mode_id)
@@ -95,7 +95,7 @@ def execute(params: dict, r_d: dict):
              #                             db.AvatarexSiteMethods.get_gpt_key(owner_id))
 
         else:
-            response = MethodResponse([Message(text="Ошибка выбора режима работы!")], all_is_ok=False, errors=set())
+            response = MethodResponse(data=[Message(text="Ошибка выбора режима работы!")], all_is_ok=False, errors=set())
 
         # if request_settings.working_mode == DEFAULT_WORKING_MODE:
         #    if await db.message_is_not_last(lead_id, message):

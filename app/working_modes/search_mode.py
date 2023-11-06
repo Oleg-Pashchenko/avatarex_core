@@ -107,7 +107,7 @@ class SearchMode:
             resp += f'\n{rule}'
         return resp
 
-    async def execute(self, message, gpt_key) -> MethodResponse:
+    def execute(self, message, gpt_key) -> MethodResponse:
         filename = misc.download_file(self.s_m_data.database_link)
         function = SearchMode.get_function(filename)
         values = SearchMode.get_keywords_values(message, function, gpt_key)
