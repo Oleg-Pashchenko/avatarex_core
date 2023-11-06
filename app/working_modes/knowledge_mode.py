@@ -83,9 +83,11 @@ class KnowledgeMode:
             return {'is_ok': False, 'args': {}}
         if response_message.get("function_call"):
             function_args = json.loads(response_message["function_call"]["arguments"])
-            print('ARGS!!!!!!!')
             print(function_args)
-            return {'is_ok': True, 'args': function_args}
+            try:
+                return {'is_ok': True, 'args': function_args.keys()[0]}
+            except:
+                return {'is_ok': False, 'args': {}}
         else:
             return {'is_ok': False, 'args': {}}
 
