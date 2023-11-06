@@ -131,13 +131,10 @@ class KnowledgeMode:
         if not response['is_ok'] or not KnowledgeMode.is_q_satisfy_q(response, user_message, openai_api_key):
             return perephrase(bounded_situations.openai_error_message, openai_api_key)
         answer = KnowledgeMode.get_answer_by_question(response['args'], filename)
-        print('ANSWER', answer)
+
         if answer == '':
             return perephrase(bounded_situations.database_error_message, openai_api_key)
-        print("Квалифицирован вопрос:", response['args'])
-        print('Получен ответ из базы данных:', answer)
-        # response = perephrase(answer, openai_api_key)
-        print('Перефразирован ответ:', response)
+
         return answer
 
     def execute(self, message, openai_api_key) -> MethodResponse:
