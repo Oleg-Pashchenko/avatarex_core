@@ -100,11 +100,11 @@ class KnowledgeMode:
         print('RESPONSE', response)
         if not response['is_ok']:
             return perephrase(bounded_situations.openai_error_message, openai_api_key)
-        answer = KnowledgeMode.get_answer_by_question(response['args']['Question'], filename)
+        answer = KnowledgeMode.get_answer_by_question(response['args'], filename)
         print('ANSWER', answer)
         if answer is None:
             return perephrase(bounded_situations.database_error_message, openai_api_key)
-        print("Квалифицирован вопрос:", response['args']['Question'])
+        print("Квалифицирован вопрос:", response['args'])
         print('Получен ответ из базы данных:', answer)
         response = perephrase(answer, openai_api_key, descr='Удали всю повторяющуся информацию. Немного перфразируй сообщение. Оно должно быть презентабельным и полностью сохранять смысл. Ничего кроме того что есть в исходном сообщении быть не должно.')
         print('Перефразирован ответ:', response)
