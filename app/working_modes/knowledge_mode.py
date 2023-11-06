@@ -68,10 +68,12 @@ class KnowledgeMode:
         return answer
 
     @staticmethod
-    def is_q_satisfy_q(q1, q2, openai_api_key):
+    def is_q_satisfy_q(q1, q2, openai_api_key, attempt=1):
+        if attempt == 4:
+            return False
         print('IS_Q_SATISFT')
         messages = [
-            {'role': 'system', 'content': "Похож ли один вопрос на другой"},
+            {'role': 'system', 'content': "Похож ли по смыслу один вопрос на другой"},
             {"role": "user", "content": q1['args']},
             {"role": "user", "content": q2},
         ]
@@ -79,7 +81,7 @@ class KnowledgeMode:
             "name": "is_questions_is_similar",
             "parameters": {
                 "type": "object",
-                "properties": {'is_similar': {'type': 'boolean', 'description': 'Являются ли 2 вопроса подобными'}},
+                "properties": {'is_similar': {'type': 'boolean', 'description': 'Являются ли 2 вопроса похожими по смыслу'}},
                 'required': ['is_similar']
             }
         }]
@@ -94,6 +96,8 @@ class KnowledgeMode:
         function_args = json.loads(response_message["function_call"]["arguments"])
 
         print("SATISFY", function_args)
+        if not function_args['is_similar']:
+            return KnowledgeMode.is_q_satisfy_q(q1, q2, openai_api_key, attempt+1)
         return function_args['is_similar']
 
     @staticmethod
