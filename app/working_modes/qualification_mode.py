@@ -135,6 +135,10 @@ class QualificationMode:
             print('for search mode')
             return MethodResponse(all_is_ok=True, data=[], errors=set()), None, False
 
+        else:
+            print('for knowledge and search mode')
+            return MethodResponse(all_is_ok=True, data=[], errors=set()), None, False
+
 """
 @dataclasses.dataclass
 class QualificationModeData:

@@ -7,7 +7,7 @@ from app.working_modes.search_mode import SearchMode
 
 
 @dataclasses.dataclass
-class KnowledgeAndSearchMode(Mode):
+class KnowledgeAndSearchMode:
     knowledge_mode: KnowledgeMode
     search_mode: SearchMode
 
