@@ -71,7 +71,7 @@ class KnowledgeMode:
                 function_call="auto"
             )
             response_message = response["choices"][0]["message"]
-            print(response_message)
+            print(response)
         except Exception as e:
             print(e)
             return {'is_ok': False, 'args': {}}
