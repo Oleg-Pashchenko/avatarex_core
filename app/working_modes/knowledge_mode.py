@@ -34,7 +34,7 @@ class KnowledgeMode:
         first_row = list(df.iloc[:, 0])
         return [{
             "name": "get_question_by_context",
-            "description": "return the question most similar to the one passed to the function in terms of meaning",
+            "description": "return a question similar in meaning to the one passed to the function. It can be simply rephrased or slightly different. Return the name of the question for it",
             "parameters": {
                 "type": "object",
                 "properties": {'Question': {'type': 'string', 'enum': first_row}},
@@ -60,7 +60,7 @@ class KnowledgeMode:
     def get_keywords_values(message, func, openai_api_key):
         try:
             messages = [
-                {'role': 'system', 'content': 'Классифицируй к какому вопросу относится данное сообщение'},
+                {'role': 'system', 'content': 'return a question similar in meaning to the one passed to the function. It can be simply rephrased or slightly different.'},
                 {"role": "user",
                  "content": message}]
             openai.api_key = openai_api_key
