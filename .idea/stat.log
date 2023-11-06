@@ -4563,3 +4563,9 @@
 {"ts":1699274099732,"action":"FILE_OPENED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"151"}}
 {"ts":1699274144071,"action":"IDE_DEACTIVATED"}
 {"ts":1699274195598,"action":"IDE_ACTIVATED"}
+{"ts":1699274239438,"action":"IDE_DEACTIVATED"}
+{"ts":1699274249089,"action":"IDE_ACTIVATED"}
+{"ts":1699274250011,"action":"IDE_DEACTIVATED"}
+{"ts":1699274252961,"action":"IDE_ACTIVATED"}
+{"ts":1699274253643,"action":"IDE_DEACTIVATED"}
+{"ts":1699274268847,"action":"IDE_ACTIVATED"}

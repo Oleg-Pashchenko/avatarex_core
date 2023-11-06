@@ -71,18 +71,19 @@ class KnowledgeMode:
     def is_q_satisfy_q(q1, q2, openai_api_key, attempt=1):
         if attempt == 4:
             return False
+        rule = 'Являются ли вопросы идентичными'
         print('IS_Q_SATISFT')
         messages = [
-            {'role': 'system', 'content': "Вопросы являются переформулировкой друг друга?"},
+            {'role': 'system', 'content': rule},
             {"role": "user", "content": q1},
             {"role": "user", "content": q2},
         ]
         func = [{
             "name": "is_questions_is_similar",
-            "description": 'Вопросы являются переформулировкой друг друга?',
+            "description": rule,
             "parameters": {
                 "type": "object",
-                "properties": {'is_similar': {'type': 'boolean', 'description': 'Вопросы являются переформулировкой друг друга?'}},
+                "properties": {'is_similar': {'type': 'boolean', 'description': rule}},
                 'required': ['is_similar']
             }
         }]
