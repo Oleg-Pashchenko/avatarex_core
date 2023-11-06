@@ -70,6 +70,7 @@ class KnowledgeMode:
     @staticmethod
     def is_q_satisfy_q(q1, q2, openai_api_key):
         print(q1, q2)
+        return True
         messages = [
             {'role': 'system', 'content': "Похож ли один вопрос на другой"},
             {"role": "user", "content": q1},
