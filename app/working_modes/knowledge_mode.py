@@ -32,7 +32,8 @@ class KnowledgeMode:
     def get_question_db_function(filename):
         df = pd.read_excel(filename)
         first_row = list(df.iloc[:, 0])
-        print(first_row)
+        for el in first_row:
+            print(el)
         return [{
             "name": "Function",
             "description": "Get flat request",
