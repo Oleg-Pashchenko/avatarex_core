@@ -72,7 +72,7 @@ class KnowledgeMode:
             )
             response_message = response["choices"][0]["message"]
         except Exception as e:
-            print(e)
+            print("ERROR", e)
             return {'is_ok': False, 'args': {}}
         if response_message.get("function_call"):
             function_args = json.loads(response_message["function_call"]["arguments"])
@@ -89,7 +89,7 @@ class KnowledgeMode:
         if not response['is_ok']:
             return perephrase(bounded_situations.openai_error_message, openai_api_key)
         answer = KnowledgeMode.get_answer_by_question(response['args']['Question'], filename)
-
+        print('ANSWER', answer)
         if answer is None:
             return perephrase(bounded_situations.database_error_message, openai_api_key)
         print("Квалифицирован вопрос:", response['args']['Question'])
