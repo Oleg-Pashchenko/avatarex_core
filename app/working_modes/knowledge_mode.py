@@ -106,7 +106,7 @@ class KnowledgeMode:
             return perephrase(bounded_situations.database_error_message, openai_api_key)
         print("Квалифицирован вопрос:", response['args'])
         print('Получен ответ из базы данных:', answer)
-        response = perephrase(answer, openai_api_key, descr='сформулируй ответ в деловом стиле воедино без повторений фактов. Информация должна быть максимально уникальной и презентабельной.')
+        response = perephrase(answer, openai_api_key, descr='сформулируй ответ воедино без повторений фактов при этом ничего нового не добавляя.')
         print('Перефразирован ответ:', response)
         return response
 
