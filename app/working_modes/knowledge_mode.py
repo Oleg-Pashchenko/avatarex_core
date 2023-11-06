@@ -102,7 +102,7 @@ class KnowledgeMode:
             return perephrase(bounded_situations.openai_error_message, openai_api_key)
         answer = KnowledgeMode.get_answer_by_question(response['args'], filename)
         print('ANSWER', answer)
-        if answer is None:
+        if answer == '':
             return perephrase(bounded_situations.database_error_message, openai_api_key)
         print("Квалифицирован вопрос:", response['args'])
         print('Получен ответ из базы данных:', answer)
