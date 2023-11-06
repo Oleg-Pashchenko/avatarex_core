@@ -131,6 +131,9 @@ class QualificationMode:
             return QualificationMode().execute(data.qualification, amocrm_settings, lead_id, message, openai_key,
                                                data.qualification_finished)
 
+        elif pipeline_settings.chosen_work_mode == 'Ответ из базы данных':
+            print('for search mode')
+            return MethodResponse(all_is_ok=True, data=[], errors=set()), None, False
 
 """
 @dataclasses.dataclass
