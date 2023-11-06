@@ -73,7 +73,7 @@ class KnowledgeMode:
             return False
         print('IS_Q_SATISFT')
         messages = [
-            {'role': 'system', 'content': "Похож ли по смыслу один вопрос на другой"},
+            {'role': 'system', 'content': "Подобны ли вопросы по смыслу"},
             {"role": "user", "content": q1['args']},
             {"role": "user", "content": q2},
         ]
@@ -81,7 +81,7 @@ class KnowledgeMode:
             "name": "is_questions_is_similar",
             "parameters": {
                 "type": "object",
-                "properties": {'is_similar': {'type': 'boolean', 'description': 'Являются ли 2 вопроса похожими по смыслу'}},
+                "properties": {'is_similar': {'type': 'boolean', 'description': 'Подобны ли вопросы по смыслу'}},
                 'required': ['is_similar']
             }
         }]
