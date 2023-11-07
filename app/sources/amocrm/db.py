@@ -160,7 +160,7 @@ class AvatarexDBMethods:
                 messages.append({'role': 'user', 'content': message_obj.message})
             symbols = symbols - len(message_obj.message)
         messages = messages[::-1]
-        print(messages)
+        print(messages[1::])
         return messages
 
     @staticmethod
