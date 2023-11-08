@@ -4733,3 +4733,5 @@
 {"ts":1699447147394,"action":"FILE_OPENED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"331"}}
 {"ts":1699447209807,"action":"IDE_DEACTIVATED"}
 {"ts":1699447242294,"action":"IDE_ACTIVATED"}
+{"ts":1699447355374,"action":"IDE_DEACTIVATED"}
+{"ts":1699447421974,"action":"IDE_ACTIVATED"}
