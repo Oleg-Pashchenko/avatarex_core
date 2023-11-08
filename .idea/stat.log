@@ -4731,3 +4731,5 @@
 {"ts":1699447141592,"action":"FILE_OPENED","file":"/app/working_modes/prompt_mode.py","tags":{"FILE_LINE_OF_CODE":"32"}}
 {"ts":1699447147394,"action":"FILE_CLOSED","file":"/app/working_modes/prompt_mode.py","tags":{"FILE_LINE_OF_CODE":"32"}}
 {"ts":1699447147394,"action":"FILE_OPENED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"331"}}
+{"ts":1699447209807,"action":"IDE_DEACTIVATED"}
+{"ts":1699447242294,"action":"IDE_ACTIVATED"}
