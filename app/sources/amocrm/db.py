@@ -151,6 +151,7 @@ class AvatarexDBMethods:
         symbols = MODEL_16K_SIZE_VALUE if MODEL_16K_KEY in prompt_mode_data.model else MODEL_4K_SIZE_VALUE
         symbols = (symbols - prompt_mode_data.max_tokens) * 0.75 - len(prompt_mode_data.context)
         messages.append({"role": "system", "content": prompt_mode_data.context})
+        messages.append({"role": "system", "content": 'не повторяйся в своем ответе'})
         for message_obj in message_objects:
             if symbols - len(message_obj.message) <= 0:
                 break
