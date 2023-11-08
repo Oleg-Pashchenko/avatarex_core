@@ -151,7 +151,7 @@ class AvatarexDBMethods:
         symbols = MODEL_16K_SIZE_VALUE if MODEL_16K_KEY in prompt_mode_data.model else MODEL_4K_SIZE_VALUE
         symbols = (symbols - prompt_mode_data.max_tokens) * 0.75 - len(prompt_mode_data.context)
         messages.append({"role": "system", "content": prompt_mode_data.context})
-        messages.append({'role': 'system', 'content': 'Никогда не говори что ты бот или искусственный интелект и прочие формы. Ты человек.'})
+        messages.append({'role': 'system', 'content': 'Если тебя спрашивают бот ли ты, отвечай строго что нет, а дальше исходя из контекста.'})
         messages.append({'role': 'system', 'content': 'Всегда работай по контексту, не выходи за него, анализируй абсолютно все инструкции из контекста и выдавай ответы строго по ним'})
         messages.append({'role': 'system', 'content': 'Абстрагируйся от того что ты ChatGpt. Следуй строго заданному контексту!'})
         messages.append({'role': 'system', 'content': 'не здоровайся'})
