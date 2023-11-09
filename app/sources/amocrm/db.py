@@ -160,7 +160,7 @@ class AvatarexDBMethods:
                 messages.append({'role': 'user', 'content': message_obj.message})
             # symbols = symbols - len(message_obj.message)
         messages = messages[::-1]
-        messages.append({"role": "system", "content": prompt_mode_data.context})
+        messages.insert(0, {"role": "system", "content": prompt_mode_data.context})
 
         return messages
 
