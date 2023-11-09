@@ -17,8 +17,8 @@ class PromptMode:
     openai_api_key: str
 
     def execute(self) -> MethodResponse:
-        client = OpenAI()
         os.environ["OPENAI_API_KEY"] = self.openai_api_key
+        client = OpenAI()
         print(self.model)
         print('\n')
         print(*self.messages_history, sep='\n')
