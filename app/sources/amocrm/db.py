@@ -148,17 +148,17 @@ class AvatarexDBMethods:
         message_objects = session.query(Messages).filter_by(lead_id=lead_id).all()[::-1]
 
         messages = []
-        symbols = MODEL_16K_SIZE_VALUE if MODEL_16K_KEY in prompt_mode_data.model else MODEL_4K_SIZE_VALUE
-        symbols = (symbols - prompt_mode_data.max_tokens) * 0.75 - len(prompt_mode_data.context)
+        # symbols = MODEL_16K_SIZE_VALUE if MODEL_16K_KEY in prompt_mode_data.model else MODEL_4K_SIZE_VALUE
+        # symbols = (symbols - prompt_mode_data.max_tokens) * 0.75 - len(prompt_mode_data.context)
 
         for message_obj in message_objects:
-            if symbols - len(message_obj.message) <= 0:
-                break
+            # if symbols - len(message_obj.message) <= 0:
+            #    break
             if message_obj.is_bot:
                 messages.append({'role': 'assistant', 'content': message_obj.message})
             else:
                 messages.append({'role': 'user', 'content': message_obj.message})
-            symbols = symbols - len(message_obj.message)
+            # symbols = symbols - len(message_obj.message)
         messages = messages[::-1]
         messages.append({"role": "system", "content": prompt_mode_data.context})
 
