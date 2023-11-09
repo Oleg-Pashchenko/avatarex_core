@@ -1,4 +1,6 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Boolean
+import datetime
+
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Boolean, DateTime
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import os
@@ -37,6 +39,7 @@ class Messages(Base):
     message = Column(String(10000))
     lead_id = Column(Integer, ForeignKey('leads.id'))
     is_bot = Column(Boolean)
+    date = Column(DateTime)
 
 
 class QualificationMode:
@@ -128,7 +131,7 @@ class RequestSettings:
 
 
 # Base.metadata.create_all(engine)
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine_core)
 session = Session()
 
 
@@ -182,7 +185,7 @@ def get_bots_answers_count(lead_id) -> int:
 
 
 async def add_new_message(message_id, message, lead_id, is_bot):
-    obj = Messages(id=message_id, message=message, lead_id=lead_id, is_bot=is_bot)
+    obj = Messages(id=message_id, message=message, lead_id=lead_id, is_bot=is_bot, date=datetime.datetime.now())
     session.add(obj)
     session.commit()
 
@@ -206,4 +209,4 @@ async def message_already_exists(message_id):
     return True if result else False
 
 
-Base.metadata.create_all(engine)
+Base.metadata.create_all(engine_core)

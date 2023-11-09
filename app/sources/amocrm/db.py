@@ -1,8 +1,9 @@
 import dataclasses
+import datetime
 import random
 
 import psycopg2
-from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 import os
 import dotenv
@@ -48,6 +49,7 @@ class Messages(Base):
     message = Column(String(10000))
     lead_id = Column(Integer, ForeignKey('leads.id'))
     is_bot = Column(Boolean)
+    date = Column(DateTime)
 
 
 @dataclasses.dataclass
@@ -145,7 +147,8 @@ class AvatarexDBMethods:
 
     @staticmethod
     def get_messages(lead_id, prompt_mode_data):
-        message_objects = session.query(Messages).filter_by(lead_id=lead_id).all()[::-1]
+        message_objects = session.query(Messages).filter_by(lead_id=lead_id).all()
+        message_objects = sorted(message_objects, key=lambda x: x.date, reverse=True)
 
         messages = []
         # symbols = MODEL_16K_SIZE_VALUE if MODEL_16K_KEY in prompt_mode_data.model else MODEL_4K_SIZE_VALUE
@@ -159,7 +162,6 @@ class AvatarexDBMethods:
             else:
                 messages.append({'role': 'user', 'content': message_obj.message})
             # symbols = symbols - len(message_obj.message)
-        messages = messages[::-1]
         messages.insert(0, {"role": "system", "content": prompt_mode_data.context})
 
         return messages
@@ -168,7 +170,7 @@ class AvatarexDBMethods:
     def add_message(message_id, message, lead_id, is_bot):
         if is_bot:
             message_id = f'assistant-{random.randint(1000000, 10000000)}'
-        obj = Messages(id=message_id, message=message, lead_id=lead_id, is_bot=is_bot)
+        obj = Messages(id=message_id, message=message, lead_id=lead_id, is_bot=is_bot, date=datetime.datetime.now())
         session.add(obj)
         session.commit()
 
