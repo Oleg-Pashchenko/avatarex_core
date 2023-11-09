@@ -21,7 +21,7 @@ class PromptMode:
         client = OpenAI()
         print(self.model)
         print('\n')
-        print(*self.messages_history, sep='\n')
+        print(*self.messages_history[1::], sep='\n')
         print('\n')
         try:
             response = client.chat.completions.create(
