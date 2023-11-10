@@ -1,7 +1,9 @@
 import dataclasses
 import os
 
-import openai
+from openai import AsyncOpenAI
+
+aclient = AsyncOpenAI(api_key=openai_api_key)
 from abc import ABC, abstractmethod
 import gdown
 
@@ -21,14 +23,12 @@ class Mode(ABC):
 
     async def perephrase(self, message: str, openai_api_key: str) -> str:
         try:
-            openai.api_key = openai_api_key
-            response = await openai.ChatCompletion.acreate(
-                model='gpt-3.5-turbo',
-                messages=[{"role": "system", "content": 'Перефразируй'},
-                          {'role': 'user', 'content': message}],
-                max_tokens=4000,
-                temperature=1
-            )
+            
+            response = await aclient.chat.completions.create(model='gpt-3.5-turbo',
+            messages=[{"role": "system", "content": 'Перефразируй'},
+                      {'role': 'user', 'content': message}],
+            max_tokens=4000,
+            temperature=1)
             return response['choices'][0]['message']['content']
         except:
             self.method_response.errors.add(err.OPENAI_REQUEST_ERROR)

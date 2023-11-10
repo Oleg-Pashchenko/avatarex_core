@@ -1,7 +1,11 @@
 import dataclasses
 import json
 
-import openai
+from openai import OpenAI
+
+client = OpenAI(api_key=api_key,
+api_key=openai_api_key,
+api_key=openai_api_key)
 
 from app.sources.amocrm.db import KnowledgeModeSettings, BoundedSituations
 from app.utils import misc
@@ -13,15 +17,13 @@ descr = "Ищет соотвтествующий вопрос если не на
 
 def perephrase(message, api_key,
                descr='Немного перфразируй сообщение. Оно должно быть презентабельным и полностью сохранять смысл. Ничего кроме того что есть в исходном сообщении быть не должно.'):
-    openai.api_key = api_key
+    
     try:
-        response = openai.ChatCompletion.create(
-            model='gpt-3.5-turbo',
-            messages=[{"role": "system", "content": descr},
-                      {'role': 'assistant', 'content': message}],
-            max_tokens=4000,
-            temperature=1
-        )
+        response =client.chat.completions.create(model='gpt-3.5-turbo',
+        messages=[{"role": "system", "content": descr},
+                  {'role': 'assistant', 'content': message}],
+        max_tokens=4000,
+        temperature=1)
         return response['choices'][0]['message']['content']
     except:
         return message
@@ -87,13 +89,11 @@ class KnowledgeMode:
                 'required': ['is_similar']
             }
         }]
-        openai.api_key = openai_api_key
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=messages,
-            functions=func,
-            function_call={"name": "is_questions_is_similar"}
-        )
+        
+        response = client.chat.completions.create(model="gpt-3.5-turbo",
+        messages=messages,
+        functions=func,
+        function_call={"name": "is_questions_is_similar"})
         response_message = response["choices"][0]["message"]
         function_args = json.loads(response_message["function_call"]["arguments"])
 
@@ -109,13 +109,11 @@ class KnowledgeMode:
                 {'role': 'system', 'content': descr},
                 {"role": "user",
                  "content": message}]
-            openai.api_key = openai_api_key
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo-16k",
-                messages=messages,
-                functions=func,
-                function_call={"name": "get_question_by_context"}
-            )
+            
+            response = client.chat.completions.create(model="gpt-3.5-turbo-16k",
+            messages=messages,
+            functions=func,
+            function_call={"name": "get_question_by_context"})
             response_message = response["choices"][0]["message"]
         except Exception as e:
             print("ERROR", e)

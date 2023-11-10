@@ -1,7 +1,9 @@
 import dataclasses
 import json
 
-import openai
+from openai import OpenAI
+
+client = OpenAI(api_key=gpt_key)
 
 from app.sources.amocrm.db import SearchModeSettings
 from app.utils import err, misc
@@ -49,13 +51,11 @@ class SearchMode:
             {'role': 'system', 'content': 'Give answer:'},
             {"role": "user",
              "content": message}]
-        openai.api_key = gpt_key
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo-0613",
-            messages=messages,
-            functions=func,
-            function_call="auto"
-        )
+        
+        response = client.chat.completions.create(model="gpt-3.5-turbo-0613",
+        messages=messages,
+        functions=func,
+        function_call="auto")
         response_message = response["choices"][0]["message"]
         if response_message.get("function_call"):
             function_args = json.loads(response_message["function_call"]["arguments"])
