@@ -5112,3 +5112,9 @@
 {"ts":1699621446400,"action":"IDE_ACTIVATED"}
 {"ts":1699621446899,"action":"IDE_DEACTIVATED"}
 {"ts":1699621447895,"action":"IDE_ACTIVATED"}
+{"ts":1699621480168,"action":"IDE_DEACTIVATED"}
+{"ts":1699621544420,"action":"IDE_ACTIVATED"}
+{"ts":1699621563775,"action":"IDE_DEACTIVATED"}
+{"ts":1699621579882,"action":"IDE_ACTIVATED"}
+{"ts":1699621585444,"action":"FILE_CLOSED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"151"}}
+{"ts":1699621588593,"action":"FILE_OPENED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"151"}}

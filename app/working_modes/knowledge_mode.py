@@ -3,9 +3,6 @@ import json
 
 from openai import OpenAI
 
-client = OpenAI(api_key=api_key,
-api_key=openai_api_key,
-api_key=openai_api_key)
 
 from app.sources.amocrm.db import KnowledgeModeSettings, BoundedSituations
 from app.utils import misc
@@ -17,7 +14,7 @@ descr = "Ищет соотвтествующий вопрос если не на
 
 def perephrase(message, api_key,
                descr='Немного перфразируй сообщение. Оно должно быть презентабельным и полностью сохранять смысл. Ничего кроме того что есть в исходном сообщении быть не должно.'):
-    
+    client = OpenAI(api_key=api_key)
     try:
         response =client.chat.completions.create(model='gpt-3.5-turbo',
         messages=[{"role": "system", "content": descr},
@@ -89,7 +86,8 @@ class KnowledgeMode:
                 'required': ['is_similar']
             }
         }]
-        
+        client = OpenAI(api_key=openai_api_key)
+
         response = client.chat.completions.create(model="gpt-3.5-turbo",
         messages=messages,
         functions=func,
@@ -104,6 +102,7 @@ class KnowledgeMode:
 
     @staticmethod
     def get_keywords_values(message, func, openai_api_key):
+        client = OpenAI(api_key=openai_api_key)
         try:
             messages = [
                 {'role': 'system', 'content': descr},
