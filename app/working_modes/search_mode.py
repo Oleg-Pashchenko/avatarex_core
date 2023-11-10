@@ -56,9 +56,9 @@ class SearchMode:
         messages=messages,
         functions=func,
         function_call="auto")
-        response_message = response["choices"][0]["message"]
+        response_message = response.choices[0].message
         if response_message.get("function_call"):
-            function_args = json.loads(response_message["function_call"]["arguments"])
+            function_args = json.loads(response_message.function_call.arguments)
             return {'is_ok': True, 'args': function_args}
         else:
             return {'is_ok': False, 'args': {}}
