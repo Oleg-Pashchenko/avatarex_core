@@ -21,7 +21,7 @@ def perephrase(message, api_key,
                   {'role': 'assistant', 'content': message}],
         max_tokens=4000,
         temperature=1)
-        return response['choices'][0]['message']['content']
+        return response.choices[0].message.content
     except:
         return message
 
@@ -92,8 +92,8 @@ class KnowledgeMode:
         messages=messages,
         functions=func,
         function_call={"name": "is_questions_is_similar"})
-        response_message = response["choices"][0]["message"]
-        function_args = json.loads(response_message["function_call"]["arguments"])
+        response_message = response.choices[0].message
+        function_args = json.loads(response_message.function_call.arguments)
 
         print("SATISFY", function_args)
         if not function_args['is_similar']:
@@ -113,12 +113,12 @@ class KnowledgeMode:
             messages=messages,
             functions=func,
             function_call={"name": "get_question_by_context"})
-            response_message = response["choices"][0]["message"]
+            response_message = response.choices[0].message
         except Exception as e:
             print("ERROR", e)
             return {'is_ok': False, 'args': {}}
-        if response_message.get("function_call"):
-            function_args = json.loads(response_message["function_call"]["arguments"])
+        if response_message.function_call:
+            function_args = json.loads(response_message.function_call.arguments)
             print(function_args.keys())
             try:
                 return {'is_ok': True, 'args': list(function_args.keys())}

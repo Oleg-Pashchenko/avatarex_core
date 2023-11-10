@@ -53,11 +53,11 @@ class QualificationMode:
             messages=messages,
             functions=func,
             function_call="auto")
-            response_message = response["choices"][0]["message"]
+            response_message = response.choices[0].message
         except:
             return False
-        if response_message.get("function_call"):
-            function_args = json.loads(response_message["function_call"]["arguments"])
+        if response_message.function_call:
+            function_args = json.loads(response_message.function_call.arguments)
             if function_args['is_correct'] is True:
                 return True
             return False

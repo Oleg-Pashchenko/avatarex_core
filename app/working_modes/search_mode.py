@@ -56,6 +56,8 @@ class SearchMode:
         messages=messages,
         functions=func,
         function_call="auto")
+        print(response)
+        print('eys')
         response_message = response.choices[0].message
         if response_message.get("function_call"):
             function_args = json.loads(response_message.function_call.arguments)
