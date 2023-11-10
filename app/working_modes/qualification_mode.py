@@ -3,7 +3,6 @@ import json
 
 from openai import OpenAI
 
-client = OpenAI(api_key=openai_key)
 
 from app.sources.amocrm import methods
 from app.sources.amocrm.db import PipelineSettings, AvatarexSiteMethods, AmocrmSettings
@@ -48,7 +47,8 @@ class QualificationMode:
                 {'role': 'system', 'content': 'Give answer:'},
                 {"role": "user",
                  "content": answer}]
-            
+
+            client = OpenAI(api_key=openai_key)
             response = client.chat.completions.create(model="gpt-3.5-turbo-0613",
             messages=messages,
             functions=func,
