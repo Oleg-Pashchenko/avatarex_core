@@ -2,6 +2,7 @@ from app.sources.amocrm import db
 from app.sources.amocrm.constants import *
 import time
 from app.sources.amocrm.methods import send_message, fill_field
+from app.sources.amocrm.new_amo import AmoConnect
 from app.utils.db import Message, Command, MethodResponse
 from app.working_modes.knowledge_and_search_mode import KnowledgeAndSearchMode
 from app.working_modes.knowledge_mode import KnowledgeMode
@@ -44,7 +45,7 @@ def execute(params: dict, r_d: dict):
         return print('История успешно очищена!')
 
     qualification_mode = QualificationMode()
-    qualification_mode_response, user_answer_is_correct, has_new = qualification_mode.execute_amocrm(pipeline_settings,
+    qualification_mode_response, user_answer_is_correct, has_new, field = qualification_mode.execute_amocrm(pipeline_settings,
                                                                                                      amocrm_settings,
                                                                                                      lead_id,
                                                                                                      message,
@@ -114,6 +115,10 @@ def execute(params: dict, r_d: dict):
             # db.AvatarexDBMethods.add_message(message_id='', message=entity.text, lead_id=lead_id, is_bot=True)
         elif isinstance(entity, Command):
             if entity.command == 'fill':
+                amo_connection = AmoConnect(amocrm_settings.mail, amocrm_settings.password, pipeline=pipeline_settings.pipeline_id, deal_id=lead_id)
+                amo_connection.auth()
+                amo_connection.set_field_by_name(entity.data['value'], field)
+
                 fill_field(entity.data['name'], entity.data['value'], amocrm_settings.host, amocrm_settings.mail,
                            amocrm_settings.password, lead_id, pipeline_settings.pipeline_id)
 

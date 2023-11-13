@@ -116,9 +116,8 @@ class AmoConnect:
             return self.get_params_information(fields)
         return result
 
-    def set_field_by_name(self, name, value, amo_fields):
+    def set_field_by_name(self, value, field):
         url = f'{self.host}/ajax/leads/detail/'
-        field = amo_fields[name]
         active_value = value
 
         if field['type'] == 'select':

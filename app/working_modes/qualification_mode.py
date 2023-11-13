@@ -82,7 +82,9 @@ class QualificationMode:
         question, field = QualificationMode._get_qualification_question(1, source_fields, fields_to_fill)
         is_correct, v = QualificationMode.is_this_answer_for_this_question(question, message, openai_key, field)
         if is_correct:
-            return True, Command("fill", {'question': question,
+            return True, Command("fill", {
+                'id': field,
+                'question': question,
                                           'value': v,
                                           'name': get_field_name_by_question(question, source_fields)})
         return False, None
@@ -100,6 +102,7 @@ class QualificationMode:
         amo_connection = AmoConnect(amocrm_settings.mail, amocrm_settings.password, deal_id=lead_id)
         amo_connection.auth()
         source_fields = amo_connection.get_params_information(list(fields_to_fill.keys()))
+
         # source_fields = methods.get_fields_info(amocrm_settings, lead_id, fields_to_fill)
         print(source_fields, amocrm_settings, fields_to_fill)
         if len(fields_to_fill.keys()) == 0:  # если пользователь выставил что ничего заполнять не нужно
