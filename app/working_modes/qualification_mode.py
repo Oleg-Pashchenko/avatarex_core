@@ -25,6 +25,7 @@ class QualificationMode:
             if source_fields[field]['active'] is None:
                 count += 1
                 if count == field_number:
+                    print(fields_to_fill[field], source_fields[field])
                     return fields_to_fill[field], source_fields[field]
         return None, None
 
