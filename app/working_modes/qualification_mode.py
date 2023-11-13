@@ -19,13 +19,13 @@ def get_field_name_by_question(q, ff):
 @dataclasses.dataclass
 class QualificationMode:
     @staticmethod
-    def _get_qualification_question(field_number, fields, fields_to_fill):
+    def _get_qualification_question(field_number, source_fields, fields_to_fill):
         count = 0
         for field in fields_to_fill.keys():
-            if fields_to_fill[field]['active'] is None:
+            if source_fields[field]['active'] is None:
                 count += 1
                 if count == field_number:
-                    return fields[field], fields_to_fill[field]
+                    return fields_to_fill[field], source_fields[field]
         return None, None
 
     @staticmethod
@@ -78,15 +78,14 @@ class QualificationMode:
             return False, ''
 
     @staticmethod
-    def _check_user_answer(source_fields, fields_to_fill, message, openai_key) -> (bool, Command | None):
+    def _check_user_answer(fields_to_fill, source_fields, message, openai_key) -> (bool, Command | None):
         question, field = QualificationMode._get_qualification_question(1, source_fields, fields_to_fill)
         is_correct, v = QualificationMode.is_this_answer_for_this_question(question, message, openai_key, field)
         if is_correct:
             return True, Command("fill", {
-                'id': field,
                 'question': question,
-                                          'value': v,
-                                          'name': get_field_name_by_question(question, source_fields)})
+                'value': v,
+                'name': source_fields[get_field_name_by_question(question, source_fields)]['id']})
         return False, None
 
     @staticmethod
@@ -117,11 +116,11 @@ class QualificationMode:
         data = []
         if is_answer_correct:  # если ответ принят
             data.append(command)  # добавляем команду на заполнение поля
-            question, field = self._get_qualification_question(2, fields_to_fill, source_fields)  # просим следующее сообщение
+            question, _ = self._get_qualification_question(2,
+                                                           source_fields, fields_to_fill)  # просим следующее сообщение
         else:
-            question, field = self._get_qualification_question(1, fields_to_fill, source_fields)  # повторяем текущий вопрос
+            question, _ = self._get_qualification_question(1, source_fields, fields_to_fill)  # повторяем текущий вопрос
         print(message, is_answer_correct)
-        print(question, field)
         if question:  # если. сообщение сформировалось
             # perephrase message
             data.append(Message(perephrase(api_key=openai_key, message=message)))
@@ -129,7 +128,7 @@ class QualificationMode:
         if is_answer_correct is True and message is None:
             data.append(Message(perephrase(api_key=openai_key, message=q_f_message)))
 
-        return MethodResponse(all_is_ok=True, errors=set(), data=data), is_answer_correct, message is not None, field
+        return MethodResponse(all_is_ok=True, errors=set(), data=data), is_answer_correct, message is not None
 
     @staticmethod
     def execute_amocrm(pipeline_settings: PipelineSettings, amocrm_settings: AmocrmSettings,

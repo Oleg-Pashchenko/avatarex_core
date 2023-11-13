@@ -45,7 +45,7 @@ def execute(params: dict, r_d: dict):
         return print('История успешно очищена!')
 
     qualification_mode = QualificationMode()
-    qualification_mode_response, user_answer_is_correct, has_new, field = qualification_mode.execute_amocrm(pipeline_settings,
+    qualification_mode_response, user_answer_is_correct, has_new = qualification_mode.execute_amocrm(pipeline_settings,
                                                                                                      amocrm_settings,
                                                                                                      lead_id,
                                                                                                      message,
