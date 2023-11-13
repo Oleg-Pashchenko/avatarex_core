@@ -21,6 +21,7 @@ class QualificationMode:
     @staticmethod
     def _get_qualification_question(field_number, source_fields, fields_to_fill):
         count = 0
+        print(source_fields)
         for field in fields_to_fill.keys():
             if source_fields[field]['active'] is None:
                 count += 1
@@ -86,7 +87,7 @@ class QualificationMode:
             return True, Command("fill", {
                 'question': question,
                 'value': v,
-                'name': source_fields[get_field_name_by_question(question, source_fields)]})
+                'name': source_fields[get_field_name_by_question(question, fields_to_fill)]})
         return False, None
 
     @staticmethod

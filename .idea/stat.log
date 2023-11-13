@@ -5673,3 +5673,11 @@
 {"ts":1699894622932,"action":"IDE_ACTIVATED"}
 {"ts":1699894623520,"action":"IDE_DEACTIVATED"}
 {"ts":1699894623985,"action":"IDE_ACTIVATED"}
+{"ts":1699894641649,"action":"IDE_DEACTIVATED"}
+{"ts":1699894643309,"action":"IDE_ACTIVATED"}
+{"ts":1699894652151,"action":"IDE_DEACTIVATED"}
+{"ts":1699894694642,"action":"IDE_ACTIVATED"}
+{"ts":1699894710716,"action":"FILE_CLOSED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"223"}}
+{"ts":1699894710716,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"127"}}
+{"ts":1699894712161,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"127"}}
+{"ts":1699894712161,"action":"FILE_OPENED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"223"}}
