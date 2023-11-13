@@ -117,10 +117,10 @@ class QualificationMode:
         data = []
         if is_answer_correct:  # если ответ принят
             data.append(command)  # добавляем команду на заполнение поля
-            question, _ = self._get_qualification_question(2,
+            message, _ = self._get_qualification_question(2,
                                                            source_fields, fields_to_fill)  # просим следующее сообщение
         else:
-            question, _ = self._get_qualification_question(1, source_fields, fields_to_fill)  # повторяем текущий вопрос
+            message, _ = self._get_qualification_question(1, source_fields, fields_to_fill)  # повторяем текущий вопрос
         print(message, is_answer_correct)
         if question:  # если. сообщение сформировалось
             # perephrase message

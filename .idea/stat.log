@@ -5657,3 +5657,15 @@
 {"ts":1699894503485,"action":"IDE_ACTIVATED"}
 {"ts":1699894512185,"action":"IDE_DEACTIVATED"}
 {"ts":1699894512604,"action":"IDE_ACTIVATED"}
+{"ts":1699894517331,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"127"}}
+{"ts":1699894517331,"action":"FILE_OPENED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"222"}}
+{"ts":1699894531563,"action":"FILE_CLOSED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"222"}}
+{"ts":1699894531563,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"127"}}
+{"ts":1699894532900,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"127"}}
+{"ts":1699894532900,"action":"FILE_OPENED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"222"}}
+{"ts":1699894545308,"action":"IDE_DEACTIVATED"}
+{"ts":1699894570081,"action":"IDE_ACTIVATED"}
+{"ts":1699894570809,"action":"IDE_DEACTIVATED"}
+{"ts":1699894574673,"action":"IDE_ACTIVATED"}
+{"ts":1699894590990,"action":"IDE_DEACTIVATED"}
+{"ts":1699894593523,"action":"IDE_ACTIVATED"}
