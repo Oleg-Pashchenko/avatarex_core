@@ -104,15 +104,15 @@ class QualificationMode:
         source_fields = amo_connection.get_params_information(list(fields_to_fill.keys()))
 
         # source_fields = methods.get_fields_info(amocrm_settings, lead_id, fields_to_fill)
-        print(source_fields, amocrm_settings, fields_to_fill)
+
         if len(fields_to_fill.keys()) == 0:  # если пользователь выставил что ничего заполнять не нужно
             return MethodResponse(data=[], all_is_ok=True, errors=set()), None, False
-        print('я тут')
+
         if self._is_qualification_passed(fields_to_fill, source_fields):  # если квалификация уже пройдена
             return MethodResponse(data=[], all_is_ok=True, errors=set()), None, False
         # return MethodResponse(data=[], all_is_ok=True, errors=set()), True, True
         # если все же мы остались здесь, значит нужно проверить ответ и задать квалифициирующий вопрос
-        print('я здесь')
+
         is_answer_correct, command = self._check_user_answer(fields_to_fill, source_fields, message, openai_key)
         data = []
         if is_answer_correct:  # если ответ принят
@@ -121,7 +121,8 @@ class QualificationMode:
         else:
             question, field = self._get_qualification_question(1, fields_to_fill, source_fields)  # повторяем текущий вопрос
         print(message, is_answer_correct)
-        if question:  # если сообщение сформировалось
+        print(question, field)
+        if question:  # если. сообщение сформировалось
             # perephrase message
             data.append(Message(perephrase(api_key=openai_key, message=message)))
 
