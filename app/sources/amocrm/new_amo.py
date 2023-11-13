@@ -118,6 +118,8 @@ class AmoConnect:
 
     def set_field_by_name(self, data):
         url = f'{self.host}/ajax/leads/detail/'
+        print(data)
+        print('-' * 30)
         active_value = data.value
         field = data.name
 
