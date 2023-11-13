@@ -119,7 +119,7 @@ def execute(params: dict, r_d: dict):
                 amo_connection.auth()
                 amo_connection.set_field_by_name(entity.data['value'], field)
 
-                fill_field(entity.data['name'], entity.data['value'], amocrm_settings.host, amocrm_settings.mail,
-                           amocrm_settings.password, lead_id, pipeline_settings.pipeline_id)
+                #fill_field(entity.data['name'], entity.data['value'], amocrm_settings.host, amocrm_settings.mail,
+                #           amocrm_settings.password, lead_id, pipeline_settings.pipeline_id)
 
     return print('Сообщение отправлено!')
