@@ -85,7 +85,7 @@ class QualificationMode:
             return True, Command("fill", {
                 'question': question,
                 'value': v,
-                'name': source_fields[get_field_name_by_question(question, source_fields)]['id']})
+                'name': source_fields[get_field_name_by_question(question, source_fields)]})
         return False, None
 
     @staticmethod

@@ -116,13 +116,14 @@ class AmoConnect:
             return self.get_params_information(fields)
         return result
 
-    def set_field_by_name(self, value, field):
+    def set_field_by_name(self, data):
         url = f'{self.host}/ajax/leads/detail/'
-        active_value = value
+        active_value = data.value
+        field = data.name
 
         if field['type'] == 'select':
             for f in field['values']:
-                if f['value'] == value:
+                if f['value'] == active_value:
                     active_value = f['id']
 
         data = {
