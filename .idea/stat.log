@@ -5649,3 +5649,4 @@
 {"ts":1699894385714,"action":"FILE_OPENED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"222"}}
 {"ts":1699894396630,"action":"FILE_CLOSED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"222"}}
 {"ts":1699894396630,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"127"}}
+{"ts":1699894429855,"action":"IDE_DEACTIVATED"}

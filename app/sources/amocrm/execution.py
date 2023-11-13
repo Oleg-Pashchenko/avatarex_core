@@ -110,7 +110,7 @@ def execute(params: dict, r_d: dict):
                 db.AvatarexDBMethods.add_message(message_id='', message=entity.text, lead_id=lead_id, is_bot=True)
 
     for entity in qualification_mode_response.data:
-        print(entity)
+        print(entity.data.name, entity.data.value)
         if isinstance(entity, Message):
             send_message(user_id_hash, entity.text, amocrm_settings)
             # db.AvatarexDBMethods.add_message(message_id='', message=entity.text, lead_id=lead_id, is_bot=True)
