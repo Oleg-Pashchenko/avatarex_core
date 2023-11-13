@@ -122,7 +122,7 @@ class QualificationMode:
         else:
             message, _ = self._get_qualification_question(1, source_fields, fields_to_fill)  # повторяем текущий вопрос
         print(message, is_answer_correct)
-        if question:  # если. сообщение сформировалось
+        if message:  # если. сообщение сформировалось
             # perephrase message
             data.append(Message(perephrase(api_key=openai_key, message=message)))
 
