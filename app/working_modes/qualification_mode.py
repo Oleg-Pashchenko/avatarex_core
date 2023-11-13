@@ -3,9 +3,9 @@ import json
 
 from openai import OpenAI
 
-
-from app.sources.amocrm import methods
+from app.sources.amocrm import methods, new_amo
 from app.sources.amocrm.db import PipelineSettings, AvatarexSiteMethods, AmocrmSettings
+from app.sources.amocrm.new_amo import AmoConnect
 from app.utils.db import MethodResponse, Command, Message
 from app.working_modes.knowledge_mode import perephrase
 
@@ -19,29 +19,39 @@ def get_field_name_by_question(q, ff):
 @dataclasses.dataclass
 class QualificationMode:
     @staticmethod
-    def _get_qualification_question(field_number, fields, fields_to_fill) -> (str, bool):
+    def _get_qualification_question(field_number, fields, fields_to_fill):
         count = 0
-        for field in fields_to_fill:
-            if field not in fields.keys() or fields[field] is None:
+        for field in fields_to_fill.keys():
+            if fields_to_fill[field]['active'] is None:
                 count += 1
                 if count == field_number:
-                    return fields_to_fill[field]
-        return None
+                    return fields[field], fields_to_fill[field]
+        return None, None
 
     @staticmethod
-    def is_this_answer_for_this_question(question, answer, openai_key):
+    def is_this_answer_for_this_question(question, answer, openai_key, field):
+        if field['type'] != 'field':
+            required = ['param']
+            properties = {'param': {'type': 'string', 'enum': []}}
+            for f in field['values']:
+                properties['param']['enum'].append(f['value'])
+
+        else:
+            required = ['is_correct']
+            properties = {'is_correct':
+                              {'type': 'boolean',
+                               'description': question,
+                               }}
         func = [{
             "name": "Function",
             "description": "Function description",
             "parameters": {
                 "type": "object",
-                "properties": {'is_correct':
-                                   {'type': 'boolean',
-                                    'description': question,
-                                    }},
-                'required': ['is_correct']
+                "properties": properties,
+                'required': required
             }
         }]
+
         try:
             messages = [
                 {'role': 'system', 'content': 'Give answer:'},
@@ -50,44 +60,47 @@ class QualificationMode:
 
             client = OpenAI(api_key=openai_key)
             response = client.chat.completions.create(model="gpt-3.5-turbo-0613",
-            messages=messages,
-            functions=func,
-            function_call="auto")
+                                                      messages=messages,
+                                                      functions=func,
+                                                      function_call="auto")
             response_message = response.choices[0].message
         except:
             return False
         if response_message.function_call:
             function_args = json.loads(response_message.function_call.arguments)
-            if function_args['is_correct'] is True:
-                return True
-            return False
+            if 'is_correct' in function_args:
+                if function_args['is_correct'] is True:
+                    return True, answer
+                return False, ''
+            else:
+                return True, function_args['param']
         else:
-            return False
+            return False, ''
 
     @staticmethod
     def _check_user_answer(source_fields, fields_to_fill, message, openai_key) -> (bool, Command | None):
-        question = QualificationMode._get_qualification_question(1, source_fields, fields_to_fill)
-        if QualificationMode.is_this_answer_for_this_question(question, message, openai_key):
+        question, field = QualificationMode._get_qualification_question(1, source_fields, fields_to_fill)
+        is_correct, v = QualificationMode.is_this_answer_for_this_question(question, message, openai_key, field)
+        if is_correct:
             return True, Command("fill", {'question': question,
-                                          'value': message,
-                                          'name': get_field_name_by_question(question, fields_to_fill)})
+                                          'value': v,
+                                          'name': get_field_name_by_question(question, source_fields)})
         return False, None
 
     @staticmethod
     def _is_qualification_passed(fields_to_fill: dict, source_fields: dict) -> bool:  # if > 0: get question
         for field_to_fill in fields_to_fill.keys():
-            if field_to_fill not in source_fields.keys():  # Если поле не создано
-                return False
-
-            if source_fields[field_to_fill] is None:  # Если поле не заполнено
+            if source_fields[field_to_fill]['active'] is None:  # Если поле не создано
                 return False
         return True
 
     def execute(self, fields_to_fill: dict, amocrm_settings: AmocrmSettings, lead_id: int, message, openai_key,
                 q_f_message) -> (
             MethodResponse, bool, bool):
-
-        source_fields = methods.get_fields_info(amocrm_settings, lead_id, fields_to_fill)
+        amo_connection = AmoConnect(amocrm_settings.mail, amocrm_settings.password, deal_id=lead_id)
+        amo_connection.auth()
+        source_fields = amo_connection.get_params_information(list(fields_to_fill.keys()))
+        # source_fields = methods.get_fields_info(amocrm_settings, lead_id, fields_to_fill)
         print(source_fields, amocrm_settings, fields_to_fill)
         if len(fields_to_fill.keys()) == 0:  # если пользователь выставил что ничего заполнять не нужно
             return MethodResponse(data=[], all_is_ok=True, errors=set()), None, False
@@ -97,15 +110,15 @@ class QualificationMode:
         # return MethodResponse(data=[], all_is_ok=True, errors=set()), True, True
         # если все же мы остались здесь, значит нужно проверить ответ и задать квалифициирующий вопрос
         print('я здесь')
-        is_answer_correct, command = self._check_user_answer(source_fields, fields_to_fill, message, openai_key)
+        is_answer_correct, command = self._check_user_answer(fields_to_fill, source_fields, message, openai_key)
         data = []
         if is_answer_correct:  # если ответ принят
             data.append(command)  # добавляем команду на заполнение поля
-            message = self._get_qualification_question(2, source_fields, fields_to_fill)  # просим следующее сообщение
+            question, field = self._get_qualification_question(2, fields_to_fill, source_fields)  # просим следующее сообщение
         else:
-            message = self._get_qualification_question(1, source_fields, fields_to_fill)  # повторяем текущий вопрос
+            question, field = self._get_qualification_question(1, fields_to_fill, source_fields)  # повторяем текущий вопрос
         print(message, is_answer_correct)
-        if message:  # если сообщение сформировалось
+        if question:  # если сообщение сформировалось
             # perephrase message
             data.append(Message(perephrase(api_key=openai_key, message=message)))
 
@@ -138,6 +151,7 @@ class QualificationMode:
         else:
             print('for knowledge and search mode')
             return MethodResponse(all_is_ok=True, data=[], errors=set()), None, False
+
 
 """
 @dataclasses.dataclass
