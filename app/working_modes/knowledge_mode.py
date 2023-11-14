@@ -63,7 +63,7 @@ class KnowledgeMode:
             for i in list_of_arrays:
                 print(i[0])
                 if i[0].strip() == questions.strip():
-                    answer += "Ответ: " + str(i[1]) + '\n'
+                    answer += str(i[1]) + '\n'
                     break
         except Exception as e:
             print(e)
