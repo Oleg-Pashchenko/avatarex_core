@@ -61,8 +61,7 @@ class KnowledgeMode:
             list_of_arrays = list(df.iloc)
 
             for i in list_of_arrays:
-                print(i[0])
-                if i[0].strip().lower() in questions.strip().lower():
+                if questions.strip().lower() in i[0].strip().lower():
                     answer += str(i[1]) + '\n'
                     break
         except Exception as e:
