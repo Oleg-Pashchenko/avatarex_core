@@ -133,10 +133,11 @@ class KnowledgeMode:
         print('Получено сообщение:', user_message)
         func = KnowledgeMode.get_question_db_function(filename)
         response = KnowledgeMode.get_keywords_values(user_message, func, openai_api_key)
-        print('RESPONSE', response)
+
         if not response['is_ok'] or len(response['args']) == 0 or len(response['args']) > 5:
             return perephrase(bounded_situations.openai_error_message, openai_api_key)
         response = response['args'][0]
+        print("Квалифицирован вопрос:", response)
         answer = KnowledgeMode.get_answer_by_question(response, filename)
 
         if answer == '':
