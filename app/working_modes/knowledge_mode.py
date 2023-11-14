@@ -61,7 +61,7 @@ class KnowledgeMode:
             list_of_arrays = list(df.iloc)
 
             for i in list_of_arrays:
-                print(i)
+                print(i[1])
                 if i[0] == questions:
                     answer += i[1] + '\n'
                     break
