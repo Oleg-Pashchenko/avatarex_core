@@ -61,7 +61,8 @@ class KnowledgeMode:
             list_of_arrays = list(df.iloc)
 
             for i in list_of_arrays:
-                if i[0] == questions:
+                print(i[0])
+                if i[0].strip() == questions.strip():
                     answer += "Ответ: " + str(i[1]) + '\n'
                     break
         except Exception as e:
