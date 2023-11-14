@@ -63,8 +63,8 @@ class KnowledgeMode:
                 if i[0] == questions:
                     answer += i[1] + '\n'
                     break
-        except:
-            pass
+        except Exception as e:
+            print(e)
         return answer
 
     @staticmethod
