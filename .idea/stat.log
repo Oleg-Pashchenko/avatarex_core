@@ -5835,3 +5835,13 @@
 {"ts":1699945776826,"action":"IDE_ACTIVATED"}
 {"ts":1699945795709,"action":"IDE_DEACTIVATED"}
 {"ts":1699945797877,"action":"IDE_ACTIVATED"}
+{"ts":1699945811350,"action":"IDE_DEACTIVATED"}
+{"ts":1699946160614,"action":"IDE_ACTIVATED"}
+{"ts":1699946166682,"action":"FILE_CLOSED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"151"}}
+{"ts":1699946166682,"action":"FILE_OPENED","file":"/app/utils/misc.py","tags":{"FILE_LINE_OF_CODE":"37"}}
+{"ts":1699946170787,"action":"IDE_DEACTIVATED"}
+{"ts":1699946222437,"action":"IDE_ACTIVATED"}
+{"ts":1699946241908,"action":"IDE_DEACTIVATED"}
+{"ts":1699946247109,"action":"IDE_ACTIVATED"}
+{"ts":1699946249015,"action":"IDE_DEACTIVATED"}
+{"ts":1699946266186,"action":"IDE_ACTIVATED"}
