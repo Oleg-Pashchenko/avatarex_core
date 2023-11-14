@@ -62,7 +62,7 @@ class KnowledgeMode:
 
             for i in list_of_arrays:
                 print(i[0])
-                if i[0].strip() == questions.strip():
+                if i[0].strip().lower() in questions.strip().lower():
                     answer += str(i[1]) + '\n'
                     break
         except Exception as e:
