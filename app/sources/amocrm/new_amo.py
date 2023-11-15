@@ -50,6 +50,7 @@ class AmoConnect:
 
     def _get_amo_hash(self):
         response = self.session.get(f'{self.host}/api/v4/account?with=amojo_id').json()
+        print(response)
         self.amo_hash = response['amojo_id']
 
     def _create_chat_token(self):
@@ -143,6 +144,7 @@ class AmoConnect:
         print("Send message url:", url)
         resp = self.session.post(url, headers=headers, data=json.dumps({"text": message}))
         print(resp.text)
+
     def auth(self) -> bool:
         self._create_session()
         response = self.session.post('https://www.amocrm.ru/oauth2/authorize', data={
@@ -160,7 +162,6 @@ class AmoConnect:
         self._create_chat_token()
         return True
 
-
 # login = 'appress8@gmail.com'
 # password = '83xUHS73'
 # deal_id = 5117051
@@ -171,4 +172,4 @@ class AmoConnect:
 
 # params = amo_connection.get_params_information(fields)
 # amo_connection.set_field_by_name('Цвет волос', 'Зеленый', params)
-#amo_connection.send_message("Привет!", '2ceb24f8-b7f9-48d3-8a0e-51e78dc53181')
+# amo_connection.send_message("Привет!", '2ceb24f8-b7f9-48d3-8a0e-51e78dc53181')
