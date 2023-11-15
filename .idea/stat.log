@@ -6040,3 +6040,17 @@
 {"ts":1700042560534,"action":"IDE_ACTIVATED"}
 {"ts":1700042561380,"action":"IDE_DEACTIVATED"}
 {"ts":1700042597155,"action":"IDE_ACTIVATED"}
+{"ts":1700042608462,"action":"IDE_DEACTIVATED"}
+{"ts":1700042705227,"action":"IDE_ACTIVATED"}
+{"ts":1700042707874,"action":"IDE_DEACTIVATED"}
+{"ts":1700042828046,"action":"IDE_ACTIVATED"}
+{"ts":1700042833232,"action":"FILE_CLOSED","file":"/app/working_modes/prompt_mode.py","tags":{"FILE_LINE_OF_CODE":"41"}}
+{"ts":1700042833232,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"131"}}
+{"ts":1700042856908,"action":"IDE_DEACTIVATED"}
+{"ts":1700042860003,"action":"IDE_ACTIVATED"}
+{"ts":1700042861119,"action":"IDE_DEACTIVATED"}
+{"ts":1700042884634,"action":"IDE_ACTIVATED"}
+{"ts":1700042919755,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"134"}}
+{"ts":1700042919755,"action":"FILE_OPENED","file":"/app/sources/amocrm/methods.py","tags":{"FILE_LINE_OF_CODE":"139"}}
+{"ts":1700042924301,"action":"FILE_CLOSED","file":"/app/sources/amocrm/methods.py","tags":{"FILE_LINE_OF_CODE":"139"}}
+{"ts":1700042924301,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"134"}}
