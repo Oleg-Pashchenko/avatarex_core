@@ -138,9 +138,9 @@ class AmoConnect:
 
     def send_message(self, message: str, chat_id: str):
         headers = {'X-Auth-Token': self.chat_token}
-        print('CHAT ID:', chat_id)
         url = f'https://amojo.amocrm.ru/v1/chats/{self.amo_hash}/' \
               f'{chat_id}/messages?with_video=true&stand=v16'
+        print("Send message url:", url)
         resp = self.session.post(url, headers=headers, data=json.dumps({"text": message}))
         print(resp.text)
     def auth(self) -> bool:
