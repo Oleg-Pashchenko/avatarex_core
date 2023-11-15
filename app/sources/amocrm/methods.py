@@ -25,6 +25,7 @@ def send_notes(pipeline_id, text, host, mail, password):
 
 
 def send_message(receiver_id: str, message: str, amocrm_settings: db.AmocrmSettings, token=''):
+    print(f'Отправляю {message} в {receiver_id}')
     while True:
         try:
             headers = {'X-Auth-Token': token}
@@ -34,7 +35,8 @@ def send_message(receiver_id: str, message: str, amocrm_settings: db.AmocrmSetti
 
             if response.status_code != 200:
                 raise Exception("Токен не подошел!")
-        except Exception:
+        except Exception as e:
+            print(e)
             token, session, _ = get_token(amocrm_settings)
             continue
         break
