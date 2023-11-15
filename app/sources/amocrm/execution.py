@@ -62,7 +62,8 @@ def execute(params: dict, r_d: dict):
     print(qualification_mode_response.data, user_answer_is_correct, has_new)
     amo_connection = AmoConnect(amocrm_settings.mail, amocrm_settings.password,
                                 pipeline=pipeline_settings.pipeline_id, deal_id=lead_id)
-    amo_connection.auth()
+    status = amo_connection.auth()
+    print("Удалось ли установить соединение с амо:", status)
     if has_new is False and user_answer_is_correct is None:
         db.AvatarexDBMethods.add_message(message_id=message_id, message=message, lead_id=lead_id, is_bot=False)
 
