@@ -36,4 +36,5 @@ class PromptMode:
         except Exception as e:
             print('Prompt mode exception:', e)
             result = MethodResponse(all_is_ok=False, data=[], errors=set(err.OPENAI_REQUEST_ERROR))
+        print("Результат получен", result)
         return result
