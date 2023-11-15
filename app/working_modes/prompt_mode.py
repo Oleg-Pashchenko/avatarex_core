@@ -27,6 +27,7 @@ class PromptMode:
             response = client.chat.completions.create(
                 model=self.model,
                 messages=self.messages_history,
+                timeout=20
                 # max_tokens=self.tokens_limit,
                 # temperature=self.temeperature
             )

@@ -16,18 +16,22 @@ def execute(params: dict, r_d: dict):
 
     if NEW_CLIENT_KEY in r_d.keys() or UPDATE_PIPELINE_KEY in r_d.keys():
         db.AvatarexDBMethods.update_lead(r_d)
-        return print('Сделка успешно создана!')
+        return
 
     message_id = r_d[MESSAGE_ID_KEY]
 
     if int(r_d[MESSAGE_CREATION_KEY]) + 30 < int(time.time()):
         return print('Сообщение уже распознавалось!')
 
+    print(f"Получено новое сообщение от user_id: {owner_id}")
+
     message, lead_id, user_id_hash = r_d[MESSAGE_KEY], r_d[LEAD_KEY], r_d[USER_ID_HASH_KEY]
-    print(lead_id, user_id_hash, message_id)
+
     lead = db.AvatarexDBMethods.get_lead(lead_id)
     amocrm_settings = db.AvatarexSiteMethods.get_amocrm_settings(owner_id=owner_id)
     pipeline_settings = db.AvatarexSiteMethods.get_pipeline_settings(pipeline_id=lead.pipeline_id)
+
+
     message_is_first: bool = False
     # request_settings = db.RequestSettings(lead.pipeline_id, username)
 
