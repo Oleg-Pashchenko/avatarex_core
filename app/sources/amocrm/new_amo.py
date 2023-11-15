@@ -140,8 +140,8 @@ class AmoConnect:
         headers = {'X-Auth-Token': self.chat_token}
         url = f'https://amojo.amocrm.ru/v1/chats/{self.amo_hash}/' \
               f'{chat_id}/messages?stand=v15'
-        requests.post(url, headers=headers, data=json.dumps({"text": message}))
-
+        resp = self.session.post(url, headers=headers, data=json.dumps({"text": message}))
+        print(resp)
     def auth(self) -> bool:
         self._create_session()
         response = self.session.post('https://www.amocrm.ru/oauth2/authorize', data={
