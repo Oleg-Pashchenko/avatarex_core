@@ -15,6 +15,11 @@ async def amo_request_handler(username):
     return 'ok'
 
 
+@application.route('/', methods=['GET'])
+async def hi_handler():
+    return 'All is fine!'
+
+
 @application.route('/api/v1/tests', methods=['POST'])
 async def tests_request_handler():
     data = dict(await request.values)
