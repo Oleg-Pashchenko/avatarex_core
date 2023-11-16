@@ -29,5 +29,5 @@ async def tests_request_handler():
 
 if __name__ == '__main__':
     config = Config()
-    config.bind = ["0.0.0.0:8081"]
+    config.bind = ["0.0.0.0:8000"]
     asyncio.run(serve(application, config))
