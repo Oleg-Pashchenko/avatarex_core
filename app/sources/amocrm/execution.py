@@ -34,8 +34,6 @@ def execute(params: dict, r_d: dict):
     amocrm_settings = db.AvatarexSiteMethods.get_amocrm_settings(owner_id=owner_id)
     pipeline_settings = db.AvatarexSiteMethods.get_pipeline_settings(pipeline_id=lead.pipeline_id)
 
-    print(pipeline_settings)
-    time.sleep(10)
     message_is_first: bool = False
     # request_settings = db.RequestSettings(lead.pipeline_id, username)
 
@@ -68,7 +66,7 @@ def execute(params: dict, r_d: dict):
     if has_new is False and user_answer_is_correct is None:
         db.AvatarexDBMethods.add_message(message_id=message_id, message=message, lead_id=lead_id, is_bot=False)
 
-        if pipeline_settings.chosen_work_mode == 'Ответ по контексту':
+        if pipeline_settings.chosen_work_mode == 'Ответ по контексту' or pipeline_settings.chosen_work_mode == 'Prompt mode':
             prompt_mode_data = db.AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
             p_m = PromptMode(
                 messages_history=db.AvatarexDBMethods.get_messages(lead_id, prompt_mode_data),

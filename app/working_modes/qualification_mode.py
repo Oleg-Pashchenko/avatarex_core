@@ -137,7 +137,7 @@ class QualificationMode:
                        lead_id: int, message, openai_key) -> (MethodResponse, bool, bool):
         print('Запущена квалификация')
         # временный костыль для AmoCRM
-        if pipeline_settings.chosen_work_mode == 'Ответ по контексту':
+        if pipeline_settings.chosen_work_mode == 'Ответ по контексту' or pipeline_settings.chosen_work_mode == 'Prompt mode':
             data = AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
             return QualificationMode().execute(data.qualification, amocrm_settings, lead_id, message, openai_key,
                                                data.qualification_finished)
