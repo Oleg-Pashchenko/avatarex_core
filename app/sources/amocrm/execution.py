@@ -34,7 +34,8 @@ def execute(params: dict, r_d: dict):
     amocrm_settings = db.AvatarexSiteMethods.get_amocrm_settings(owner_id=owner_id)
     pipeline_settings = db.AvatarexSiteMethods.get_pipeline_settings(pipeline_id=lead.pipeline_id)
 
-
+    print(pipeline_settings)
+    time.sleep(10)
     message_is_first: bool = False
     # request_settings = db.RequestSettings(lead.pipeline_id, username)
 
