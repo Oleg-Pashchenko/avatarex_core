@@ -37,8 +37,8 @@ def execute(params: dict, r_d: dict):
     message_is_first: bool = False
     # request_settings = db.RequestSettings(lead.pipeline_id, username)
 
-    # if int(lead.status_id) in request_settings.block_statuses:
-    #    return print("На данном статусе сделки бот не работает!")
+    if int(lead.status_id) not in pipeline_settings.work_statuses:
+        return print("На данном статусе сделки бот не работает!")
 
     # if VOICE_MESSAGE_KEY in r_d.keys():
     #    if request_settings.voice:

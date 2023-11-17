@@ -69,6 +69,7 @@ class PipelineSettings:
     p_mode_id: int
     s_mode_id: int
     k_mode_id: int
+    work_statuses: list
 
 
 @dataclasses.dataclass
@@ -297,18 +298,23 @@ class AvatarexSiteMethods:
 
     @staticmethod
     def get_pipeline_settings(pipeline_id: int) -> PipelineSettings:
-        cur.execute('SELECT voice_message_detection, chosen_work_mode, knowledge_and_search_mode_id, '
+        cur.execute('SELECT id, voice_message_detection, chosen_work_mode, knowledge_and_search_mode_id, '
                     'knowledge_mode_id, prompt_mode_id, search_mode_id FROM home_pipelines WHERE p_id=%s',
                     (pipeline_id,))
         pipeline_settings = cur.fetchone()
+        id = pipeline_settings[0]
+        cur.execute("SELECT status_id WHERE pipeline_id_id=%s AND is_active=%s", (pipeline_id, True,))
+        work_statuses = list(cur.fetchall())
+        print(work_statuses)
         return PipelineSettings(
             pipeline_id=pipeline_id,
-            voice_message_detection=pipeline_settings[0],
-            chosen_work_mode=pipeline_settings[1],
-            k_s_mode_id=pipeline_settings[2],
-            k_mode_id=pipeline_settings[3],
-            p_mode_id=pipeline_settings[4],
-            s_mode_id=pipeline_settings[5]
+            voice_message_detection=pipeline_settings[1],
+            chosen_work_mode=pipeline_settings[2],
+            k_s_mode_id=pipeline_settings[3],
+            k_mode_id=pipeline_settings[4],
+            p_mode_id=pipeline_settings[5],
+            s_mode_id=pipeline_settings[6],
+            work_statuses=work_statuses
         )
         # Pipeline settings
 
