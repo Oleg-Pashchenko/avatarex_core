@@ -6428,3 +6428,7 @@
 {"ts":1700218143172,"action":"FILE_OPENED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"335"}}
 {"ts":1700218147865,"action":"FILE_CLOSED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"335"}}
 {"ts":1700218147865,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"134"}}
+{"ts":1700218179068,"action":"IDE_DEACTIVATED"}
+{"ts":1700218218506,"action":"IDE_ACTIVATED"}
+{"ts":1700218223158,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"134"}}
+{"ts":1700218223158,"action":"FILE_OPENED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"335"}}
