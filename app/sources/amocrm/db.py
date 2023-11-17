@@ -303,7 +303,7 @@ class AvatarexSiteMethods:
                     (pipeline_id,))
         pipeline_settings = cur.fetchone()
         id = pipeline_settings[0]
-        cur.execute("SELECT status_id FROM home_statuses WHERE pipeline_id_id=%s AND is_active=%s", (pipeline_id, True,))
+        cur.execute("SELECT status_id FROM home_statuses WHERE pipeline_id_id=%s AND is_active=%s", (id, True,))
         work_statuses = list(cur.fetchall())
         print(work_statuses)
         return PipelineSettings(
