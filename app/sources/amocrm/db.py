@@ -304,8 +304,11 @@ class AvatarexSiteMethods:
         pipeline_settings = cur.fetchone()
         id = pipeline_settings[0]
         cur.execute("SELECT status_id FROM home_statuses WHERE pipeline_id_id=%s AND is_active=%s", (id, True,))
-        work_statuses = list(cur.fetchall())
-        print(work_statuses)
+        work_statuses = cur.fetchall()
+        w_s = []
+        for w in work_statuses:
+            w_s.append(w[0])
+        print(w_s)
         return PipelineSettings(
             pipeline_id=pipeline_id,
             voice_message_detection=pipeline_settings[1],
@@ -314,7 +317,7 @@ class AvatarexSiteMethods:
             k_mode_id=pipeline_settings[4],
             p_mode_id=pipeline_settings[5],
             s_mode_id=pipeline_settings[6],
-            work_statuses=work_statuses
+            work_statuses=w_s
         )
         # Pipeline settings
 
