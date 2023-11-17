@@ -145,7 +145,9 @@ class AmoConnect:
 
     def auth(self) -> bool:
         self._create_session()
-        response = self.session.post(f'{self.host}oauth2/authorize', data={
+        print(self.host)
+        time.sleep(4)
+        response = self.session.post(f'{self.host}/oauth2/authorize', data={
             'csrf_token': self.csrf_token,
             'username': self.login,
             'password': self.password
