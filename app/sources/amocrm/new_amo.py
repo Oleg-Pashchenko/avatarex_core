@@ -145,8 +145,6 @@ class AmoConnect:
 
     def auth(self) -> bool:
         self._create_session()
-        print(self.host)
-        time.sleep(5)
         response = self.session.post(f'{self.host}oauth2/authorize', data={
             'csrf_token': self.csrf_token,
             'username': self.login,
@@ -157,7 +155,8 @@ class AmoConnect:
         self.access_token = response.cookies.get('access_token')
         self.refresh_token = response.cookies.get('refresh_token')
         self.headers['access_token'], self.headers['refresh_token'] = self.access_token, self.refresh_token
-        self._get_host()
+        # self._get_host()
+        self.headers['Host'] = self.host.replace('https://', '').replace('/', '')
         self._get_amo_hash()
         self._create_chat_token()
         return True
