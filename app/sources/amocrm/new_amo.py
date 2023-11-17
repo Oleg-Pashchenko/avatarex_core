@@ -31,7 +31,7 @@ class AmoConnect:
 
     def _create_session(self):
         self.session = requests.Session()
-        response = self.session.get('https://www.amocrm.ru/')
+        response = self.session.get(self.host)
         session_id = response.cookies.get('session_id')
         self.csrf_token = response.cookies.get('csrf_token')
         self.headers = {
@@ -156,7 +156,9 @@ class AmoConnect:
         self.refresh_token = response.cookies.get('refresh_token')
         self.headers['access_token'], self.headers['refresh_token'] = self.access_token, self.refresh_token
         # self._get_host()
-        self.headers['Host'] = self.host.replace('https://', '').replace('/', '')
+        self.host = self.host.replace('https://', '').replace('/', '')
+        self.headers['Host'] = self.host
+        self.host = 'https://' + self.host
         self._get_amo_hash()
         self._create_chat_token()
         return True
