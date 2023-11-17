@@ -27,7 +27,6 @@ class AmoConnect:
         self.amo_hash = token
         self.deal_id = deal_id
         self.pipeline = pipeline
-        self.auth()
 
     def _create_session(self):
         self.session = requests.Session()
@@ -145,7 +144,6 @@ class AmoConnect:
 
     def auth(self) -> bool:
         self._create_session()
-        print(self.host)
         response = self.session.post(f'{self.host}/oauth2/authorize', data={
             'csrf_token': self.csrf_token,
             'username': self.login,
