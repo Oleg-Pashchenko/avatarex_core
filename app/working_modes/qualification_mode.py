@@ -98,7 +98,7 @@ class QualificationMode:
     def execute(self, fields_to_fill: dict, amocrm_settings: AmocrmSettings, lead_id: int, message, openai_key,
                 q_f_message) -> (
             MethodResponse, bool, bool):
-        amo_connection = AmoConnect(amocrm_settings.mail, amocrm_settings.password, deal_id=lead_id)
+        amo_connection = AmoConnect(amocrm_settings.mail, amocrm_settings.password, host=amocrm_settings.host, deal_id=lead_id)
         amo_connection.auth()
         source_fields = amo_connection.get_params_information(list(fields_to_fill.keys()))
 
