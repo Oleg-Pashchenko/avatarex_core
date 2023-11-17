@@ -308,7 +308,6 @@ class AvatarexSiteMethods:
         w_s = []
         for w in work_statuses:
             w_s.append(w[0])
-        print(w_s)
         return PipelineSettings(
             pipeline_id=pipeline_id,
             voice_message_detection=pipeline_settings[1],

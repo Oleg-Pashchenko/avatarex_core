@@ -19,10 +19,6 @@ class PromptMode:
     def execute(self) -> MethodResponse:
         os.environ["OPENAI_API_KEY"] = self.openai_api_key
         client = OpenAI()
-        print(self.model)
-        print('\n')
-        print(*self.messages_history[1::], sep='\n')
-        print('\n')
         try:
             response = client.chat.completions.create(
                 model=self.model,

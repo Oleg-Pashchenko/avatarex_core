@@ -21,12 +21,10 @@ class QualificationMode:
     @staticmethod
     def _get_qualification_question(field_number, source_fields, fields_to_fill):
         count = 0
-        print(source_fields)
         for field in fields_to_fill.keys():
             if source_fields[field]['active'] is None:
                 count += 1
                 if count == field_number:
-                    print(fields_to_fill[field], source_fields[field])
                     return fields_to_fill[field], source_fields[field]
         return None, None
 
@@ -122,7 +120,7 @@ class QualificationMode:
                                                            source_fields, fields_to_fill)  # просим следующее сообщение
         else:
             message, _ = self._get_qualification_question(1, source_fields, fields_to_fill)  # повторяем текущий вопрос
-        print(message, is_answer_correct)
+
         if message:  # если. сообщение сформировалось
             # perephrase message
             data.append(Message(perephrase(api_key=openai_key, message=message)))
