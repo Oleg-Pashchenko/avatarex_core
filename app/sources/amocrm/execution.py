@@ -58,7 +58,7 @@ def execute(params: dict, r_d: dict):
                                                                                     db.AvatarexSiteMethods.get_gpt_key(
                                                                                                          owner_id)
                                                                                                      )
-
+    print(amocrm_settings)
     amo_connection = AmoConnect(amocrm_settings.mail, amocrm_settings.password, host=amocrm_settings.host,
                                 pipeline=pipeline_settings.pipeline_id, deal_id=lead_id)
     status = amo_connection.auth()

@@ -6534,3 +6534,5 @@
 {"ts":1700227830694,"action":"FILE_OPENED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"222"}}
 {"ts":1700227834005,"action":"FILE_CLOSED","file":"/app/working_modes/qualification_mode.py","tags":{"FILE_LINE_OF_CODE":"222"}}
 {"ts":1700227834005,"action":"FILE_OPENED","file":"/app/sources/amocrm/new_amo.py","tags":{"FILE_LINE_OF_CODE":"173"}}
+{"ts":1700227850430,"action":"IDE_DEACTIVATED"}
+{"ts":1700227905801,"action":"IDE_ACTIVATED"}
