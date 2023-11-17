@@ -13,8 +13,7 @@ from app.working_modes.search_mode import SearchMode
 
 def execute(params: dict, r_d: dict):
     owner_id = int(params['username'])
-    print(r_d)
-    time.sleep(5)
+
 
     if NEW_CLIENT_KEY in r_d.keys() or UPDATE_PIPELINE_KEY in r_d.keys():
         db.AvatarexDBMethods.update_lead(r_d)
