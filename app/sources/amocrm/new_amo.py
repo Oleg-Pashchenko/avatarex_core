@@ -50,7 +50,6 @@ class AmoConnect:
 
     def _get_amo_hash(self):
         response = self.session.get(f'{self.host}/api/v4/account?with=amojo_id').json()
-        print(response)
         self.amo_hash = response['amojo_id']
 
     def _create_chat_token(self):
@@ -119,8 +118,6 @@ class AmoConnect:
 
     def set_field_by_name(self, data):
         url = f'{self.host}/ajax/leads/detail/'
-        print(data)
-        print('-' * 30)
         active_value = data['value']
         field = data['name']
 
@@ -147,7 +144,7 @@ class AmoConnect:
 
     def auth(self) -> bool:
         self._create_session()
-        response = self.session.post('https://www.amocrm.ru/oauth2/authorize', data={
+        response = self.session.post(f'{self.host}oauth2/authorize', data={
             'csrf_token': self.csrf_token,
             'username': self.login,
             'password': self.password

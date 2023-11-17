@@ -20,7 +20,7 @@ def execute(params: dict, r_d: dict):
 
     message_id = r_d[MESSAGE_ID_KEY]
 
-    if int(r_d[MESSAGE_CREATION_KEY]) + 30 < int(time.time()):
+    if int(r_d[MESSAGE_CREATION_KEY]) + 60 < int(time.time()):
         return print('Сообщение уже распознавалось!')
 
     print(f"Получено новое сообщение от user_id: {owner_id}")
@@ -59,7 +59,7 @@ def execute(params: dict, r_d: dict):
                                                                                                          owner_id)
                                                                                                      )
 
-    amo_connection = AmoConnect(amocrm_settings.mail, amocrm_settings.password,
+    amo_connection = AmoConnect(amocrm_settings.mail, amocrm_settings.password, host=amocrm_settings.host,
                                 pipeline=pipeline_settings.pipeline_id, deal_id=lead_id)
     status = amo_connection.auth()
     print("Удалось ли установить соединение с амо:", status)
