@@ -21,7 +21,7 @@ def execute(params: dict, r_d: dict):
 
     message_id = r_d[MESSAGE_ID_KEY]
 
-    if int(r_d[MESSAGE_CREATION_KEY]) + 60 < int(time.time()):
+    if int(r_d[MESSAGE_CREATION_KEY]) + 30 < int(time.time()):
         return print('Сообщение уже распознавалось!')
 
     print(f"Получено новое сообщение от user_id: {owner_id}")
@@ -34,6 +34,8 @@ def execute(params: dict, r_d: dict):
 
     amocrm_settings = db.AvatarexSiteMethods.get_amocrm_settings(owner_id=owner_id)
     pipeline_settings = db.AvatarexSiteMethods.get_pipeline_settings(pipeline_id=lead.pipeline_id)
+
+    chat_id = r_d['message[add][0][chat_id]']
 
     message_is_first: bool = False
     # request_settings = db.RequestSettings(lead.pipeline_id, username)
@@ -51,6 +53,13 @@ def execute(params: dict, r_d: dict):
         db.AvatarexDBMethods.clear_messages_by_pipeline_id(lead.pipeline_id)
         return print('История успешно очищена!')
 
+    amo_connection = AmoConnect(amocrm_settings.mail, amocrm_settings.password, host=amocrm_settings.host,
+                                pipeline=pipeline_settings.pipeline_id, deal_id=lead_id)
+    status = amo_connection.auth()
+    print("Удалось ли установить соединение с амо:", status)
+    prev_message = amo_connection.get_last_message(chat_id)
+
+
     qualification_mode = QualificationMode()
     qualification_mode_response, user_answer_is_correct, has_new = qualification_mode.execute_amocrm(pipeline_settings,
                                                                                                      amocrm_settings,
@@ -60,10 +69,6 @@ def execute(params: dict, r_d: dict):
                                                                                                          owner_id)
                                                                                                      )
 
-    amo_connection = AmoConnect(amocrm_settings.mail, amocrm_settings.password, host=amocrm_settings.host,
-                                pipeline=pipeline_settings.pipeline_id, deal_id=lead_id)
-    status = amo_connection.auth()
-    print("Удалось ли установить соединение с амо:", status)
     if has_new is False and user_answer_is_correct is None:
         db.AvatarexDBMethods.add_message(message_id=message_id, message=message, lead_id=lead_id, is_bot=False)
 
