@@ -57,7 +57,7 @@ def execute(params: dict, r_d: dict):
                                 pipeline=pipeline_settings.pipeline_id, deal_id=lead_id)
     status = amo_connection.auth()
     print("Удалось ли установить соединение с амо:", status)
-    prev_message = amo_connection.get_last_message(chat_id)
+    # prev_message = amo_connection.get_last_message(chat_id)
 
 
     qualification_mode = QualificationMode()
