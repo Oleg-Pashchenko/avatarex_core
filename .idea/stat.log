@@ -6765,3 +6765,4 @@
 {"ts":1700657871072,"action":"FILE_OPENED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"342"}}
 {"ts":1700657891336,"action":"FILE_CLOSED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"345"}}
 {"ts":1700657891336,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"140"}}
+{"ts":1700658012056,"action":"IDE_DEACTIVATED"}
