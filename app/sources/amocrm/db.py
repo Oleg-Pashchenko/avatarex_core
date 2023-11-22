@@ -3,7 +3,7 @@ import datetime
 import random
 
 import psycopg2
-from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey, DateTime
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey, DateTime, desc
 from sqlalchemy.ext.declarative import declarative_base
 import os
 import dotenv
@@ -175,6 +175,14 @@ class AvatarexDBMethods:
         session.add(obj)
         session.commit()
 
+
+    @staticmethod
+    def get_last_user_message(lead_id):
+        result = session.query(Messages).filter_by(is_bot=False, lead_id=lead_id).order_by(desc(Messages.date)).first()
+        try:
+            return result.message
+        except:
+            return ''
     @staticmethod
     def clear_messages_by_pipeline_id(pipeline_id):
         result = session.query(Leads).filter_by(pipeline_id=pipeline_id).first()

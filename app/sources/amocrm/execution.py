@@ -23,12 +23,15 @@ def execute(params: dict, r_d: dict):
     message_id = r_d[MESSAGE_ID_KEY]
     # print(int(r_d[MESSAGE_CREATION_KEY]) + 30, int(time.time()))
     # if int(r_d[MESSAGE_CREATION_KEY]) + 30 < int(time.time()):
-    #    return print('Сообщение уже распознавалось!')
-
+    #     return print('Сообщение уже распознавалось!')
     print(f"Получено новое сообщение от user_id: {owner_id}")
 
     message, lead_id, user_id_hash = r_d[MESSAGE_KEY], r_d[LEAD_KEY], r_d[USER_ID_HASH_KEY]
 
+    m = db.AvatarexDBMethods.get_last_user_message(lead_id)
+    print(m)
+    if m.lower() == message.lower():
+        return print('Сообщение уже распознавалось!')
     lead = db.AvatarexDBMethods.get_lead(lead_id)
     if lead is None:
         return print("Неккоректно установлен webhook!")
@@ -60,13 +63,12 @@ def execute(params: dict, r_d: dict):
     print("Удалось ли установить соединение с амо:", status)
     # prev_message = amo_connection.get_last_message(chat_id)
 
-
     qualification_mode = QualificationMode()
     qualification_mode_response, user_answer_is_correct, has_new = qualification_mode.execute_amocrm(pipeline_settings,
                                                                                                      amocrm_settings,
                                                                                                      lead_id,
                                                                                                      message,
-                                                                                    db.AvatarexSiteMethods.get_gpt_key(
+                                                                                                     db.AvatarexSiteMethods.get_gpt_key(
                                                                                                          owner_id)
                                                                                                      )
 
