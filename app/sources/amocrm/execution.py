@@ -22,8 +22,8 @@ def execute(params: dict, r_d: dict):
 
     message_id = r_d[MESSAGE_ID_KEY]
 
-    if int(r_d[MESSAGE_CREATION_KEY]) + 30 < int(time.time()):
-        return print('Сообщение уже распознавалось!')
+    # if int(r_d[MESSAGE_CREATION_KEY]) + 30 < int(time.time()):
+    #    return print('Сообщение уже распознавалось!')
 
     print(f"Получено новое сообщение от user_id: {owner_id}")
 
