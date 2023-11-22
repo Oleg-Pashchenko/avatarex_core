@@ -178,6 +178,7 @@ class AvatarexDBMethods:
 
     @staticmethod
     def get_last_user_message(lead_id):
+        print(lead_id)
         result = session.query(Messages).filter_by(is_bot=False, lead_id=lead_id).order_by(desc(Messages.date)).first()
         print(result, 'RESULT')
         try:
