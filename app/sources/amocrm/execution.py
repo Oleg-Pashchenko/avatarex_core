@@ -18,7 +18,7 @@ def execute(params: dict, r_d: dict):
 
     if NEW_CLIENT_KEY in r_d.keys() or UPDATE_PIPELINE_KEY in r_d.keys():
         db.AvatarexDBMethods.update_lead(r_d)
-        return
+        return print('Новый клиент')
 
     message_id = r_d[MESSAGE_ID_KEY]
 
