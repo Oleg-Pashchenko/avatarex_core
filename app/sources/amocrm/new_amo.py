@@ -82,13 +82,14 @@ class AmoConnect:
 
 
     def get_second_last_message(self, chat_ids):
+        headers = {'X-Auth-Token': self.chat_token}
         url = 'https://amojo.amocrm.ru/v2/read?stand=v16'
         data = {
             'chat_id[]': chat_ids,
             'group_id[]': 0,
             'timestamp': int(time.time())
         }
-        response = self.session.post(url, data=data)
+        response = self.session.post(url, data=data, headers=headers)
         print(response.text)
 
 
