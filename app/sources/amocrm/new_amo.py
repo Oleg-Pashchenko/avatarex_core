@@ -84,6 +84,7 @@ class AmoConnect:
         url = f'{self.host}/ajax/v3/leads/{lead_id}/events_timeline'
         response = self.session.get(url).json()['_embedded']['items']
         for i in response:
+            i = i['data']
             print(i['message']['text'], i['author']['origin'])
 
     def get_params_information(self, fields: list):
