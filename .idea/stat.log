@@ -6888,3 +6888,4 @@
 {"ts":1700858501642,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"141"}}
 {"ts":1700858600698,"action":"IDE_DEACTIVATED"}
 {"ts":1700858603368,"action":"IDE_ACTIVATED"}
+{"ts":1700858680453,"action":"IDE_DEACTIVATED"}
