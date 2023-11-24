@@ -88,7 +88,7 @@ class AmoConnect:
             headers = {'X-Auth-Token': self.chat_token}
             url = 'https://amojo.amocrm.ru/v2/read?stand=v16'
             data = {
-                'chat_id[]': chat_ids,
+                'chat_id[]': k,
                 'group_id[]': 0,
                 'timestamp': int(time.time())
             }
