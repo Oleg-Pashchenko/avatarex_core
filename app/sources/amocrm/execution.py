@@ -65,7 +65,7 @@ def execute(params: dict, r_d: dict):
     if cont == 'user':
         return print('Сообщение уже распознавалось!')
     #  prev_message = amo_connection.get_last_message(chat_id)
-    print(amo_connection.get_second_last_message(lead_id))
+   # print(amo_connection.get_second_last_message(lead_id))
     qualification_mode = QualificationMode()
     qualification_mode_response, user_answer_is_correct, has_new = qualification_mode.execute_amocrm(pipeline_settings,
                                                                                                      amocrm_settings,
