@@ -59,7 +59,8 @@ def execute(params: dict, r_d: dict):
                                 pipeline=pipeline_settings.pipeline_id, deal_id=lead_id)
     status = amo_connection.auth()
     print("Удалось ли установить соединение с амо:", status)
-    print(amo_connection.get_last_message())
+    print(chat_id)
+    print(amo_connection.get_last_message(chat_id))
     print(int(r_d[MESSAGE_CREATION_KEY]) + 30, int(time.time()))
     if int(r_d[MESSAGE_CREATION_KEY]) + 30 < int(time.time()):
         return print('Сообщение уже распознавалось!')

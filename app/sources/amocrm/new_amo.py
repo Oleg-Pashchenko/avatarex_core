@@ -73,12 +73,8 @@ class AmoConnect:
         }
         self.session.post(url, data=data, headers=self.headers)
 
-    def get_last_message(self):
-        url = 'https://chatgpt.amocrm.ru/leads/detail/16020171'
-        lead_id = ''
-        chat_ids = ''
+    def get_last_message(self, chat_ids):
         url = 'https://chatgpt.amocrm.ru/ajax/v2/talks'
-
         response = self.session.post(url, data={'chats_ids[]': chat_ids})
         print(response.text)
 
