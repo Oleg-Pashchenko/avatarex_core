@@ -92,7 +92,7 @@ class AmoConnect:
                 'group_id[]': 0,
                 'timestamp': int(time.time())
             }
-
+            print(data)
             response = self.session.post(url, data=json.dumps(data), headers=headers)
             print(response.text)
 
