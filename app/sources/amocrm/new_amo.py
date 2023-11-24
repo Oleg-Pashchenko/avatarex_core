@@ -82,8 +82,9 @@ class AmoConnect:
 
     def get_second_last_message(self, lead_id):
         url = f'{self.host}/ajax/v3/leads/{lead_id}/events_timeline'
-        response = self.session.get(url)
-        print(response.text)
+        response = self.session.get(url).json()['_embedded']['items']
+        for i in response:
+            print(i['message']['text'], i['author']['origin'])
 
     def get_params_information(self, fields: list):
         result = {}
