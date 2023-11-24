@@ -60,12 +60,10 @@ def execute(params: dict, r_d: dict):
     status = amo_connection.auth()
     print("Удалось ли установить соединение с амо:", status)
     print(chat_id)
-    print(amo_connection.get_last_message(chat_id))
-    print(int(r_d[MESSAGE_CREATION_KEY]) + 30, int(time.time()))
-    if int(r_d[MESSAGE_CREATION_KEY]) + 30 < int(time.time()):
+    mes, cont = amo_connection.get_last_message(chat_id)
+    print(mes, cont)
+    if cont == 'user':
         return print('Сообщение уже распознавалось!')
-    print()
-    return
     # prev_message = amo_connection.get_last_message(chat_id)
 
     qualification_mode = QualificationMode()
