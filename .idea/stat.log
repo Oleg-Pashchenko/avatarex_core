@@ -6986,3 +6986,17 @@
 {"ts":1700859944115,"action":"IDE_ACTIVATED"}
 {"ts":1700859946958,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"144"}}
 {"ts":1700859946958,"action":"FILE_OPENED","file":"/app/sources/amocrm/new_amo.py","tags":{"FILE_LINE_OF_CODE":"195"}}
+{"ts":1700859972510,"action":"IDE_DEACTIVATED"}
+{"ts":1700860777816,"action":"IDE_ACTIVATED"}
+{"ts":1700860779199,"action":"IDE_DEACTIVATED"}
+{"ts":1700860791228,"action":"IDE_ACTIVATED"}
+{"ts":1700860791666,"action":"IDE_DEACTIVATED"}
+{"ts":1700860792467,"action":"IDE_ACTIVATED"}
+{"ts":1700860793604,"action":"IDE_DEACTIVATED"}
+{"ts":1700860800034,"action":"IDE_ACTIVATED"}
+{"ts":1700860800645,"action":"IDE_DEACTIVATED"}
+{"ts":1700860801499,"action":"IDE_ACTIVATED"}
+{"ts":1700860802152,"action":"IDE_DEACTIVATED"}
+{"ts":1700860813843,"action":"IDE_ACTIVATED"}
+{"ts":1700860820211,"action":"IDE_DEACTIVATED"}
+{"ts":1700860887128,"action":"IDE_ACTIVATED"}
