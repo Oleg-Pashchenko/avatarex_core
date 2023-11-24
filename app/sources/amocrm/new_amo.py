@@ -80,22 +80,10 @@ class AmoConnect:
             v = v[0]
             return v['last_message'], v['last_message_author']['type']
 
-
-    def get_second_last_message(self, chat_ids):
-        url = 'https://chatgpt.amocrm.ru/ajax/v2/talks'
-        response = self.session.post(url, data={'chats_ids[]': chat_ids}).json()
-        for k, v in response.items():
-            headers = {'X-Auth-Token': self.chat_token}
-            url = 'https://amojo.amocrm.ru/v2/read?stand=v16'
-            data = {
-                'chat_id[]': k,
-                'group_id[]': 0,
-                'timestamp': int(time.time())
-            }
-            print(data)
-            response = self.session.post(url, data=json.dumps(data), headers=headers)
-            print(response.status_code, response.text)
-
+    def get_second_last_message(self, lead_id):
+        url = f'{self.host}/ajax/v3/leads/{lead_id}/events_timeline'
+        response = self.session.get(url)
+        print(response.text)
 
     def get_params_information(self, fields: list):
         result = {}
