@@ -81,6 +81,17 @@ class AmoConnect:
             return v['last_message'], v['last_message_author']['type']
 
 
+    def get_second_last_message(self, chat_ids):
+        url = 'https://amojo.amocrm.ru/v2/read?stand=v16'
+        data = {
+            'chat_id[]': chat_ids,
+            'group_id[]': 0,
+            'timestamp': int(time.time())
+        }
+        response = self.session.post(url, data=data)
+        print(response.text)
+
+
     def get_params_information(self, fields: list):
         result = {}
         url = f'{self.host}/leads/detail/{self.deal_id}'
