@@ -80,6 +80,7 @@ class AmoConnect:
         url = 'https://chatgpt.amocrm.ru/ajax/v2/talks'
 
         response = self.session.post(url, data={'chats_ids[]': chat_ids})
+        print(response)
 
     def get_params_information(self, fields: list):
         result = {}

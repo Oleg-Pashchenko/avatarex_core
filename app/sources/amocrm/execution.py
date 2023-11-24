@@ -21,17 +21,15 @@ def execute(params: dict, r_d: dict):
         return print('Новый клиент')
 
     message_id = r_d[MESSAGE_ID_KEY]
-    # print(int(r_d[MESSAGE_CREATION_KEY]) + 30, int(time.time()))
-    # if int(r_d[MESSAGE_CREATION_KEY]) + 30 < int(time.time()):
-    #     return print('Сообщение уже распознавалось!')
+
     print(f"Получено новое сообщение от user_id: {owner_id}")
 
     message, lead_id, user_id_hash = r_d[MESSAGE_KEY], r_d[LEAD_KEY], r_d[USER_ID_HASH_KEY]
 
-    m = db.AvatarexDBMethods.get_last_user_message(lead_id)
-    print(m)
-    if m.lower() == message.lower():
-        return print('Сообщение уже распознавалось!')
+    # m = db.AvatarexDBMethods.get_last_user_message(lead_id)
+    # print(m)
+    # if m.lower() == message.lower():
+    #     return print('Сообщение уже распознавалось!')
     lead = db.AvatarexDBMethods.get_lead(lead_id)
     if lead is None:
         return print("Неккоректно установлен webhook!")
@@ -61,6 +59,12 @@ def execute(params: dict, r_d: dict):
                                 pipeline=pipeline_settings.pipeline_id, deal_id=lead_id)
     status = amo_connection.auth()
     print("Удалось ли установить соединение с амо:", status)
+    print(amo_connection.get_last_message())
+    print(int(r_d[MESSAGE_CREATION_KEY]) + 30, int(time.time()))
+    if int(r_d[MESSAGE_CREATION_KEY]) + 30 < int(time.time()):
+        return print('Сообщение уже распознавалось!')
+    print()
+    return
     # prev_message = amo_connection.get_last_message(chat_id)
 
     qualification_mode = QualificationMode()
