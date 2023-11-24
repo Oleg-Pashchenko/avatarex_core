@@ -94,7 +94,7 @@ class AmoConnect:
             }
             print(data)
             response = self.session.post(url, data=json.dumps(data), headers=headers)
-            print(response.text)
+            print(response.status_code, response.text)
 
 
     def get_params_information(self, fields: list):
