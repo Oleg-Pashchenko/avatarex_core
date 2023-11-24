@@ -7063,3 +7063,16 @@
 {"ts":1700861568620,"action":"IDE_DEACTIVATED"}
 {"ts":1700861580852,"action":"IDE_ACTIVATED"}
 {"ts":1700861583052,"action":"IDE_DEACTIVATED"}
+{"ts":1700861602963,"action":"IDE_ACTIVATED"}
+{"ts":1700861614410,"action":"IDE_DEACTIVATED"}
+{"ts":1700861633230,"action":"IDE_ACTIVATED"}
+{"ts":1700861634950,"action":"FILE_CLOSED","file":"/app/sources/amocrm/new_amo.py","tags":{"FILE_LINE_OF_CODE":"190"}}
+{"ts":1700861634950,"action":"FILE_OPENED","file":"/app/sources/amocrm/service.py","tags":{"FILE_LINE_OF_CODE":"69"}}
+{"ts":1700861635675,"action":"FILE_CLOSED","file":"/app/sources/amocrm/service.py","tags":{"FILE_LINE_OF_CODE":"69"}}
+{"ts":1700861635675,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"144"}}
+{"ts":1700861640312,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"144"}}
+{"ts":1700861640312,"action":"FILE_OPENED","file":"/app/sources/amocrm/new_amo.py","tags":{"FILE_LINE_OF_CODE":"190"}}
+{"ts":1700861642940,"action":"IDE_DEACTIVATED"}
+{"ts":1700861643463,"action":"IDE_ACTIVATED"}
+{"ts":1700861645528,"action":"IDE_DEACTIVATED"}
+{"ts":1700861645884,"action":"IDE_ACTIVATED"}

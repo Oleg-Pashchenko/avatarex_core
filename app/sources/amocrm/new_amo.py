@@ -85,6 +85,8 @@ class AmoConnect:
         response = self.session.get(url).json()['_embedded']['items']
         for i in response:
             i = i['data']
+            print(i)
+            continue
             print(i['message']['text'], i['author']['origin'])
 
     def get_params_information(self, fields: list):
