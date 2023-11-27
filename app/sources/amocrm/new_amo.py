@@ -87,7 +87,7 @@ class AmoConnect:
         response = self.session.get(url).json()['_embedded']['items']
         # for i in response:
         #     print(b['message']['text'], b['author']['origin'])
-        print(response.status_code, '2')
+        print(response, '2')
     def get_params_information(self, fields: list):
         result = {}
         url = f'{self.host}/leads/detail/{self.deal_id}'
