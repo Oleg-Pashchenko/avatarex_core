@@ -84,7 +84,7 @@ class AmoConnect:
 
     def get_second_last_message(self, chat_id):
         url = f'https://amojo.amocrm.ru/messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=100&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru'
-
+        print(url)
         response = self.session.get(url)
         print(response.status_code)
 
