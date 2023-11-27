@@ -77,7 +77,6 @@ class AmoConnect:
         url = 'https://chatgpt.amocrm.ru/ajax/v2/talks'
         response = self.session.post(url, data={'chats_ids[]': chat_ids})
         print(response.status_code)
-        time.sleep(10)
         response = response.json()
         for k, v in response.items():
             v = v[0]
@@ -86,9 +85,9 @@ class AmoConnect:
     def get_second_last_message(self, lead_id):
         url = f'{self.host}/ajax/v3/leads/{lead_id}/events_timeline'
         response = self.session.get(url).json()['_embedded']['items']
-        for i in response:
-            print(b['message']['text'], b['author']['origin'])
-
+        # for i in response:
+        #     print(b['message']['text'], b['author']['origin'])
+        print(response.status_code, '2')
     def get_params_information(self, fields: list):
         result = {}
         url = f'{self.host}/leads/detail/{self.deal_id}'
