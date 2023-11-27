@@ -7287,3 +7287,11 @@
 {"ts":1701080127678,"action":"IDE_ACTIVATED"}
 {"ts":1701080132852,"action":"IDE_DEACTIVATED"}
 {"ts":1701080188528,"action":"IDE_ACTIVATED"}
+{"ts":1701080219746,"action":"FILE_CLOSED","file":"/app/sources/amocrm/new_amo.py","tags":{"FILE_LINE_OF_CODE":"191"}}
+{"ts":1701080219746,"action":"FILE_OPENED","file":"/app/node.py","tags":{"FILE_LINE_OF_CODE":"8"}}
+{"ts":1701080221125,"action":"FILE_CLOSED","file":"/app/node.py","tags":{"FILE_LINE_OF_CODE":"8"}}
+{"ts":1701080221125,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"144"}}
+{"ts":1701080239006,"action":"IDE_DEACTIVATED"}
+{"ts":1701080244216,"action":"IDE_ACTIVATED"}
+{"ts":1701080249598,"action":"IDE_DEACTIVATED"}
+{"ts":1701080271236,"action":"IDE_ACTIVATED"}
