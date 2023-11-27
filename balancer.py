@@ -4,7 +4,6 @@ from hypercorn.asyncio import serve
 from hypercorn.config import Config
 from app import node
 
-
 application = Quart(__name__)
 
 
@@ -18,13 +17,6 @@ async def amo_request_handler(username):
 @application.route('/', methods=['GET'])
 async def hi_handler():
     return 'All is fine!'
-
-
-@application.route('/api/v1/tests', methods=['POST'])
-async def tests_request_handler():
-    data = dict(await request.values)
-    node.execute(params={}, data=data, source='tests')
-    return 'ok'
 
 
 if __name__ == '__main__':
