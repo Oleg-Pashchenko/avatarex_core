@@ -59,11 +59,10 @@ def execute(params: dict, r_d: dict):
                                 pipeline=pipeline_settings.pipeline_id, deal_id=lead_id)
     status = amo_connection.auth()
     print("Удалось ли установить соединение с амо:", status)
-    print(chat_id)
-    amo_connection.get_second_last_message(chat_id)
-    time.sleep(2)
-    mes, cont = amo_connection.get_last_message(chat_id)
-
+    try:
+        mes, cont = amo_connection.get_last_message(chat_id)
+    except:
+        mes, cont = cont = '', 'contact'
     print(mes, cont)
     if cont == 'user':
         return print('Сообщение уже распознавалось!')
