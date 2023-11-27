@@ -60,7 +60,7 @@ def execute(params: dict, r_d: dict):
     status = amo_connection.auth()
     print("Удалось ли установить соединение с амо:", status)
     print(chat_id)
-    amo_connection.get_second_last_message(lead_id)
+    amo_connection.get_second_last_message(chat_id)
     time.sleep(2)
     mes, cont = amo_connection.get_last_message(chat_id)
 

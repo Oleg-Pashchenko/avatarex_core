@@ -82,12 +82,17 @@ class AmoConnect:
             v = v[0]
             return v['last_message'], v['last_message_author']['type']
 
-    def get_second_last_message(self, lead_id):
-        url = f'{self.host}/ajax/v3/leads/{lead_id}/events_timeline'
-        response = self.session.get(url).json()['_embedded']['items'][-1]
+    def get_second_last_message(self, chat_id):
+        url = f'https://amojo.amocrm.ru/messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=100&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru'
+
+        response = self.session.get(url)
+        print(response.status_code)
+
+        #url = f'{self.host}/ajax/v3/leads/{lead_id}/events_timeline'
+        # response = self.session.get(url).json()['_embedded']['items'][-1]
         # for i in response:
         #     print(b['message']['text'], b['author']['origin'])
-        print(response, '2')
+
     def get_params_information(self, fields: list):
         result = {}
         url = f'{self.host}/leads/detail/{self.deal_id}'
