@@ -7300,3 +7300,9 @@
 {"ts":1701080288784,"action":"IDE_DEACTIVATED"}
 {"ts":1701080292561,"action":"IDE_ACTIVATED"}
 {"ts":1701080293584,"action":"IDE_DEACTIVATED"}
+{"ts":1701080307180,"action":"IDE_ACTIVATED"}
+{"ts":1701080308409,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"147"}}
+{"ts":1701080308409,"action":"FILE_OPENED","file":"/app/sources/amocrm/new_amo.py","tags":{"FILE_LINE_OF_CODE":"191"}}
+{"ts":1701080317755,"action":"IDE_DEACTIVATED"}
+{"ts":1701080323648,"action":"IDE_ACTIVATED"}
+{"ts":1701080324874,"action":"IDE_DEACTIVATED"}
