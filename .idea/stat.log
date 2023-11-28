@@ -8397,3 +8397,4 @@
 {"ts":1701166054682,"action":"FILE_OPENED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"152"}}
 {"ts":1701166127416,"action":"FILE_CLOSED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"152"}}
 {"ts":1701166127416,"action":"FILE_OPENED","file":"/app/working_modes/prompt_mode.py","tags":{"FILE_LINE_OF_CODE":"37"}}
+{"ts":1701166139769,"action":"IDE_DEACTIVATED"}
