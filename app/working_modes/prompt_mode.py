@@ -25,6 +25,7 @@ class PromptMode:
                 # max_tokens=self.tokens_limit,
                 # temperature=self.temeperature
             )
+            print("PMRESP", response)
             result = MethodResponse(all_is_ok=True,
                                     data=[Message(text=response.choices[0].message.content)], errors=set())
         except Exception as e:

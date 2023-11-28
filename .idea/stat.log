@@ -8371,3 +8371,7 @@
 {"ts":1701165699484,"action":"IDE_ACTIVATED"}
 {"ts":1701165707118,"action":"IDE_DEACTIVATED"}
 {"ts":1701165708783,"action":"IDE_ACTIVATED"}
+{"ts":1701165721478,"action":"IDE_DEACTIVATED"}
+{"ts":1701165755951,"action":"IDE_ACTIVATED"}
+{"ts":1701165773684,"action":"FILE_CLOSED","file":"/app/working_modes/prompt_mode.py","tags":{"FILE_LINE_OF_CODE":"36"}}
+{"ts":1701165773684,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"152"}}

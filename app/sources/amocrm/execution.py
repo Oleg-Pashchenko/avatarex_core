@@ -91,7 +91,6 @@ async def execute(params: dict, r_d: dict):
                 model=prompt_mode_data.model,
                 openai_api_key=db.AvatarexSiteMethods.get_gpt_key(owner_id)
             )
-            print(p_m)
             response = await p_m.execute()
             print("PM rESPONSSE", response)
 
