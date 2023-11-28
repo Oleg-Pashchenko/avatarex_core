@@ -8416,3 +8416,15 @@
 {"ts":1701166289577,"action":"FILE_CLOSED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"152"}}
 {"ts":1701166289577,"action":"FILE_OPENED","file":"/app/working_modes/prompt_mode.py","tags":{"FILE_LINE_OF_CODE":"34"}}
 {"ts":1701166305329,"action":"IDE_DEACTIVATED"}
+{"ts":1701166336690,"action":"IDE_ACTIVATED"}
+{"ts":1701166347178,"action":"IDE_DEACTIVATED"}
+{"ts":1701166352146,"action":"IDE_ACTIVATED"}
+{"ts":1701166353433,"action":"IDE_DEACTIVATED"}
+{"ts":1701166354439,"action":"IDE_ACTIVATED"}
+{"ts":1701166355571,"action":"IDE_DEACTIVATED"}
+{"ts":1701166377014,"action":"IDE_ACTIVATED"}
+{"ts":1701166382675,"action":"FILE_CLOSED","file":"/app/working_modes/prompt_mode.py","tags":{"FILE_LINE_OF_CODE":"34"}}
+{"ts":1701166382675,"action":"FILE_OPENED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"152"}}
+{"ts":1701166404280,"action":"FILE_CLOSED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"152"}}
+{"ts":1701166407067,"action":"FILE_OPENED","file":"/app/working_modes/prompt_mode.py","tags":{"FILE_LINE_OF_CODE":"34"}}
+{"ts":1701166407723,"action":"IDE_DEACTIVATED"}
