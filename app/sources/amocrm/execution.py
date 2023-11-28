@@ -90,6 +90,7 @@ async def execute(params: dict, r_d: dict):
                 openai_api_key=db.AvatarexSiteMethods.get_gpt_key(owner_id)
             )
             response = await p_m.execute()
+            print("PM rESPONSSE", response)
 
         elif pipeline_settings.chosen_work_mode == 'Ответ из базы данных':
             print('я решил получить ответ из базы данных')
