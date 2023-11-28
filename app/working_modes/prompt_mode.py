@@ -19,7 +19,7 @@ class PromptMode:
     async def execute(self) -> MethodResponse:
         client = AsyncOpenAI(api_key=self.openai_api_key)
         try:
-            response = await client.chat.completions.create(
+            response = client.chat.completions.create(
                 model=self.model,
                 messages=self.messages_history
                 # max_tokens=self.tokens_limit,
