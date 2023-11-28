@@ -67,15 +67,17 @@ def execute(params: dict, r_d: dict):
     if cont == 'user':
         return print('Сообщение уже распознавалось!')
     #  prev_message = amo_connection.get_last_message(chat_id)
-   # print(amo_connection.get_second_last_message(lead_id))
-    qualification_mode = QualificationMode()
-    qualification_mode_response, user_answer_is_correct, has_new = qualification_mode.execute_amocrm(pipeline_settings,
-                                                                                                     amocrm_settings,
-                                                                                                     lead_id,
-                                                                                                     message,
-                                                                                                     db.AvatarexSiteMethods.get_gpt_key(
-                                                                                                         owner_id)
-                                                                                                     )
+    # print(amo_connection.get_second_last_message(lead_id))
+    # qualification_mode = QualificationMode()
+    # qualification_mode_response, user_answer_is_correct, has_new = qualification_mode.execute_amocrm(pipeline_settings,
+    #                                                                                               amocrm_settings,
+    #                                                                                               lead_id,
+    #                                                                                               message,
+    #                                                                                               db.AvatarexSiteMethods.get_gpt_key(
+    #                                                                                                   owner_id)
+    #                                                                                               )
+    has_new = False
+    user_answer_is_correct = None
     db.AvatarexDBMethods.add_message(message_id=message_id, message=message, lead_id=lead_id, is_bot=False)
     if has_new is False and user_answer_is_correct is None:
         if pipeline_settings.chosen_work_mode == 'Ответ по контексту' or pipeline_settings.chosen_work_mode == 'Prompt mode':
