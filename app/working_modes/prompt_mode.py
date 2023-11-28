@@ -17,6 +17,7 @@ class PromptMode:
     openai_api_key: str
 
     async def execute(self) -> MethodResponse:
+        print(self.openai_api_key)
         client = OpenAI(api_key=self.openai_api_key)
         try:
             response = client.chat.completions.create(
