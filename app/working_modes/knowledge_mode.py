@@ -110,7 +110,7 @@ class KnowledgeMode:
                 {"role": "user",
                  "content": message}]
             
-            response = await client.chat.completions.create(model="gpt-3.5-turbo-16k",
+            response = client.chat.completions.create(model="gpt-3.5-turbo-16k",
             messages=messages,
             functions=func,
             function_call={"name": "get_question_by_context"})
