@@ -28,6 +28,7 @@ class PromptMode:
             result = MethodResponse(all_is_ok=True,
                                     data=[Message(text=response.choices[0].message.content)], errors=set())
         except Exception as e:
+            print(e)
             result = MethodResponse(all_is_ok=False, data=[], errors=err.OPENAI_REQUEST_ERROR)
         print("Результат получен", result)
         return result
