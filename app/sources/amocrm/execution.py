@@ -133,13 +133,13 @@ def execute(params: dict, r_d: dict):
                 amo_connection.send_message(entity.text, user_id_hash)
                 db.AvatarexDBMethods.add_message(message_id='', message=entity.text, lead_id=lead_id, is_bot=True)
 
-    for entity in qualification_mode_response.data:
-        if isinstance(entity, Message):
-            amo_connection.send_message(entity.text, user_id_hash)
+    # for entity in qualification_mode_response.data:
+    #     if isinstance(entity, Message):
+    #         amo_connection.send_message(entity.text, user_id_hash)
             # db.AvatarexDBMethods.add_message(message_id='', message=entity.text, lead_id=lead_id, is_bot=True)
-        elif isinstance(entity, Command):
-            if entity.command == 'fill':
-                amo_connection.set_field_by_name(entity.data)
+   #      elif isinstance(entity, Command):
+   #          if entity.command == 'fill':
+    #            amo_connection.set_field_by_name(entity.data)
 
                 # fill_field(entity.data['name'], entity.data['value'], amocrm_settings.host, amocrm_settings.mail,
                 #           amocrm_settings.password, lead_id, pipeline_settings.pipeline_id)

@@ -8263,3 +8263,5 @@
 {"ts":1701164157614,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"146"}}
 {"ts":1701164171781,"action":"IDE_DEACTIVATED"}
 {"ts":1701164173569,"action":"IDE_ACTIVATED"}
+{"ts":1701164204537,"action":"IDE_DEACTIVATED"}
+{"ts":1701164244188,"action":"IDE_ACTIVATED"}
