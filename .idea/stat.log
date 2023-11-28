@@ -8361,3 +8361,13 @@
 {"ts":1701165544098,"action":"IDE_ACTIVATED"}
 {"ts":1701165544830,"action":"IDE_DEACTIVATED"}
 {"ts":1701165581788,"action":"IDE_ACTIVATED"}
+{"ts":1701165606146,"action":"IDE_DEACTIVATED"}
+{"ts":1701165665294,"action":"IDE_ACTIVATED"}
+{"ts":1701165667204,"action":"IDE_DEACTIVATED"}
+{"ts":1701165667630,"action":"IDE_ACTIVATED"}
+{"ts":1701165682609,"action":"FILE_CLOSED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"152"}}
+{"ts":1701165682609,"action":"FILE_OPENED","file":"/app/working_modes/prompt_mode.py","tags":{"FILE_LINE_OF_CODE":"37"}}
+{"ts":1701165697366,"action":"IDE_DEACTIVATED"}
+{"ts":1701165699484,"action":"IDE_ACTIVATED"}
+{"ts":1701165707118,"action":"IDE_DEACTIVATED"}
+{"ts":1701165708783,"action":"IDE_ACTIVATED"}

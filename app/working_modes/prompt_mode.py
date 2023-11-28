@@ -17,13 +17,11 @@ class PromptMode:
     openai_api_key: str
 
     async def execute(self) -> MethodResponse:
-        os.environ["OPENAI_API_KEY"] = self.openai_api_key
-        client = AsyncOpenAI()
+        client = AsyncOpenAI(api_key=self.openai_api_key)
         try:
             response = await client.chat.completions.create(
                 model=self.model,
-                messages=self.messages_history,
-                timeout=20
+                messages=self.messages_history
                 # max_tokens=self.tokens_limit,
                 # temperature=self.temeperature
             )

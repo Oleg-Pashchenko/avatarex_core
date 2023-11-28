@@ -84,7 +84,6 @@ async def execute(params: dict, r_d: dict):
         if pipeline_settings.chosen_work_mode == 'Ответ по контексту' or pipeline_settings.chosen_work_mode == 'Prompt mode':
 
             prompt_mode_data = db.AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
-            print(prompt_mode_data)
             p_m = PromptMode(  # Долго
                 messages_history=db.AvatarexDBMethods.get_messages(lead_id, prompt_mode_data),
                 tokens_limit=prompt_mode_data.max_tokens,
@@ -92,6 +91,7 @@ async def execute(params: dict, r_d: dict):
                 model=prompt_mode_data.model,
                 openai_api_key=db.AvatarexSiteMethods.get_gpt_key(owner_id)
             )
+            print(p_m)
             response = await p_m.execute()
             print("PM rESPONSSE", response)
 
