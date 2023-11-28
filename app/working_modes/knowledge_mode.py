@@ -103,7 +103,7 @@ class KnowledgeMode:
 
     @staticmethod
     async def get_keywords_values(message, func, openai_api_key):
-        client = AsyncOpenAI(api_key=openai_api_key)
+        client = OpenAI(api_key=openai_api_key)
         try:
             messages = [
                 {'role': 'system', 'content': descr},
