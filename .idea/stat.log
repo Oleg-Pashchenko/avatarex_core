@@ -8433,3 +8433,16 @@
 {"ts":1701166442199,"action":"FILE_OPENED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"152"}}
 {"ts":1701166450478,"action":"IDE_DEACTIVATED"}
 {"ts":1701166511232,"action":"IDE_ACTIVATED"}
+{"ts":1701166527773,"action":"IDE_DEACTIVATED"}
+{"ts":1701166567851,"action":"IDE_ACTIVATED"}
+{"ts":1701166571851,"action":"IDE_DEACTIVATED"}
+{"ts":1701166610044,"action":"IDE_ACTIVATED"}
+{"ts":1701166611660,"action":"FILE_CLOSED","file":"/app/working_modes/knowledge_mode.py","tags":{"FILE_LINE_OF_CODE":"152"}}
+{"ts":1701166611660,"action":"FILE_OPENED","file":"/app/sources/amocrm/new_amo.py","tags":{"FILE_LINE_OF_CODE":"196"}}
+{"ts":1701166614018,"action":"FILE_CLOSED","file":"/app/sources/amocrm/new_amo.py","tags":{"FILE_LINE_OF_CODE":"196"}}
+{"ts":1701166615643,"action":"FILE_OPENED","file":"/app/working_modes/prompt_mode.py","tags":{"FILE_LINE_OF_CODE":"34"}}
+{"ts":1701166616981,"action":"IDE_DEACTIVATED"}
+{"ts":1701166633009,"action":"IDE_ACTIVATED"}
+{"ts":1701166637378,"action":"IDE_DEACTIVATED"}
+{"ts":1701166639493,"action":"IDE_ACTIVATED"}
+{"ts":1701166640195,"action":"IDE_DEACTIVATED"}
