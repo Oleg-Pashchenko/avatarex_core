@@ -10,7 +10,7 @@ application = Quart(__name__)
 @application.route('/api/v1/amocrm/<username>', methods=['POST'])
 async def amo_request_handler(username):
     data = dict(await request.values)
-    node.execute(params={'username': username}, data=data, source='AmoCRM')
+    await node.execute(params={'username': username}, data=data, source='AmoCRM')
     return 'ok'
 
 

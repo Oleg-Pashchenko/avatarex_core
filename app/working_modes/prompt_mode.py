@@ -5,7 +5,7 @@ import openai
 
 from app.utils import err
 from app.utils.db import MethodResponse, Message
-from openai import OpenAI
+from openai import AsyncOpenAI
 
 
 @dataclasses.dataclass
@@ -16,11 +16,11 @@ class PromptMode:
     model: str
     openai_api_key: str
 
-    def execute(self) -> MethodResponse:
+    async def execute(self) -> MethodResponse:
         os.environ["OPENAI_API_KEY"] = self.openai_api_key
-        client = OpenAI()
+        client = AsyncOpenAI()
         try:
-            response = client.chat.completions.create(
+            response = await client.chat.completions.create(
                 model=self.model,
                 messages=self.messages_history,
                 timeout=20

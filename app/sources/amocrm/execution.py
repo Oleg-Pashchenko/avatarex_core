@@ -11,7 +11,7 @@ from app.working_modes.qualification_mode import QualificationMode
 from app.working_modes.search_mode import SearchMode
 
 
-def execute(params: dict, r_d: dict):
+async def execute(params: dict, r_d: dict):
     owner_id = int(params['username'])
 
     print(owner_id)
@@ -57,10 +57,10 @@ def execute(params: dict, r_d: dict):
 
     amo_connection = AmoConnect(amocrm_settings.mail, amocrm_settings.password, host=amocrm_settings.host,
                                 pipeline=pipeline_settings.pipeline_id, deal_id=lead_id)
-    status = amo_connection.auth()
+    status = amo_connection.auth()  # ДОЛГО
     print("Удалось ли установить соединение с амо:", status)
     try:
-        mes, cont = amo_connection.get_last_message(chat_id)
+        mes, cont = amo_connection.get_last_message(chat_id)  # Долго
     except:
         mes, cont = cont = '', 'contact'
     print(mes, cont)
@@ -82,14 +82,14 @@ def execute(params: dict, r_d: dict):
     if has_new is False and user_answer_is_correct is None:
         if pipeline_settings.chosen_work_mode == 'Ответ по контексту' or pipeline_settings.chosen_work_mode == 'Prompt mode':
             prompt_mode_data = db.AvatarexSiteMethods.get_prompt_method_data(pipeline_settings.p_mode_id)
-            p_m = PromptMode(
+            p_m = PromptMode(  # Долго
                 messages_history=db.AvatarexDBMethods.get_messages(lead_id, prompt_mode_data),
                 tokens_limit=prompt_mode_data.max_tokens,
                 temeperature=prompt_mode_data.temperature,
                 model=prompt_mode_data.model,
                 openai_api_key=db.AvatarexSiteMethods.get_gpt_key(owner_id)
             )
-            response = p_m.execute()
+            response = await p_m.execute()
 
         elif pipeline_settings.chosen_work_mode == 'Ответ из базы данных':
             print('я решил получить ответ из базы данных')
@@ -102,10 +102,10 @@ def execute(params: dict, r_d: dict):
         elif pipeline_settings.chosen_work_mode == 'Ответ из базы знаний':
             print('я решил получить ответ из базы знаний')
             k_m_data = db.AvatarexSiteMethods.get_knowledge_method_data(pipeline_settings.k_mode_id)
-            k_m = KnowledgeMode(
+            k_m = KnowledgeMode(  # Долго
                 k_m_data=k_m_data
             )
-            response = k_m.execute(message,
+            response = await k_m.execute(message,
                                    db.AvatarexSiteMethods.get_gpt_key(owner_id))
 
         elif pipeline_settings.chosen_work_mode == 'Ответ из базы знаний и базы данных':
@@ -136,12 +136,12 @@ def execute(params: dict, r_d: dict):
     # for entity in qualification_mode_response.data:
     #     if isinstance(entity, Message):
     #         amo_connection.send_message(entity.text, user_id_hash)
-            # db.AvatarexDBMethods.add_message(message_id='', message=entity.text, lead_id=lead_id, is_bot=True)
-   #      elif isinstance(entity, Command):
-   #          if entity.command == 'fill':
+    # db.AvatarexDBMethods.add_message(message_id='', message=entity.text, lead_id=lead_id, is_bot=True)
+    #      elif isinstance(entity, Command):
+    #          if entity.command == 'fill':
     #            amo_connection.set_field_by_name(entity.data)
 
-                # fill_field(entity.data['name'], entity.data['value'], amocrm_settings.host, amocrm_settings.mail,
-                #           amocrm_settings.password, lead_id, pipeline_settings.pipeline_id)
+    # fill_field(entity.data['name'], entity.data['value'], amocrm_settings.host, amocrm_settings.mail,
+    #           amocrm_settings.password, lead_id, pipeline_settings.pipeline_id)
 
     return print('Сообщение отправлено!')

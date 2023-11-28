@@ -1,8 +1,7 @@
 import dataclasses
 import json
 
-from openai import OpenAI
-
+from openai import OpenAI, AsyncOpenAI
 
 from app.sources.amocrm.db import KnowledgeModeSettings, BoundedSituations
 from app.utils import misc
@@ -103,8 +102,8 @@ class KnowledgeMode:
         return function_args['is_similar']
 
     @staticmethod
-    def get_keywords_values(message, func, openai_api_key):
-        client = OpenAI(api_key=openai_api_key)
+    async def get_keywords_values(message, func, openai_api_key):
+        client = AsyncOpenAI(api_key=openai_api_key)
         try:
             messages = [
                 {'role': 'system', 'content': descr},
@@ -130,10 +129,10 @@ class KnowledgeMode:
             return {'is_ok': False, 'args': []}
 
     @staticmethod
-    def question_mode(user_message, filename, bounded_situations: BoundedSituations, openai_api_key):
+    async def question_mode(user_message, filename, bounded_situations: BoundedSituations, openai_api_key):
         print('Получено сообщение:', user_message)
         func = KnowledgeMode.get_question_db_function(filename)
-        response = KnowledgeMode.get_keywords_values(user_message, func, openai_api_key)
+        response = await KnowledgeMode.get_keywords_values(user_message, func, openai_api_key)
 
         if not response['is_ok'] or len(response['args']) == 0 or len(response['args']) > 5:
             return perephrase(bounded_situations.openai_error_message, openai_api_key)
@@ -146,7 +145,7 @@ class KnowledgeMode:
 
         return answer
 
-    def execute(self, message, openai_api_key) -> MethodResponse:
+    async def execute(self, message, openai_api_key) -> MethodResponse:
         filename = misc.download_file(self.k_m_data.database_link)
-        resp = KnowledgeMode.question_mode(message, filename, self.k_m_data.bounded_situations, openai_api_key)
+        resp = await KnowledgeMode.question_mode(message, filename, self.k_m_data.bounded_situations, openai_api_key)
         return MethodResponse(data=[Message(text=resp)], all_is_ok=True, errors=set())
