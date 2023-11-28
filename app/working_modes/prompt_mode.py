@@ -18,6 +18,7 @@ class PromptMode:
 
     async def execute(self) -> MethodResponse:
         client = AsyncOpenAI(api_key=self.openai_api_key)
+        print(client)
         try:
             response = await client.chat.completions.create(
                 model=self.model,
@@ -29,7 +30,7 @@ class PromptMode:
             result = MethodResponse(all_is_ok=True,
                                     data=[Message(text=response.choices[0].message.content)], errors=set())
         except Exception as e:
-            print(e)
+            print(e, 'Exception у нас')
             result = MethodResponse(all_is_ok=False, data=[], errors=err.OPENAI_REQUEST_ERROR)
         print("Результат получен", result)
         return result
