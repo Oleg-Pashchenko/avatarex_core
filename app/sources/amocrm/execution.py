@@ -1,3 +1,5 @@
+import random
+
 from app.sources.amocrm import db
 from app.sources.amocrm.constants import *
 import time
@@ -14,13 +16,13 @@ from app.working_modes.search_mode import SearchMode
 async def execute(params: dict, r_d: dict):
     owner_id = int(params['username'])
 
-    print(owner_id)
-
     if NEW_CLIENT_KEY in r_d.keys() or UPDATE_PIPELINE_KEY in r_d.keys():
         db.AvatarexDBMethods.update_lead(r_d)
 
-    print(r_d)
-    message_id = r_d[MESSAGE_ID_KEY]
+    if MESSAGE_KEY not in r_d.keys() or LEAD_KEY not in r_d.keys() or USER_ID_HASH_KEY not in r_d.keys():
+        return 'ok'
+
+    # message_id = r_d[MESSAGE_ID_KEY]
 
     print(f"Получено новое сообщение от user_id: {owner_id}")
 
@@ -79,7 +81,7 @@ async def execute(params: dict, r_d: dict):
     has_new = False
     user_answer_is_correct = None
     print("Пошел получать ответ")
-    db.AvatarexDBMethods.add_message(message_id=message_id, message=message, lead_id=lead_id, is_bot=False)
+    db.AvatarexDBMethods.add_message(message_id=random.randint(10000000000, 100000000000), message=message, lead_id=lead_id, is_bot=False)
     if has_new is False and user_answer_is_correct is None:
         if pipeline_settings.chosen_work_mode == 'Ответ по контексту' or pipeline_settings.chosen_work_mode == 'Prompt mode':
 
