@@ -299,6 +299,7 @@ class AvatarexSiteMethods:
         # Amocrm Settings
         cur.execute("SELECT account_chat_id, host, email, password FROM home_amoconnect WHERE user_id=%s;", (owner_id,))
         amocrm_connect_settings = cur.fetchone()
+        print(amocrm_connect_settings)
         return AmocrmSettings(
             account_chat_id=amocrm_connect_settings[0],
             host=amocrm_connect_settings[1],

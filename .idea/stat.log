@@ -8901,3 +8901,7 @@
 {"ts":1701331535370,"action":"FILE_OPENED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"347"}}
 {"ts":1701331543769,"action":"FILE_CLOSED","file":"/app/sources/amocrm/db.py","tags":{"FILE_LINE_OF_CODE":"347"}}
 {"ts":1701331543769,"action":"FILE_OPENED","file":"/app/sources/amocrm/execution.py","tags":{"FILE_LINE_OF_CODE":"151"}}
+{"ts":1701331625386,"action":"IDE_DEACTIVATED"}
+{"ts":1701331738564,"action":"IDE_ACTIVATED"}
+{"ts":1701331746076,"action":"IDE_DEACTIVATED"}
+{"ts":1701331773935,"action":"IDE_ACTIVATED"}
