@@ -18,7 +18,6 @@ async def execute(params: dict, r_d: dict):
 
     if NEW_CLIENT_KEY in r_d.keys() or UPDATE_PIPELINE_KEY in r_d.keys():
         db.AvatarexDBMethods.update_lead(r_d)
-        return print('Новый клиент')
 
     message_id = r_d[MESSAGE_ID_KEY]
 
@@ -109,7 +108,7 @@ async def execute(params: dict, r_d: dict):
                 k_m_data=k_m_data
             )
             response = await k_m.execute(message,
-                                   db.AvatarexSiteMethods.get_gpt_key(owner_id))
+                                         db.AvatarexSiteMethods.get_gpt_key(owner_id))
 
         elif pipeline_settings.chosen_work_mode == 'Ответ из базы знаний и базы данных':
             response = MethodResponse(data=[Message(text="Метод не активен!")], all_is_ok=False, errors=set())
