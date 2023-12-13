@@ -95,7 +95,7 @@ class AmoConnect:
 
     def get_params_information(self, fields: list):
         result = {}
-        url = f'{self.host}/leads/detail/{self.deal_id}'
+        url = f'{self.host}/leads/detail/{self.deal_id}' #api/v4/leads/custom_fields
         response = self.session.get(url)
         soup = bs4.BeautifulSoup(response.text, features='html.parser')
         #  print(soup)
@@ -164,6 +164,8 @@ class AmoConnect:
 
     def auth(self) -> bool:
         self._create_session()
+        print(self.headers)
+        print(self.csrf_token)
         response = self.session.post(f'{self.host}/oauth2/authorize', data={
             'csrf_token': self.csrf_token,
             'username': self.login,
@@ -182,12 +184,12 @@ class AmoConnect:
         self._create_chat_token()
         return True
 
-# login = 'appress8@gmail.com'
-# password = '83xUHS73'
+login = 'appress8@gmail.com'
+password = '83xUHS73'
 # deal_id = 5117051
-# amo_connection = AmoConnect(login, password, deal_id=deal_id, pipeline=7343546)
-# is_connected: bool = amo_connection.auth()
-
+amo_connection = AmoConnect(login, password, host= 'https://appress8.amocrm.ru/')
+is_connected: bool = amo_connection.auth()
+print(is_connected)
 # fields = ['testField', 'Цвет волос', 'artemggwp']
 
 # params = amo_connection.get_params_information(fields)

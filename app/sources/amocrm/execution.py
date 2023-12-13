@@ -16,8 +16,7 @@ from app.working_modes.search_mode import SearchMode
 async def execute(params: dict, r_d: dict):
     owner_id = int(params['username'])
 
-    if NEW_CLIENT_KEY in r_d.keys() or UPDATE_PIPELINE_KEY in r_d.keys():
-        db.AvatarexDBMethods.update_lead(r_d)
+    db.AvatarexDBMethods.update_lead(r_d)
 
     if MESSAGE_KEY not in r_d.keys() or LEAD_KEY not in r_d.keys() or USER_ID_HASH_KEY not in r_d.keys():
         return 'ok'
